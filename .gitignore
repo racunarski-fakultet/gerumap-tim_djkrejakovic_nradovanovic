@@ -1,0 +1,17 @@
+# Eclipse
+.classpath
+.project
+.settings/
+
+# IntelliJ
+out/
+.idea/
+
+# Gradle
+.gradle/
+build/
+
+# File-based project format
+*.iws
+*.iml
+*.ipr
