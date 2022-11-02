@@ -11,6 +11,10 @@ out/
 .gradle/
 build/
 
+# Maven
+target/
+dependency-reduced-pom.xml
+
 # File-based project format
 *.iws
 *.iml
