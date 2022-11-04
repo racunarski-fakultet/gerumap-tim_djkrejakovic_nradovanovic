@@ -1,5 +1,6 @@
 package rs.raf.gerumap.gui.util;
 
+import rs.raf.gerumap.gui.model.IconType;
 import rs.raf.gerumap.gui.util.prefs.PreferenceDefaultValues;
 import rs.raf.gerumap.gui.util.prefs.PreferenceKeys;
 
@@ -34,8 +35,8 @@ public class PreferenceUtils {
         preferences.putBoolean(PreferenceKeys.MAXIMIZED, isMaximized);
     }
 
-    public static void putImageType(String imageType) {
-        preferences.put(PreferenceKeys.IMAGE_TYPE, imageType);
+    public static void putIconType(IconType iconType) {
+        preferences.put(PreferenceKeys.IMAGE_TYPE, iconType.getId());
     }
 
     public static void putKeyStrokes(String keyStrokes) {
@@ -70,8 +71,8 @@ public class PreferenceUtils {
         return preferences.getBoolean(PreferenceKeys.MAXIMIZED, PreferenceDefaultValues.MAXIMIZED);
     }
 
-    public static String getImageType() {
-        return preferences.get(PreferenceKeys.IMAGE_TYPE, PreferenceDefaultValues.IMAGE_TYPE);
+    public static IconType getIconType() {
+        return IconType.getIconType(preferences.get(PreferenceKeys.IMAGE_TYPE, PreferenceDefaultValues.ICON_TYPE));
     }
 
     public static String getKeyStrokes() {

@@ -1,6 +1,7 @@
 package rs.raf.gerumap.gui.swing.controller.action;
 
 import com.formdev.flatlaf.util.StringUtils;
+import rs.raf.gerumap.gui.util.IconUtils;
 
 import javax.swing.AbstractAction;
 import javax.swing.Action;
@@ -27,7 +28,7 @@ public abstract class GRMapAction extends AbstractAction {
      * Sets a small icon for the component
      */
     public GRMapAction setIcon() {
-        putValue(Action.SMALL_ICON, null);
+        putValue(Action.SMALL_ICON, IconUtils.loadIcon(id));
         return this;
     }
 
