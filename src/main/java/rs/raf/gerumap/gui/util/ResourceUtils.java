@@ -14,9 +14,10 @@ public class ResourceUtils {
     private static final String pngFile = ".png";
     private static final String jpgFile = ".jpg";
 
-    private static final String imagesRoot = "images";
+    private static final String imagesRoot    = "images";
     private static final String keyStrokeRoot = "keystrokes";
     private static final String languageRoot  = "languages";
+    private static final String themeRoot     = "themes";
 
     //region Auxiliary Methods
 
@@ -40,6 +41,10 @@ public class ResourceUtils {
 
     private static String getIconDir() {
         return PreferenceUtils.getIconType().getIconDir();
+    }
+
+    private static String getThemeDir() {
+        return PreferenceUtils.getTheme().getThemeDir();
     }
 
     //endregion
@@ -76,6 +81,18 @@ public class ResourceUtils {
 
     public static InputStream getLanguageStream(Language language) {
         return getStream(getLanguageResourceDirectory() + language.getId() + propertiesFile);
+    }
+
+    //endregion
+
+    //region Theme Utilities
+
+    private static String getThemeResourceDirectory() {
+        return separator + themeRoot + separator + getThemeDir();
+    }
+
+    public static URL getThemeDirectory() {
+        return getResource(getThemeResourceDirectory());
     }
 
     //endregion

@@ -3,6 +3,7 @@ package rs.raf.gerumap.gui.util.prefs;
 import rs.raf.gerumap.gui.model.IconType;
 import rs.raf.gerumap.gui.model.KeyStrokes;
 import rs.raf.gerumap.gui.model.Language;
+import rs.raf.gerumap.gui.model.Theme;
 
 import java.awt.Toolkit;
 
@@ -15,7 +16,7 @@ public class PreferenceDefaultValues {
     public static final String ICON_TYPE  = IconType.LIGHT.getId();
     public static final String KEYSTROKES = KeyStrokes.DEFAULT.getId();
     public static final String LANGUAGE   = Language.ENGLISH_US.getId();
-    public static final String THEME      = null;
+    public static final String THEME      = Theme.FLAT_LAF_DARK.getId();
 
     private static int calculateWindowHeight() {
         return Toolkit.getDefaultToolkit().getScreenSize().height / 2;

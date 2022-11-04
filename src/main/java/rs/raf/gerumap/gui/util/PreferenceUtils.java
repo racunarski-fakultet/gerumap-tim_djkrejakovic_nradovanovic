@@ -3,6 +3,7 @@ package rs.raf.gerumap.gui.util;
 import rs.raf.gerumap.gui.model.IconType;
 import rs.raf.gerumap.gui.model.KeyStrokes;
 import rs.raf.gerumap.gui.model.Language;
+import rs.raf.gerumap.gui.model.Theme;
 import rs.raf.gerumap.gui.util.prefs.PreferenceDefaultValues;
 import rs.raf.gerumap.gui.util.prefs.PreferenceKeys;
 
@@ -49,8 +50,8 @@ public class PreferenceUtils {
         preferences.put(PreferenceKeys.LANGUAGE, language.getId());
     }
 
-    public static void putTheme(String theme) {
-        preferences.put(PreferenceKeys.THEME, theme);
+    public static void putTheme(Theme theme) {
+        preferences.put(PreferenceKeys.THEME, theme.getId());
     }
 
     //endregion
@@ -85,8 +86,8 @@ public class PreferenceUtils {
         return Language.getLanguage(preferences.get(PreferenceKeys.LANGUAGE, PreferenceDefaultValues.LANGUAGE));
     }
 
-    public static String getTheme() {
-        return preferences.get(PreferenceKeys.THEME, PreferenceDefaultValues.THEME);
+    public static Theme getTheme() {
+        return Theme.getTheme(preferences.get(PreferenceKeys.THEME, PreferenceDefaultValues.THEME));
     }
 
     //endregion
