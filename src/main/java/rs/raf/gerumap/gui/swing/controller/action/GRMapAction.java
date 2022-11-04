@@ -2,6 +2,7 @@ package rs.raf.gerumap.gui.swing.controller.action;
 
 import com.formdev.flatlaf.util.StringUtils;
 import rs.raf.gerumap.gui.util.IconUtils;
+import rs.raf.gerumap.gui.util.LanguageUtils;
 
 import javax.swing.AbstractAction;
 import javax.swing.Action;
@@ -36,7 +37,7 @@ public abstract class GRMapAction extends AbstractAction {
      * Sets the text contained in the component
      */
     public GRMapAction setName() {
-        putValue(Action.NAME, null);
+        putValue(Action.NAME, LanguageUtils.getNameProperty(id));
         return this;
     }
 
@@ -44,7 +45,7 @@ public abstract class GRMapAction extends AbstractAction {
      * Sets the short description of the component
      */
     public GRMapAction setTooltip() {
-        putValue(Action.SHORT_DESCRIPTION, null);
+        putValue(Action.SHORT_DESCRIPTION, LanguageUtils.getTooltipProperty(id));
         return this;
     }
 

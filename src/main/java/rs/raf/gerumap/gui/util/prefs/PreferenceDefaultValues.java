@@ -1,6 +1,7 @@
 package rs.raf.gerumap.gui.util.prefs;
 
 import rs.raf.gerumap.gui.model.IconType;
+import rs.raf.gerumap.gui.model.Language;
 
 import java.awt.Toolkit;
 
@@ -12,7 +13,7 @@ public class PreferenceDefaultValues {
 
     public static final String ICON_TYPE  = IconType.LIGHT.getId();
     public static final String KEYSTROKES = null;
-    public static final String LANGUAGE   = null;
+    public static final String LANGUAGE   = Language.ENGLISH_US.getId();
     public static final String THEME      = null;
 
     private static int calculateWindowHeight() {
