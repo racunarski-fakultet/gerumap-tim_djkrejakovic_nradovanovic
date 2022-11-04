@@ -2,6 +2,7 @@ package rs.raf.gerumap.gui.swing.controller.action;
 
 import com.formdev.flatlaf.util.StringUtils;
 import rs.raf.gerumap.gui.util.IconUtils;
+import rs.raf.gerumap.gui.util.KeyStrokesUtils;
 import rs.raf.gerumap.gui.util.LanguageUtils;
 
 import javax.swing.AbstractAction;
@@ -21,7 +22,7 @@ public abstract class GRMapAction extends AbstractAction {
      * Sets the keyboard shortcut for the component
      */
     public GRMapAction setAcceleratorKey() {
-        putValue(Action.ACCELERATOR_KEY, null);
+        putValue(Action.ACCELERATOR_KEY, KeyStrokesUtils.getProperty(id));
         return this;
     }
 

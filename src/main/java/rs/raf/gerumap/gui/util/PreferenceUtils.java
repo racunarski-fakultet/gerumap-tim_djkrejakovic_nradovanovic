@@ -1,6 +1,7 @@
 package rs.raf.gerumap.gui.util;
 
 import rs.raf.gerumap.gui.model.IconType;
+import rs.raf.gerumap.gui.model.KeyStrokes;
 import rs.raf.gerumap.gui.model.Language;
 import rs.raf.gerumap.gui.util.prefs.PreferenceDefaultValues;
 import rs.raf.gerumap.gui.util.prefs.PreferenceKeys;
@@ -40,8 +41,8 @@ public class PreferenceUtils {
         preferences.put(PreferenceKeys.IMAGE_TYPE, iconType.getId());
     }
 
-    public static void putKeyStrokes(String keyStrokes) {
-        preferences.put(PreferenceKeys.KEYSTROKES, keyStrokes);
+    public static void putKeyStrokes(KeyStrokes keyStrokes) {
+        preferences.put(PreferenceKeys.KEYSTROKES, keyStrokes.getId());
     }
 
     public static void putLanguage(Language language) {
@@ -76,8 +77,8 @@ public class PreferenceUtils {
         return IconType.getIconType(preferences.get(PreferenceKeys.IMAGE_TYPE, PreferenceDefaultValues.ICON_TYPE));
     }
 
-    public static String getKeyStrokes() {
-        return preferences.get(PreferenceKeys.KEYSTROKES, PreferenceDefaultValues.KEYSTROKES);
+    public static KeyStrokes getKeyStrokes() {
+        return KeyStrokes.getKeyStrokes(preferences.get(PreferenceKeys.KEYSTROKES, PreferenceDefaultValues.KEYSTROKES));
     }
 
     public static Language getLanguage() {

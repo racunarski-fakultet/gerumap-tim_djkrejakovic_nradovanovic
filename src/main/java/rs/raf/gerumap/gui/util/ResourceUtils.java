@@ -1,5 +1,6 @@
 package rs.raf.gerumap.gui.util;
 
+import rs.raf.gerumap.gui.model.KeyStrokes;
 import rs.raf.gerumap.gui.model.Language;
 
 import java.io.InputStream;
@@ -14,6 +15,7 @@ public class ResourceUtils {
     private static final String jpgFile = ".jpg";
 
     private static final String imagesRoot = "images";
+    private static final String keyStrokeRoot = "keystrokes";
     private static final String languageRoot  = "languages";
 
     //region Auxiliary Methods
@@ -50,6 +52,18 @@ public class ResourceUtils {
 
     public static URL getIconPath(String iconName) {
         return getResource(getIconResourceDirectory() + iconName + pngFile);
+    }
+
+    //endregion
+
+    //region KeyStrokes Utilities
+
+    private static String getKeyStrokesResourceDirectory() {
+        return separator + keyStrokeRoot + separator;
+    }
+
+    public static InputStream getKeyStrokesStream(KeyStrokes keyStrokes) {
+        return getStream(getKeyStrokesResourceDirectory() + keyStrokes.getId() + propertiesFile);
     }
 
     //endregion
