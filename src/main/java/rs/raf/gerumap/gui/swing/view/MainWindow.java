@@ -9,6 +9,8 @@ import rs.raf.gerumap.gui.util.ImageUtils;
 import rs.raf.gerumap.gui.util.PreferenceUtils;
 
 import javax.swing.JFrame;
+import java.awt.BorderLayout;
+import java.awt.event.WindowEvent;
 
 public class MainWindow extends JFrame {
 
@@ -84,10 +86,16 @@ public class MainWindow extends JFrame {
         setJMenuBar(new MenuBar());
     }
 
-    private void addToolbar() { }
+    private void addToolbar() {
+        add(new Toolbar(), BorderLayout.NORTH);
+    }
 
     private void addWorkspace() { }
 
     //endregion
+
+    public void close() {
+        dispatchEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSING));
+    }
 
 }
