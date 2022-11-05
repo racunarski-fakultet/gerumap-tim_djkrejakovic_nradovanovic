@@ -14,9 +14,7 @@ public class GRMapComponentListener implements ComponentListener {
     }
 
     @Override
-    public void componentMoved(ComponentEvent e) {
-
-    }
+    public void componentMoved(ComponentEvent e) { }
 
     @Override
     public void componentShown(ComponentEvent e) { }

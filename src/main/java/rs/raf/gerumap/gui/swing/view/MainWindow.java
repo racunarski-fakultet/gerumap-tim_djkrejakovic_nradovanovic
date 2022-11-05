@@ -1,5 +1,7 @@
 package rs.raf.gerumap.gui.swing.view;
 
+import rs.raf.gerumap.gui.swing.controller.ActionManager;
+import rs.raf.gerumap.gui.swing.controller.UIManager;
 import rs.raf.gerumap.gui.swing.event.GRMapComponentListener;
 import rs.raf.gerumap.gui.swing.event.GRMapWindowListener;
 import rs.raf.gerumap.gui.swing.event.GRMapWindowStateListener;
@@ -22,18 +24,19 @@ public class MainWindow extends JFrame {
     private MainWindow() { }
 
     private void initialize() {
+        setSettings();
+        setupManagers();
+        addComponents();
+    }
+
+    //region Set Settings
+
+    private void setSettings() {
         setSize();
         setLocation();
         setAttributes();
-
         addListeners();
-
-        addMainMenu();
-        addToolbar();
-        addWorkspace();
     }
-
-    //region Set settings
 
     private void setSize() {
         setSize(PreferenceUtils.getWindowSize());
@@ -60,9 +63,26 @@ public class MainWindow extends JFrame {
 
     //endregion
 
-    //region Add components
+    //region Setup Managers
 
-    private void addMainMenu() { }
+    private void setupManagers() {
+        UIManager.setup();
+        ActionManager.setup();
+    }
+
+    //endregion
+
+    //region Add Components
+
+    private void addComponents() {
+        addMenuBar();
+        addToolbar();
+        addWorkspace();
+    }
+
+    private void addMenuBar() {
+        setJMenuBar(new MenuBar());
+    }
 
     private void addToolbar() { }
 
