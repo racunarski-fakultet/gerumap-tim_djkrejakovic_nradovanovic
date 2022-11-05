@@ -90,7 +90,9 @@ public class MainWindow extends JFrame {
         add(new Toolbar(), BorderLayout.NORTH);
     }
 
-    private void addWorkspace() { }
+    private void addWorkspace() {
+        add(new Workspace());
+    }
 
     //endregion
 
