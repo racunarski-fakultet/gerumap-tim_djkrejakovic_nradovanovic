@@ -1,6 +1,7 @@
 package rs.raf.gerumap.gui.util;
 
 import com.formdev.flatlaf.FlatLaf;
+import com.formdev.flatlaf.extras.FlatAnimatedLafChange;
 import rs.raf.gerumap.gui.model.Theme;
 
 import javax.swing.LookAndFeel;
@@ -9,6 +10,8 @@ import java.lang.reflect.InvocationTargetException;
 public class ThemeUtils {
 
     static {
+        FlatAnimatedLafChange.duration = 200;
+
         FlatLaf.registerCustomDefaultsSource(ResourceUtils.getThemeDirectory());
     }
 

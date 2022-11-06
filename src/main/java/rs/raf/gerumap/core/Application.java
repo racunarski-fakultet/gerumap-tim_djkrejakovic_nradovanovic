@@ -1,4 +1,4 @@
-package rs.raf.gerumap.gui.core;
+package rs.raf.gerumap.core;
 
 import rs.raf.gerumap.gui.swing.controller.ActionManager;
 import rs.raf.gerumap.gui.swing.controller.UIManager;

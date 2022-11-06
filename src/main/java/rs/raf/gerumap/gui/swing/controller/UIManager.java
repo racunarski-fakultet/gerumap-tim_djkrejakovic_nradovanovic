@@ -1,5 +1,7 @@
 package rs.raf.gerumap.gui.swing.controller;
 
+import com.formdev.flatlaf.FlatLaf;
+import com.formdev.flatlaf.extras.FlatAnimatedLafChange;
 import rs.raf.gerumap.gui.model.KeyStrokes;
 import rs.raf.gerumap.gui.model.Language;
 import rs.raf.gerumap.gui.model.Theme;
@@ -33,9 +35,13 @@ public class UIManager {
         ActionManager.setupTooltips();
     }
 
-    //TODO FlatLaf setup
     public static void setupTheme(Theme theme) {
+        FlatAnimatedLafChange.showSnapshot();
+
         ThemeUtils.setupTheme(theme);
+        FlatLaf.updateUI();
+
+        FlatAnimatedLafChange.hideSnapshotWithAnimation();
 
         PreferenceUtils.putTheme(theme);
     }
