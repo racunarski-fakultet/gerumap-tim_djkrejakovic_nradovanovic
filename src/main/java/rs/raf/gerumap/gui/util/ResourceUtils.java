@@ -88,7 +88,7 @@ public class ResourceUtils {
     //region Theme Utilities
 
     private static String getThemeResourceDirectory() {
-        return separator + themeRoot + separator + getThemeDir();
+        return separator + themeRoot + separator + getThemeDir() + separator;
     }
 
     public static URL getThemeDirectory() {

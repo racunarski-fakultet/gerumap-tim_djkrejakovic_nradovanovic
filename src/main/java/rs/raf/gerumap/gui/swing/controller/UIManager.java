@@ -6,6 +6,7 @@ import rs.raf.gerumap.gui.model.Theme;
 import rs.raf.gerumap.gui.util.KeyStrokesUtils;
 import rs.raf.gerumap.gui.util.LanguageUtils;
 import rs.raf.gerumap.gui.util.PreferenceUtils;
+import rs.raf.gerumap.gui.util.ThemeUtils;
 
 public class UIManager {
 
@@ -34,6 +35,8 @@ public class UIManager {
 
     //TODO FlatLaf setup
     public static void setupTheme(Theme theme) {
+        ThemeUtils.setupTheme(theme);
+
         PreferenceUtils.putTheme(theme);
     }
 

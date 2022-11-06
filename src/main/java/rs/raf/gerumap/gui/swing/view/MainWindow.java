@@ -1,7 +1,5 @@
 package rs.raf.gerumap.gui.swing.view;
 
-import rs.raf.gerumap.gui.swing.controller.ActionManager;
-import rs.raf.gerumap.gui.swing.controller.UIManager;
 import rs.raf.gerumap.gui.swing.event.GRMapComponentListener;
 import rs.raf.gerumap.gui.swing.event.GRMapWindowListener;
 import rs.raf.gerumap.gui.swing.event.GRMapWindowStateListener;
@@ -27,7 +25,6 @@ public class MainWindow extends JFrame {
 
     private void initialize() {
         setSettings();
-        setupManagers();
         addComponents();
     }
 
@@ -61,15 +58,6 @@ public class MainWindow extends JFrame {
         setTitle("GeRuMap");
         setIconImage(ImageUtils.loadImage("logo"));
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-    }
-
-    //endregion
-
-    //region Setup Managers
-
-    private void setupManagers() {
-        UIManager.setup();
-        ActionManager.setup();
     }
 
     //endregion
