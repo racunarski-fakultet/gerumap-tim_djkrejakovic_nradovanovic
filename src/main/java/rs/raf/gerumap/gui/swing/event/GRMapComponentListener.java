@@ -1,6 +1,6 @@
 package rs.raf.gerumap.gui.swing.event;
 
-import rs.raf.gerumap.gui.util.PreferenceUtils;
+import rs.raf.gerumap.gui.swing.util.PreferenceUtils;
 
 import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;

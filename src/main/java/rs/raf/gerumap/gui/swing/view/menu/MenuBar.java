@@ -1,4 +1,4 @@
-package rs.raf.gerumap.gui.swing.view;
+package rs.raf.gerumap.gui.swing.view.menu;
 
 import rs.raf.gerumap.gui.swing.controller.ActionManager;
 import rs.raf.gerumap.gui.swing.controller.action.ExitAction;

@@ -1,4 +1,4 @@
-package rs.raf.gerumap.gui.util;
+package rs.raf.gerumap.gui.swing.util;
 
 import javax.swing.Icon;
 import javax.swing.ImageIcon;

@@ -2,13 +2,13 @@ package rs.raf.gerumap.gui.swing.controller;
 
 import com.formdev.flatlaf.FlatLaf;
 import com.formdev.flatlaf.extras.FlatAnimatedLafChange;
-import rs.raf.gerumap.gui.model.KeyStrokes;
-import rs.raf.gerumap.gui.model.Language;
-import rs.raf.gerumap.gui.model.Theme;
-import rs.raf.gerumap.gui.util.KeyStrokesUtils;
-import rs.raf.gerumap.gui.util.LanguageUtils;
-import rs.raf.gerumap.gui.util.PreferenceUtils;
-import rs.raf.gerumap.gui.util.ThemeUtils;
+import rs.raf.gerumap.gui.swing.util.model.KeyStrokes;
+import rs.raf.gerumap.gui.swing.util.model.Language;
+import rs.raf.gerumap.gui.swing.util.model.Theme;
+import rs.raf.gerumap.gui.swing.util.KeyStrokesUtils;
+import rs.raf.gerumap.gui.swing.util.LanguageUtils;
+import rs.raf.gerumap.gui.swing.util.PreferenceUtils;
+import rs.raf.gerumap.gui.swing.util.ThemeUtils;
 
 public class UIManager {
 

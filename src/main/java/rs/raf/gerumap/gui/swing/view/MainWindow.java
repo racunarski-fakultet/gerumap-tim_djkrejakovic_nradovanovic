@@ -3,8 +3,11 @@ package rs.raf.gerumap.gui.swing.view;
 import rs.raf.gerumap.gui.swing.event.GRMapComponentListener;
 import rs.raf.gerumap.gui.swing.event.GRMapWindowListener;
 import rs.raf.gerumap.gui.swing.event.GRMapWindowStateListener;
-import rs.raf.gerumap.gui.util.ImageUtils;
-import rs.raf.gerumap.gui.util.PreferenceUtils;
+import rs.raf.gerumap.gui.swing.util.ImageUtils;
+import rs.raf.gerumap.gui.swing.util.PreferenceUtils;
+import rs.raf.gerumap.gui.swing.view.menu.MenuBar;
+import rs.raf.gerumap.gui.swing.view.toolbar.Toolbar;
+import rs.raf.gerumap.gui.swing.view.workspace.Workspace;
 
 import javax.swing.JFrame;
 import java.awt.BorderLayout;

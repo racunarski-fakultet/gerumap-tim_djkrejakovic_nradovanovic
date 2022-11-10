@@ -1,6 +1,6 @@
-package rs.raf.gerumap.gui.util;
+package rs.raf.gerumap.gui.swing.util;
 
-import rs.raf.gerumap.gui.model.Language;
+import rs.raf.gerumap.gui.swing.util.model.Language;
 
 import java.io.IOException;
 import java.util.Properties;

@@ -1,7 +1,7 @@
-package rs.raf.gerumap.gui.util;
+package rs.raf.gerumap.gui.swing.util;
 
-import rs.raf.gerumap.gui.model.KeyStrokes;
-import rs.raf.gerumap.gui.model.Language;
+import rs.raf.gerumap.gui.swing.util.model.KeyStrokes;
+import rs.raf.gerumap.gui.swing.util.model.Language;
 
 import java.io.InputStream;
 import java.net.URL;

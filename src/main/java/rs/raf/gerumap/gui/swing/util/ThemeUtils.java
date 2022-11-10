@@ -1,8 +1,8 @@
-package rs.raf.gerumap.gui.util;
+package rs.raf.gerumap.gui.swing.util;
 
 import com.formdev.flatlaf.FlatLaf;
 import com.formdev.flatlaf.extras.FlatAnimatedLafChange;
-import rs.raf.gerumap.gui.model.Theme;
+import rs.raf.gerumap.gui.swing.util.model.Theme;
 
 import javax.swing.LookAndFeel;
 import java.lang.reflect.InvocationTargetException;

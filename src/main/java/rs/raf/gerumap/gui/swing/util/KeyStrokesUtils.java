@@ -1,6 +1,6 @@
-package rs.raf.gerumap.gui.util;
+package rs.raf.gerumap.gui.swing.util;
 
-import rs.raf.gerumap.gui.model.KeyStrokes;
+import rs.raf.gerumap.gui.swing.util.model.KeyStrokes;
 
 import javax.swing.KeyStroke;
 import java.io.IOException;

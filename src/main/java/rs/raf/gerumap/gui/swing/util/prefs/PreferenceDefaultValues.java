@@ -1,9 +1,9 @@
-package rs.raf.gerumap.gui.util.prefs;
+package rs.raf.gerumap.gui.swing.util.prefs;
 
-import rs.raf.gerumap.gui.model.IconType;
-import rs.raf.gerumap.gui.model.KeyStrokes;
-import rs.raf.gerumap.gui.model.Language;
-import rs.raf.gerumap.gui.model.Theme;
+import rs.raf.gerumap.gui.swing.util.model.IconType;
+import rs.raf.gerumap.gui.swing.util.model.KeyStrokes;
+import rs.raf.gerumap.gui.swing.util.model.Language;
+import rs.raf.gerumap.gui.swing.util.model.Theme;
 
 import java.awt.Toolkit;
 

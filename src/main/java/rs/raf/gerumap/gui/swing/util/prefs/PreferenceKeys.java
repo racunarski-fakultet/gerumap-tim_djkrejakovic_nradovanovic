@@ -1,4 +1,4 @@
-package rs.raf.gerumap.gui.util.prefs;
+package rs.raf.gerumap.gui.swing.util.prefs;
 
 public class PreferenceKeys {
 

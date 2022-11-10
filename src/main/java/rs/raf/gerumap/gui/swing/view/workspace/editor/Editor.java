@@ -1,4 +1,4 @@
-package rs.raf.gerumap.gui.swing.view;
+package rs.raf.gerumap.gui.swing.view.workspace.editor;
 
 import javax.swing.BorderFactory;
 import javax.swing.JPanel;

@@ -1,4 +1,4 @@
-package rs.raf.gerumap.gui.model;
+package rs.raf.gerumap.gui.swing.util.model;
 
 public enum Language {
 
