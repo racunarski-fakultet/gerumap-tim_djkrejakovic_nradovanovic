@@ -52,6 +52,7 @@
                             <artifact>*:*</artifact>
                             <excludes>
                                 <exclude>META-INF/*.MF</exclude>
+                                <exclude>META-INF/LICENSE</exclude>
                             </excludes>
                         </filter>
                     </filters>
