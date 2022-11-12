@@ -7,8 +7,25 @@ import javax.swing.JSplitPane;
 
 public class Workspace extends JSplitPane {
 
+    private Editor editor;
+
+    private ProjectExplorer explorer;
+
     public Workspace() {
-        super(HORIZONTAL_SPLIT, new ProjectExplorer(), new Editor());
+        editor = new Editor();
+        explorer = new ProjectExplorer();
+
+        setLeftComponent(explorer);
+        setRightComponent(editor);
+
+    }
+
+    public Editor getEditor() {
+        return editor;
+    }
+
+    public ProjectExplorer getExplorer() {
+        return explorer;
     }
 
 }

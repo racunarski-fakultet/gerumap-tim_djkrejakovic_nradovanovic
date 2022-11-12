@@ -3,6 +3,8 @@ package rs.raf.gerumap.gui.swing.controller;
 import com.formdev.flatlaf.util.StringUtils;
 import rs.raf.gerumap.gui.swing.controller.action.ExitAction;
 import rs.raf.gerumap.gui.swing.controller.action.GRMapAction;
+import rs.raf.gerumap.gui.swing.controller.action.NewElementAction;
+import rs.raf.gerumap.gui.swing.controller.action.NewMindMapAction;
 import rs.raf.gerumap.gui.swing.controller.action.NewProjectAction;
 import rs.raf.gerumap.gui.swing.controller.action.OpenProjectAction;
 
@@ -11,6 +13,8 @@ import java.util.List;
 public class ActionManager {
 
     private static final List<GRMapAction> actions = List.of(
+            new NewElementAction(),
+            new NewMindMapAction(),
             new NewProjectAction(),
             new OpenProjectAction(),
             new ExitAction()

@@ -1,5 +1,7 @@
 package rs.raf.gerumap.gui.swing.controller.action;
 
+import rs.raf.gerumap.gui.swing.view.MainWindow;
+
 import java.awt.event.ActionEvent;
 
 public class ExitAction extends GRMapAction {
@@ -10,9 +12,7 @@ public class ExitAction extends GRMapAction {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        System.out.println("ExitAction: actionPerformed");
-        //TODO
-
+        MainWindow.window.close();
     }
 
 }

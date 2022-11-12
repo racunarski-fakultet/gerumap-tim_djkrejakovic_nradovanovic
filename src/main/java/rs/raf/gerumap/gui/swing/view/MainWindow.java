@@ -8,6 +8,7 @@ import rs.raf.gerumap.gui.swing.util.PreferenceUtils;
 import rs.raf.gerumap.gui.swing.view.menu.MenuBar;
 import rs.raf.gerumap.gui.swing.view.toolbar.Toolbar;
 import rs.raf.gerumap.gui.swing.view.workspace.Workspace;
+import rs.raf.gerumap.gui.swing.view.workspace.explorer.IExplorer;
 
 import javax.swing.JFrame;
 import java.awt.BorderLayout;
@@ -15,7 +16,9 @@ import java.awt.event.WindowEvent;
 
 public class MainWindow extends JFrame {
 
-    public static final MainWindow instance = instantiate();
+    public static final MainWindow window = instantiate();
+
+    //region Singleton
 
     private static MainWindow instantiate() {
         MainWindow instance = new MainWindow();
@@ -26,8 +29,19 @@ public class MainWindow extends JFrame {
 
     private MainWindow() { }
 
+    //endregion
+
+    private MenuBar menuBar;
+
+    private Toolbar toolbar;
+
+    private Workspace workspace;
+
+    private IExplorer explorer;
+
     private void initialize() {
         setSettings();
+        initializeComponents();
         addComponents();
     }
 
@@ -65,6 +79,18 @@ public class MainWindow extends JFrame {
 
     //endregion
 
+    //region Initialize Components
+
+    private void initializeComponents() {
+        menuBar   = new MenuBar();
+        toolbar   = new Toolbar();
+        workspace = new Workspace();
+
+        explorer = workspace.getExplorer();
+    }
+
+    //endregion
+
     //region Add Components
 
     private void addComponents() {
@@ -74,15 +100,35 @@ public class MainWindow extends JFrame {
     }
 
     private void addMenuBar() {
-        setJMenuBar(new MenuBar());
+        setJMenuBar(menuBar);
     }
 
     private void addToolbar() {
-        add(new Toolbar(), BorderLayout.NORTH);
+        add(toolbar, BorderLayout.NORTH);
     }
 
     private void addWorkspace() {
-        add(new Workspace());
+        add(workspace);
+    }
+
+    //endregion
+
+    //region Get Components
+
+    public MenuBar getMainMenu() {
+        return menuBar;
+    }
+
+    public Toolbar getToolbar() {
+        return toolbar;
+    }
+
+    public Workspace getWorkspace() {
+        return workspace;
+    }
+
+    public IExplorer getExplorer() {
+        return explorer;
     }
 
     //endregion
