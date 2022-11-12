@@ -4,6 +4,8 @@ import rs.raf.gerumap.gui.swing.controller.ActionManager;
 import rs.raf.gerumap.gui.swing.controller.action.ExitAction;
 import rs.raf.gerumap.gui.swing.controller.action.NewProjectAction;
 import rs.raf.gerumap.gui.swing.controller.action.OpenProjectAction;
+import rs.raf.gerumap.gui.swing.view.custom.Menu;
+import rs.raf.gerumap.gui.swing.view.custom.MenuItem;
 
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
@@ -12,19 +14,15 @@ import javax.swing.JMenuItem;
 public class MenuBar extends JMenuBar {
 
     public MenuBar() {
-        JMenu fileMenu = new JMenu("File");
-        JMenu editMenu = new JMenu("Edit");
-        JMenu helpMenu = new JMenu("Help");
+        JMenu fileMenu = new Menu("File");
+        JMenu editMenu = new Menu("Edit");
+        JMenu helpMenu = new Menu("Help");
 
-        JMenuItem newProjectItem  = new JMenuItem("New Project");
-        JMenuItem openProjectItem = new JMenuItem("Open Project");
-        JMenuItem exitItem        = new JMenuItem("Exit");
+        JMenuItem undoItem = new MenuItem("Undo");
+        JMenuItem redoItem = new MenuItem("Redo");
 
-        JMenuItem undoItem = new JMenuItem("Undo");
-        JMenuItem redoItem = new JMenuItem("Redo");
-
-        JMenuItem registerItem = new JMenuItem("Register");
-        JMenuItem aboutItem    = new JMenuItem("About");
+        JMenuItem registerItem = new MenuItem("Register");
+        JMenuItem aboutItem    = new MenuItem("About");
 
         fileMenu.add(ActionManager.getAction(NewProjectAction.class));
         fileMenu.add(ActionManager.getAction(OpenProjectAction.class));

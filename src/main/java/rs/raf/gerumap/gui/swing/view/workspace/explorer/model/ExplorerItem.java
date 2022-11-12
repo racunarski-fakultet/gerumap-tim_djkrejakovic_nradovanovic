@@ -29,6 +29,8 @@ public abstract class ExplorerItem extends DefaultMutableTreeNode {
 
     protected abstract ExplorerItem createChild();
 
+    public abstract void showContextMenu(int x, int y);
+
     public abstract Icon getIcon();
 
 }

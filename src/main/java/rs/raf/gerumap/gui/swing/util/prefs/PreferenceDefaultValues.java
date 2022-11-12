@@ -19,11 +19,11 @@ public class PreferenceDefaultValues {
     public static final String THEME      = Theme.FLAT_LAF_DARK.getId();
 
     private static int calculateWindowHeight() {
-        return Toolkit.getDefaultToolkit().getScreenSize().height / 2;
+        return Toolkit.getDefaultToolkit().getScreenSize().height * 3 / 5;
     }
 
     private static int calculateWindowWidth() {
-        return Toolkit.getDefaultToolkit().getScreenSize().width / 2;
+        return Toolkit.getDefaultToolkit().getScreenSize().width * 3 / 5;
     }
 
 }

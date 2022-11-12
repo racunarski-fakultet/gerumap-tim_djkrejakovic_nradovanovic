@@ -33,7 +33,7 @@ public class ProjectExplorer extends JScrollPane implements IExplorer {
         return (ExplorerItem)explorer.getModel().getRoot();
     }
 
-    public ExplorerTree getExplorer() {
+    public ExplorerTree getExplorerTree() {
         return explorer;
     }
 
