@@ -4,8 +4,8 @@ import rs.raf.gerumap.gui.swing.controller.ActionManager;
 import rs.raf.gerumap.gui.swing.controller.action.ExitAction;
 import rs.raf.gerumap.gui.swing.controller.action.NewProjectAction;
 import rs.raf.gerumap.gui.swing.controller.action.OpenProjectAction;
-import rs.raf.gerumap.gui.swing.view.custom.Menu;
-import rs.raf.gerumap.gui.swing.view.custom.MenuItem;
+import rs.raf.gerumap.gui.swing.view.custom.menu.Menu;
+import rs.raf.gerumap.gui.swing.view.custom.menu.MenuItem;
 
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;

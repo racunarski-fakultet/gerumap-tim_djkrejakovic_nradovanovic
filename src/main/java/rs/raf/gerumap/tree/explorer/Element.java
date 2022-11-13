@@ -6,7 +6,7 @@ import rs.raf.gerumap.tree.composite.Leaf;
 
 public class Element extends Leaf {
 
-    private static final String id = Element.class.getSimpleName();;
+    private static final String id = Element.class.getSimpleName();
 
     private static Integer count = 0;
 

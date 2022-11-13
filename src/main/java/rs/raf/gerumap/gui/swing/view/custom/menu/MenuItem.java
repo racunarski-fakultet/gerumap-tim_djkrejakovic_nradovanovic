@@ -1,4 +1,4 @@
-package rs.raf.gerumap.gui.swing.view.custom;
+package rs.raf.gerumap.gui.swing.view.custom.menu;
 
 import javax.swing.Action;
 import javax.swing.JMenuItem;

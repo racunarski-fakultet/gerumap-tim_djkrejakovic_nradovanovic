@@ -3,6 +3,8 @@ package rs.raf.gerumap.gui.swing.view.workspace.explorer.model;
 import com.formdev.flatlaf.util.StringUtils;
 import rs.raf.gerumap.gui.swing.util.ImageUtils;
 import rs.raf.gerumap.gui.swing.view.MainWindow;
+import rs.raf.gerumap.gui.swing.view.custom.dialog.UndecoratedDialog;
+import rs.raf.gerumap.gui.swing.view.workspace.explorer.dialog.NewMindMapDialog;
 import rs.raf.gerumap.gui.swing.view.workspace.explorer.menu.ExplorerProjectMenu;
 import rs.raf.gerumap.tree.composite.BaseNode;
 import rs.raf.gerumap.tree.composite.Node;
@@ -23,9 +25,15 @@ public class ExplorerProjectItem extends ExplorerItem {
 
     @Override
     protected ExplorerItem createChild() {
-        Node parent = (Node)getNode();
+        UndecoratedDialog dialog = new NewMindMapDialog(MainWindow.window, "MindMap");
+        dialog.setVisible(true);
+        String name = (String) dialog.getValue();
 
-        BaseNode mindMap = new MindMap(parent);
+        if (name == null)
+            return null;
+
+        Node parent = (Node)getNode();
+        BaseNode mindMap = new MindMap(name, parent);
         parent.addChild(mindMap);
 
         return new ExplorerMindMapItem(mindMap);

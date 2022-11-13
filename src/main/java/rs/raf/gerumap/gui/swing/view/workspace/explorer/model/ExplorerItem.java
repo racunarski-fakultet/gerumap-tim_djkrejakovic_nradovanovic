@@ -30,13 +30,17 @@ public abstract class ExplorerItem extends DefaultMutableTreeNode {
         if (!(node instanceof Node))
             return; //TODO Error message - Element cannot have a child
 
+        ExplorerItem child = createChild();
+
+        if (child == null)
+            return;
+
         ExplorerTree explorer = MainWindow.window.getWorkspace().getExplorer().getExplorerTree();
         ExplorerModel explorerModel = (ExplorerModel)explorer.getModel();
 
         Queue<TreePath> expansionState = explorer.getExpansionState();
         expansionState.add(getTreePath());
 
-        ExplorerItem child = createChild();
         add(child);
         explorerModel.reload(this);
         explorer.setSelectionPath(child.getTreePath());
