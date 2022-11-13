@@ -22,6 +22,11 @@ public class ProjectExplorer extends JScrollPane implements IExplorer {
     }
 
     @Override
+    public void remove(ExplorerItem node) {
+        ((ExplorerItem) node.getParent()).removeChild(node);
+    }
+
+    @Override
     public ExplorerItem getSelectedNode() {
         return (ExplorerItem)explorer.getLastSelectedPathComponent();
     }

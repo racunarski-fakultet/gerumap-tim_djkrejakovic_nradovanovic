@@ -50,6 +50,20 @@ public abstract class ExplorerItem extends DefaultMutableTreeNode {
 
     protected abstract ExplorerItem createChild();
 
+    public void removeChild(ExplorerItem child) {
+        ExplorerTree explorer = MainWindow.window.getWorkspace().getExplorer().getExplorerTree();
+        ExplorerModel explorerModel = (ExplorerModel)explorer.getModel();
+
+        Queue<TreePath> expansionState = explorer.getExpansionState(child.getTreePath());
+
+        remove(child);
+
+        explorerModel.reload(this);
+        explorer.setSelectionPath(getTreePath());
+
+        explorer.setExpansionState(expansionState);
+    }
+
     public TreePath getTreePath() {
         List<TreeNode> nodes = new ArrayList<>();
         TreeNode current = this;

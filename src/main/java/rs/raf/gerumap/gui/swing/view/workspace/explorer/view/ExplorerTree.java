@@ -45,6 +45,18 @@ public class ExplorerTree extends JTree {
         return expandedPaths;
     }
 
+    public Queue<TreePath> getExpansionState(TreePath exclude) {
+        Queue<TreePath> expandedPaths = new LinkedList<>();
+
+        for (int i = 0; i < getRowCount(); ++i) {
+            TreePath path = getPathForRow(i);
+            if (isExpanded(i) && !exclude.isDescendant(path))
+                expandedPaths.add(path);
+        }
+
+        return expandedPaths;
+    }
+
     public void setExpansionState(Queue<TreePath> expansionState) {
         for (TreePath path : expansionState) {
             setExpandedState(path, true);

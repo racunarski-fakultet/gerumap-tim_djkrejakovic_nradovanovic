@@ -10,6 +10,11 @@ public interface IExplorer {
     void addChild(ExplorerItem parent);
 
     /**
+     * remove the passed node
+     */
+    void remove(ExplorerItem node);
+
+    /**
      * returns the last selected node from the explorer
      */
     ExplorerItem getSelectedNode();
