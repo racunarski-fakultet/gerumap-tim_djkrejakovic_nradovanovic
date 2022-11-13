@@ -1,10 +1,17 @@
 package rs.raf.gerumap.gui.swing.view.workspace.explorer.model;
 
+import rs.raf.gerumap.gui.swing.view.MainWindow;
+import rs.raf.gerumap.gui.swing.view.workspace.explorer.view.ExplorerTree;
 import rs.raf.gerumap.tree.composite.BaseNode;
 import rs.raf.gerumap.tree.composite.Node;
 
 import javax.swing.Icon;
 import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.TreeNode;
+import javax.swing.tree.TreePath;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Queue;
 
 public abstract class ExplorerItem extends DefaultMutableTreeNode {
 
@@ -23,11 +30,33 @@ public abstract class ExplorerItem extends DefaultMutableTreeNode {
         if (!(node instanceof Node))
             return; //TODO Error message - Element cannot have a child
 
-        ExplorerItem childItem = createChild();
-        add(childItem);
+        ExplorerTree explorer = MainWindow.window.getWorkspace().getExplorer().getExplorerTree();
+        ExplorerModel explorerModel = (ExplorerModel)explorer.getModel();
+
+        Queue<TreePath> expansionState = explorer.getExpansionState();
+        expansionState.add(getTreePath());
+
+        ExplorerItem child = createChild();
+        add(child);
+        explorerModel.reload(this);
+        explorer.setSelectionPath(child.getTreePath());
+
+        explorer.setExpansionState(expansionState);
     }
 
     protected abstract ExplorerItem createChild();
+
+    public TreePath getTreePath() {
+        List<TreeNode> nodes = new ArrayList<>();
+        TreeNode current = this;
+
+        nodes.add(this);
+
+        while ((current = current.getParent()) != null)
+            nodes.add(0, current);
+
+        return new TreePath(nodes.toArray());
+    }
 
     public abstract void showContextMenu(int x, int y);
 

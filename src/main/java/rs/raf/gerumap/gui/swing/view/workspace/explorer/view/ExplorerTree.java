@@ -8,6 +8,8 @@ import javax.swing.JTree;
 import javax.swing.tree.DefaultTreeCellEditor;
 import javax.swing.tree.DefaultTreeCellRenderer;
 import javax.swing.tree.TreePath;
+import java.util.LinkedList;
+import java.util.Queue;
 
 public class ExplorerTree extends JTree {
 
@@ -31,6 +33,22 @@ public class ExplorerTree extends JTree {
             distance -= getRowBounds(currentRow).height;
 
         return (currentRow != numberOfRows) ? getPathForRow(currentRow) : null;
+    }
+
+    public Queue<TreePath> getExpansionState() {
+        Queue<TreePath> expandedPaths = new LinkedList<>();
+
+        for (int i = 0; i < getRowCount(); ++i)
+            if (isExpanded(i))
+                expandedPaths.add(getPathForRow(i));
+
+        return expandedPaths;
+    }
+
+    public void setExpansionState(Queue<TreePath> expansionState) {
+        for (TreePath path : expansionState) {
+            setExpandedState(path, true);
+        }
     }
 
 }

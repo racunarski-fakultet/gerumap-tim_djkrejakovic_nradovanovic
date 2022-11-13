@@ -4,7 +4,6 @@ import rs.raf.gerumap.gui.swing.view.workspace.explorer.model.ExplorerItem;
 import rs.raf.gerumap.gui.swing.view.workspace.explorer.view.ExplorerTree;
 
 import javax.swing.JScrollPane;
-import javax.swing.tree.DefaultTreeModel;
 import java.awt.Dimension;
 
 public class ProjectExplorer extends JScrollPane implements IExplorer {
@@ -20,7 +19,6 @@ public class ProjectExplorer extends JScrollPane implements IExplorer {
     @Override
     public void addChild(ExplorerItem parent) {
         parent.addChild();
-        ((DefaultTreeModel)explorer.getModel()).reload(parent);
     }
 
     @Override
