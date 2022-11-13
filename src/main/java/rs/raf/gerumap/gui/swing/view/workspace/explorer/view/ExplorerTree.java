@@ -63,4 +63,9 @@ public class ExplorerTree extends JTree {
         }
     }
 
+    @Override
+    public void setExpandedState(TreePath path, boolean state) {
+        super.setExpandedState(path, state);
+    }
+
 }

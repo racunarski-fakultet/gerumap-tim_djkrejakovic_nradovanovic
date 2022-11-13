@@ -15,10 +15,14 @@ public interface IExplorer {
     void remove(ExplorerItem node);
 
     /**
+     * renames the passed node
+     */
+    void rename(ExplorerItem node);
+
+    /**
      * returns the last selected node from the explorer
      */
     ExplorerItem getSelectedNode();
-
 
     /**
      * returns the explorer root item

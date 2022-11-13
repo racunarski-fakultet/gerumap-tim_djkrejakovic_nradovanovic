@@ -1,6 +1,7 @@
 package rs.raf.gerumap.gui.swing.view.workspace.explorer.model;
 
 import rs.raf.gerumap.gui.swing.view.MainWindow;
+import rs.raf.gerumap.gui.swing.view.workspace.explorer.dialog.RenameItemDialog;
 import rs.raf.gerumap.gui.swing.view.workspace.explorer.view.ExplorerTree;
 import rs.raf.gerumap.tree.composite.BaseNode;
 import rs.raf.gerumap.tree.composite.Node;
@@ -62,6 +63,26 @@ public abstract class ExplorerItem extends DefaultMutableTreeNode {
         explorer.setSelectionPath(getTreePath());
 
         explorer.setExpansionState(expansionState);
+    }
+
+    public void rename() {
+        RenameItemDialog dialog = new RenameItemDialog(MainWindow.window, node.getName());
+        dialog.setVisible(true);
+        String name = (String) dialog.getValue();
+
+        if (name == null)
+            return;
+
+        ExplorerTree explorer = MainWindow.window.getWorkspace().getExplorer().getExplorerTree();
+        ExplorerModel explorerModel = (ExplorerModel)explorer.getModel();
+
+        boolean isExpanded = explorer.isExpanded(this.getTreePath());
+
+        node.setName(name);
+
+        explorerModel.reload(this);
+        explorer.setSelectionPath(this.getTreePath());
+        explorer.setExpandedState(this.getTreePath(), isExpanded);
     }
 
     public TreePath getTreePath() {

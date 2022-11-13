@@ -27,6 +27,11 @@ public class ProjectExplorer extends JScrollPane implements IExplorer {
     }
 
     @Override
+    public void rename(ExplorerItem node) {
+        node.rename();
+    }
+
+    @Override
     public ExplorerItem getSelectedNode() {
         return (ExplorerItem)explorer.getLastSelectedPathComponent();
     }
@@ -39,5 +44,7 @@ public class ProjectExplorer extends JScrollPane implements IExplorer {
     public ExplorerTree getExplorerTree() {
         return explorer;
     }
+
+
 
 }
