@@ -109,7 +109,7 @@ public class Editor extends JTabbedPane {
 
     //endregion
 
-    //region Added
+    //region Add
 
     public void projectAdded(Project project) {
         loadProject(List.of(), project);
@@ -120,6 +120,31 @@ public class Editor extends JTabbedPane {
             return;
 
         loadDocument(document, project);
+    }
+
+    //endregion
+
+    //region Remove
+
+    public void projectRemoved(Project project) {
+        if (!project.equals(this.project))
+            return;
+
+        this.project = null;
+        openedTabs.clear();
+        removeAll();
+    }
+
+    public void documentRemoved(MindMapDocument document, Project project) {
+        if (!project.equals(this.project))
+            return;
+
+        int openedTabIndex = openedTabs.indexOf(new Pair<>(document.getName(), true));
+
+        if (openedTabs.get(openedTabIndex).getSecond())
+            remove(getTabIndexWithTitle(document.getName()));
+
+        openedTabs.remove(openedTabIndex);
     }
 
     //endregion

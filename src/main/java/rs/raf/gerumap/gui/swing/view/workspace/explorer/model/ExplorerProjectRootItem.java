@@ -43,6 +43,13 @@ public class ExplorerProjectRootItem extends ExplorerItem {
     }
 
     @Override
+    public void removeChild(ExplorerItem child) {
+        MainWindow.window.getWorkspace().getEditor().projectRemoved((Project) child.getNode());
+
+        super.removeChild(child);
+    }
+
+    @Override
     public void showContextMenu(int x, int y) {
         menu.show(MainWindow.window.getWorkspace().getExplorer().getExplorerTree(), x, y);
     }
