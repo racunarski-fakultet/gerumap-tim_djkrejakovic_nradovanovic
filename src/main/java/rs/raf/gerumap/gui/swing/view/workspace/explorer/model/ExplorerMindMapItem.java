@@ -8,6 +8,7 @@ import rs.raf.gerumap.gui.swing.view.workspace.explorer.menu.ExplorerMindMapMenu
 import rs.raf.gerumap.tree.composite.BaseNode;
 import rs.raf.gerumap.tree.composite.Node;
 import rs.raf.gerumap.tree.explorer.Element;
+import rs.raf.gerumap.tree.explorer.Project;
 
 import javax.swing.Icon;
 import javax.swing.JPopupMenu;
@@ -33,6 +34,18 @@ public class ExplorerMindMapItem extends ExplorerItem {
         parent.addChild(child);
 
         return new ExplorerElementItem(child);
+    }
+
+    @Override
+    public void rename() {
+        MindMapDocument oldMindMap = new MindMapDocument(getDocument().getName(), getDocument().getContent());
+        MindMapDocument newMindMap = getDocument();
+        Project project = (Project) ((ExplorerProjectItem) getParent()).getNode();
+
+        super.rename();
+        newMindMap.setName(getNode().getName());
+
+        MainWindow.window.getWorkspace().getEditor().documentRenamed(oldMindMap, newMindMap, project);
     }
 
     @Override

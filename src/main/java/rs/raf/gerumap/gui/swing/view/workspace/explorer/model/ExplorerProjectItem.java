@@ -56,6 +56,16 @@ public class ExplorerProjectItem extends ExplorerItem {
     }
 
     @Override
+    public void rename() {
+        Project oldProject = new Project(getNode().getName(), getNode().getParent());
+        oldProject.getChildren().addAll(((Node) getNode()).getChildren());
+
+        super.rename();
+
+        MainWindow.window.getWorkspace().getEditor().projectRenamed(oldProject, (Project) getNode());
+    }
+
+    @Override
     public void showContextMenu(int x, int y) {
         menu.show(MainWindow.window.getWorkspace().getExplorer().getExplorerTree(), x, y);
     }

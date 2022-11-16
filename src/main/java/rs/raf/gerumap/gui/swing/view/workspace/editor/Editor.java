@@ -149,6 +149,29 @@ public class Editor extends JTabbedPane {
 
     //endregion
 
+    //region Rename
+
+    public void projectRenamed(Project oldProject, Project newProject) {
+        if (oldProject.equals(project))
+            project.setName(newProject.getName());
+    }
+
+    public void documentRenamed(MindMapDocument oldDocument, MindMapDocument newDocument, Project project) {
+        if (!project.equals(this.project))
+            return;
+
+        if (!openedTabs.contains(new Pair<>(oldDocument.getName(), true)))
+            return;
+
+        int openedTabIndex = openedTabs.indexOf(new Pair<>(oldDocument.getName(), true));
+        openedTabs.get(openedTabIndex).setFirst(newDocument.getName());
+
+        if (openedTabs.get(openedTabIndex).getSecond())
+            setTitleAt(getTabIndexWithTitle(oldDocument.getName()), newDocument.getName());
+    }
+
+    //endregion
+
     private int getTabIndexWithTitle(String title) {
         for (int i = 0; i < getTabCount(); ++i)
             if (getTitleAt(i).equals(title))
