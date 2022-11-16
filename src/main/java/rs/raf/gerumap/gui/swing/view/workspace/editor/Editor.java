@@ -13,6 +13,7 @@ import javax.swing.JToolBar;
 import java.awt.Color;
 import java.awt.Component;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.function.BiConsumer;
 
@@ -67,10 +68,19 @@ public class Editor extends JTabbedPane {
 
     public void loadProject(List<MindMapDocument> documents, Project project) {
         boolean sameProject = project.equals(this.project);
+
         Component lastSelected = getSelectedComponent();
 
         for (MindMapDocument document : documents)
             loadDocument(document, project);
+
+        if (!sameProject)
+            this.project = project;
+
+        if (documents.size() == 0) {
+            openedTabs.clear();
+            removeAll();
+        }
 
         if (lastSelected != null && sameProject)
             setSelectedComponent(lastSelected);
@@ -95,6 +105,21 @@ public class Editor extends JTabbedPane {
 
         pair.setSecond(true);
         setSelectedIndex(getTabIndexWithTitle(document.getName()));
+    }
+
+    //endregion
+
+    //region Added
+
+    public void projectAdded(Project project) {
+        loadProject(List.of(), project);
+    }
+
+    public void documentAdded(MindMapDocument document, Project project) {
+        if (!project.equals(this.project))
+            return;
+
+        loadDocument(document, project);
     }
 
     //endregion

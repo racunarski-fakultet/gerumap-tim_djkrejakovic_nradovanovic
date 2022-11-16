@@ -10,6 +10,7 @@ import rs.raf.gerumap.gui.swing.view.workspace.explorer.menu.ExplorerProjectMenu
 import rs.raf.gerumap.tree.composite.BaseNode;
 import rs.raf.gerumap.tree.composite.Node;
 import rs.raf.gerumap.tree.explorer.MindMap;
+import rs.raf.gerumap.tree.explorer.Project;
 
 import javax.swing.Icon;
 import javax.swing.JPopupMenu;
@@ -36,10 +37,15 @@ public class ExplorerProjectItem extends ExplorerItem {
             return null;
 
         Node parent = (Node)getNode();
-        BaseNode mindMap = new MindMap(name, parent);
-        parent.addChild(mindMap);
+        MindMap child = new MindMap(name, parent);
+        parent.addChild(child);
 
-        return new ExplorerMindMapItem(mindMap);
+        ExplorerMindMapItem mindMapItem = new ExplorerMindMapItem(child);
+        Project project = (Project) getNode();
+
+        MainWindow.window.getWorkspace().getEditor().documentAdded(mindMapItem.getDocument(), project);
+
+        return mindMapItem;
     }
 
     @Override

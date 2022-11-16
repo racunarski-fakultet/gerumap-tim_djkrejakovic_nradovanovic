@@ -34,8 +34,10 @@ public class ExplorerProjectRootItem extends ExplorerItem {
             return null;
 
         Node parent = (Node)getNode();
-        BaseNode child = new Project(name, parent);
+        Project child = new Project(name, parent);
         parent.addChild(child);
+
+        MainWindow.window.getWorkspace().getEditor().projectAdded(child);
 
         return new ExplorerProjectItem(child);
     }
