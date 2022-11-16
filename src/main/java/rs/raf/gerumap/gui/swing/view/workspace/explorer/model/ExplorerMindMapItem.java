@@ -3,6 +3,7 @@ package rs.raf.gerumap.gui.swing.view.workspace.explorer.model;
 import com.formdev.flatlaf.util.StringUtils;
 import rs.raf.gerumap.gui.swing.util.ImageUtils;
 import rs.raf.gerumap.gui.swing.view.MainWindow;
+import rs.raf.gerumap.gui.swing.view.workspace.editor.MindMapDocument;
 import rs.raf.gerumap.gui.swing.view.workspace.explorer.menu.ExplorerMindMapMenu;
 import rs.raf.gerumap.tree.composite.BaseNode;
 import rs.raf.gerumap.tree.composite.Node;
@@ -17,8 +18,11 @@ public class ExplorerMindMapItem extends ExplorerItem {
 
     private static final JPopupMenu menu = new ExplorerMindMapMenu();
 
+    private final MindMapDocument document;
+
     public ExplorerMindMapItem(BaseNode node) {
         super(node); //TODO Error message if not MindMapItem
+        document = new MindMapDocument(node.getName());
     }
 
     @Override
@@ -39,6 +43,10 @@ public class ExplorerMindMapItem extends ExplorerItem {
     @Override
     public Icon getIcon() {
         return icon;
+    }
+
+    public MindMapDocument getDocument() {
+        return document;
     }
 
 }

@@ -15,7 +15,7 @@ public abstract class BaseNode {
 
     @Override
     public boolean equals(Object object) { //TODO compare parents
-        if (object == null || (object instanceof BaseNode))
+        if (object == null || !(object instanceof BaseNode))
             return false;
 
         BaseNode component = (BaseNode) object;

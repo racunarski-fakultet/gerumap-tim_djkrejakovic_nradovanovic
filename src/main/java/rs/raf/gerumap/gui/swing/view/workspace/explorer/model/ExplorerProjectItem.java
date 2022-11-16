@@ -4,6 +4,7 @@ import com.formdev.flatlaf.util.StringUtils;
 import rs.raf.gerumap.gui.swing.util.ImageUtils;
 import rs.raf.gerumap.gui.swing.view.MainWindow;
 import rs.raf.gerumap.gui.swing.view.custom.dialog.UndecoratedDialog;
+import rs.raf.gerumap.gui.swing.view.workspace.editor.MindMapDocument;
 import rs.raf.gerumap.gui.swing.view.workspace.explorer.dialog.NewMindMapDialog;
 import rs.raf.gerumap.gui.swing.view.workspace.explorer.menu.ExplorerProjectMenu;
 import rs.raf.gerumap.tree.composite.BaseNode;
@@ -12,6 +13,8 @@ import rs.raf.gerumap.tree.explorer.MindMap;
 
 import javax.swing.Icon;
 import javax.swing.JPopupMenu;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ExplorerProjectItem extends ExplorerItem {
 
@@ -47,6 +50,15 @@ public class ExplorerProjectItem extends ExplorerItem {
     @Override
     public Icon getIcon() {
         return icon;
+    }
+
+    public List<MindMapDocument> getDocuments() {
+        List<MindMapDocument> documents = new ArrayList<>();
+
+        for (int i = 0; i < getChildCount(); ++i)
+             documents.add(((ExplorerMindMapItem)getChildAt(i)).getDocument());
+
+        return documents;
     }
 
 }

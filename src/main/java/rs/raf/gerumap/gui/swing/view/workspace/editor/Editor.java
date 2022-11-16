@@ -1,13 +1,126 @@
 package rs.raf.gerumap.gui.swing.view.workspace.editor;
 
-import javax.swing.BorderFactory;
-import javax.swing.JPanel;
-import java.awt.Color;
+import com.formdev.flatlaf.FlatClientProperties;
+import rs.raf.gerumap.model.Pair;
+import rs.raf.gerumap.model.User;
+import rs.raf.gerumap.tree.explorer.Project;
 
-public class Editor extends JPanel {
+import javax.swing.BorderFactory;
+import javax.swing.Box;
+import javax.swing.JLabel;
+import javax.swing.JTabbedPane;
+import javax.swing.JToolBar;
+import java.awt.Color;
+import java.awt.Component;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.function.BiConsumer;
+
+public class Editor extends JTabbedPane {
+
+    private Project project;
+
+    private List<Pair<String, Boolean>> openedTabs = new ArrayList<>();
+
+    private       User   author      = new User("Unregistered");
+    private final JLabel authorLabel = new JLabel();
+
+    private final JToolBar trailingTools = new JToolBar();
+    private final JToolBar leadingTools  = new JToolBar();
+
 
     public Editor() {
-        setBorder(BorderFactory.createLineBorder(new Color(97, 99, 101), 1));
+        setup();
+    }
+    //region Setup
+
+    private void setup() {
+        setupLeadingTools();
+        setupTrailingTools();
+
+        setBorder(BorderFactory.createLineBorder(new Color(52, 53, 54), 1)); //TODO move
+        setTabLayoutPolicy(JTabbedPane.SCROLL_TAB_LAYOUT);
+
+        putClientProperty(FlatClientProperties.TABBED_PANE_TAB_CLOSABLE, true);
+        putClientProperty(FlatClientProperties.TABBED_PANE_TAB_CLOSE_TOOLTIPTEXT, "Close" );
+        putClientProperty(FlatClientProperties.TABBED_PANE_TAB_CLOSE_CALLBACK, (BiConsumer<JTabbedPane, Integer>) (tabbedPane, tabIndex) -> {
+            openedTabs.get(openedTabs.indexOf(new Pair<>(tabbedPane.getTitleAt(tabIndex), true))).setSecond(false);
+            removeTabAt(tabIndex);
+        });
+        putClientProperty(FlatClientProperties.TABBED_PANE_LEADING_COMPONENT, leadingTools.getComponentCount() > 0 ? leadingTools : null);
+        putClientProperty(FlatClientProperties.TABBED_PANE_TRAILING_COMPONENT, trailingTools.getComponentCount() > 0 ? trailingTools : null);
+    }
+
+    private void setupLeadingTools() { }
+
+    private void setupTrailingTools() {
+        authorLabel.setBorder(BorderFactory.createEmptyBorder(0, 10, 0, 10));
+        authorLabel.setText(author.getName());
+
+        trailingTools.add(Box.createHorizontalGlue());
+        trailingTools.add(authorLabel);
+    }
+
+    //endregion
+
+    //region Load
+
+    public void loadProject(List<MindMapDocument> documents, Project project) {
+        boolean sameProject = project.equals(this.project);
+        Component lastSelected = getSelectedComponent();
+
+        for (MindMapDocument document : documents)
+            loadDocument(document, project);
+
+        if (lastSelected != null && sameProject)
+            setSelectedComponent(lastSelected);
+    }
+
+    public void loadDocument(MindMapDocument document, Project project) {
+        if (!project.equals(this.project)) {
+            this.project = project;
+            openedTabs.clear();
+            removeAll();
+        }
+
+        Pair<String, Boolean> pair = new Pair<>(document.getName(), false);
+
+        if (openedTabs.contains(pair))
+            pair = openedTabs.get(openedTabs.indexOf(pair));
+        else
+            openedTabs.add(pair);
+
+        if (!pair.getSecond())
+            addTab(document.getName(), document.getContent());
+
+        pair.setSecond(true);
+        setSelectedIndex(getTabIndexWithTitle(document.getName()));
+    }
+
+    //endregion
+
+    private int getTabIndexWithTitle(String title) {
+        for (int i = 0; i < getTabCount(); ++i)
+            if (getTitleAt(i).equals(title))
+                return i;
+
+        return -1;
+    }
+
+
+    public void setAuthor(User author) {
+        this.author = author;
+
+        authorLabel.setText(author.getName());
+    }
+
+    public User getAuthor() {
+        return author;
+    }
+
+    public Project getProject() {
+        return project;
     }
 
 }
+
