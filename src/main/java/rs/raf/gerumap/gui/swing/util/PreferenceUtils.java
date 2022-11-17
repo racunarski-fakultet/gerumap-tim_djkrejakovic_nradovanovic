@@ -6,6 +6,8 @@ import rs.raf.gerumap.gui.swing.util.model.Theme;
 import rs.raf.gerumap.gui.swing.util.model.Language;
 import rs.raf.gerumap.gui.swing.util.prefs.PreferenceDefaultValues;
 import rs.raf.gerumap.gui.swing.util.prefs.PreferenceKeys;
+import rs.raf.gerumap.log.Logger;
+import rs.raf.gerumap.log.model.Message;
 
 import java.awt.Dimension;
 import java.util.prefs.BackingStoreException;
@@ -97,7 +99,7 @@ public class PreferenceUtils {
             preferences.clear();
         }
         catch (BackingStoreException e) {
-            System.err.println("Preferences can not be cleared: " + e.getMessage());
+            Logger.log(Message.UTILITY_PREFERENCES_CLEARED);
         }
     }
 

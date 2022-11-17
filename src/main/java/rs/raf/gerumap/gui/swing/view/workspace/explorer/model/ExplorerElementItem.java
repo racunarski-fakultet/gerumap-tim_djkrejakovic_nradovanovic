@@ -4,7 +4,10 @@ import com.formdev.flatlaf.util.StringUtils;
 import rs.raf.gerumap.gui.swing.util.ImageUtils;
 import rs.raf.gerumap.gui.swing.view.MainWindow;
 import rs.raf.gerumap.gui.swing.view.workspace.explorer.menu.ExplorerElementMenu;
+import rs.raf.gerumap.log.Logger;
+import rs.raf.gerumap.log.model.Message;
 import rs.raf.gerumap.tree.composite.BaseNode;
+import rs.raf.gerumap.tree.explorer.Element;
 
 import javax.swing.Icon;
 import javax.swing.JPopupMenu;
@@ -16,12 +19,16 @@ public class ExplorerElementItem extends ExplorerItem {
     private static final JPopupMenu menu = new ExplorerElementMenu();
 
     public ExplorerElementItem(BaseNode node) {
-        super(node); //TODO Error message if not ElementItem
+        super(node);
+
+        if (!(node instanceof Element))
+            Logger.log(Message.EXPLORER_INCORRECT_NODE, getClass().getSimpleName());
     }
 
     @Override
-    protected ExplorerItem createChild() { //TODO This method should never be called
-        return null; //TODO Error message
+    protected ExplorerItem createChild() {
+        Logger.log(Message.EXPLORER_CANNOT_HAVE_CHILD);
+        return null;
     }
 
     @Override

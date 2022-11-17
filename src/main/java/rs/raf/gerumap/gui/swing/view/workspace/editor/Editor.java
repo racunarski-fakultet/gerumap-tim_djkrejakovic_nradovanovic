@@ -13,7 +13,6 @@ import javax.swing.JToolBar;
 import java.awt.Color;
 import java.awt.Component;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.function.BiConsumer;
 

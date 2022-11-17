@@ -6,7 +6,8 @@ import rs.raf.gerumap.gui.swing.view.MainWindow;
 import rs.raf.gerumap.gui.swing.view.custom.dialog.UndecoratedDialog;
 import rs.raf.gerumap.gui.swing.view.workspace.explorer.dialog.NewProjectDialog;
 import rs.raf.gerumap.gui.swing.view.workspace.explorer.menu.ExplorerProjectRootMenu;
-import rs.raf.gerumap.tree.composite.BaseNode;
+import rs.raf.gerumap.log.Logger;
+import rs.raf.gerumap.log.model.Message;
 import rs.raf.gerumap.tree.composite.Node;
 import rs.raf.gerumap.tree.explorer.Project;
 import rs.raf.gerumap.tree.explorer.ProjectRoot;
@@ -38,6 +39,8 @@ public class ExplorerProjectRootItem extends ExplorerItem {
         parent.addChild(child);
 
         MainWindow.window.getWorkspace().getEditor().projectAdded(child);
+
+        Logger.log(Message.ADDED_PROJECT, child.getName());
 
         return new ExplorerProjectItem(child);
     }

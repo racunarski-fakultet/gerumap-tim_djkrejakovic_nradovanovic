@@ -14,10 +14,10 @@ public class MindMap extends Node {
     @Override
     public void addChild(BaseNode child) {
         if (child == null || !(child instanceof Element))
-            return; //TODO Error message - MindMap can only have child of type Element
+            return;
 
         if (getChildren().contains(child))
-            return; //TODO Warning message - Child already exist
+            return;
 
         getChildren().add(child);
     }

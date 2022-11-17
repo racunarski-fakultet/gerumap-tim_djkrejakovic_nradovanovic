@@ -20,7 +20,7 @@ public class NewMindMapAction extends GRMapAction {
             return;
 
         if (!(lastSelected.getUserObject() instanceof Project))
-            return; //TODO Error message
+            return;
 
         MainWindow.window.getExplorer().addChild(lastSelected);
     }

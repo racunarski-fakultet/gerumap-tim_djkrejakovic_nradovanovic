@@ -7,6 +7,8 @@ import rs.raf.gerumap.gui.swing.view.custom.dialog.UndecoratedDialog;
 import rs.raf.gerumap.gui.swing.view.workspace.editor.MindMapDocument;
 import rs.raf.gerumap.gui.swing.view.workspace.explorer.dialog.NewMindMapDialog;
 import rs.raf.gerumap.gui.swing.view.workspace.explorer.menu.ExplorerProjectMenu;
+import rs.raf.gerumap.log.Logger;
+import rs.raf.gerumap.log.model.Message;
 import rs.raf.gerumap.tree.composite.BaseNode;
 import rs.raf.gerumap.tree.composite.Node;
 import rs.raf.gerumap.tree.explorer.MindMap;
@@ -24,7 +26,10 @@ public class ExplorerProjectItem extends ExplorerItem {
     public static final JPopupMenu menu = new ExplorerProjectMenu();
 
     public ExplorerProjectItem(BaseNode node) {
-        super(node);//TODO Error message if not ProjectItem
+        super(node);
+
+        if (!(node instanceof Project))
+            Logger.log(Message.EXPLORER_INCORRECT_NODE, getClass().getSimpleName());
     }
 
     @Override
@@ -44,6 +49,8 @@ public class ExplorerProjectItem extends ExplorerItem {
         Project project = (Project) getNode();
 
         MainWindow.window.getWorkspace().getEditor().documentAdded(mindMapItem.getDocument(), project);
+
+        Logger.log(Message.ADDED_MINDMAP, child.getName());
 
         return mindMapItem;
     }

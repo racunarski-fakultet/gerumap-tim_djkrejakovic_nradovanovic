@@ -19,10 +19,10 @@ public class ProjectRoot extends Node {
     @Override
     public void addChild(BaseNode child) {
         if (child == null || !(child instanceof Project))
-            return; //TODO Error message - ProjectRoot can only have child of type Project
+            return;
 
         if (getChildren().contains(child))
-            return; //TODO Warning message - Child already exist
+            return;
 
         getChildren().add(child);
     }

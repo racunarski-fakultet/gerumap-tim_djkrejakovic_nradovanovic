@@ -17,7 +17,7 @@ public class RemoveExplorerItemAction extends GRMapAction {
         ExplorerItem node = MainWindow.window.getExplorer().getSelectedNode();
 
         if (!(node.getUserObject() instanceof BaseNode))
-            return; //TODO Error message
+            return;
 
         MainWindow.window.getExplorer().remove(node);
     }

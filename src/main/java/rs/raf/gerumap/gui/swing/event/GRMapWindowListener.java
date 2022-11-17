@@ -1,29 +1,22 @@
 package rs.raf.gerumap.gui.swing.event;
 
+import rs.raf.gerumap.gui.swing.util.PreferenceUtils;
+import rs.raf.gerumap.log.Logger;
+
+import java.awt.Frame;
+import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.awt.event.WindowListener;
 
-public class GRMapWindowListener implements WindowListener {
-
-    @Override
-    public void windowOpened(WindowEvent e) { }
+public class GRMapWindowListener extends WindowAdapter {
 
     @Override
-    public void windowClosing(WindowEvent e) { }
+    public void windowClosing(WindowEvent e) {
+        Logger.clear();
+    }
 
     @Override
-    public void windowClosed(WindowEvent e) { }
-
-    @Override
-    public void windowIconified(WindowEvent e) { }
-
-    @Override
-    public void windowDeiconified(WindowEvent e) { }
-
-    @Override
-    public void windowActivated(WindowEvent e) { }
-
-    @Override
-    public void windowDeactivated(WindowEvent e) { }
+    public void windowStateChanged(WindowEvent e) {
+        PreferenceUtils.putWindowMaximized(e.getNewState() == Frame.MAXIMIZED_BOTH);
+    }
 
 }

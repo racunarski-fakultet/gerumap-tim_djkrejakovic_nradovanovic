@@ -17,7 +17,7 @@ public class NewProjectAction extends GRMapAction {
         ExplorerItem root = MainWindow.window.getExplorer().getRoot();
 
         if (!(root.getUserObject() instanceof ProjectRoot))
-            return; //TODO Error message
+            return;
 
         MainWindow.window.getExplorer().addChild(root);
     }

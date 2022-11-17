@@ -3,8 +3,8 @@ package rs.raf.gerumap.gui.swing.view.workspace.explorer.model;
 import rs.raf.gerumap.gui.swing.view.MainWindow;
 import rs.raf.gerumap.gui.swing.view.workspace.explorer.dialog.RenameItemDialog;
 import rs.raf.gerumap.gui.swing.view.workspace.explorer.view.ExplorerTree;
+import rs.raf.gerumap.log.Logger;
 import rs.raf.gerumap.tree.composite.BaseNode;
-import rs.raf.gerumap.tree.composite.Node;
 
 import javax.swing.Icon;
 import javax.swing.tree.DefaultMutableTreeNode;
@@ -28,9 +28,6 @@ public abstract class ExplorerItem extends DefaultMutableTreeNode {
     }
 
     public void addChild() {
-        if (!(node instanceof Node))
-            return; //TODO Error message - Element cannot have a child
-
         ExplorerItem child = createChild();
 
         if (child == null)

@@ -24,17 +24,11 @@ public class ResourceUtils {
     private static URL getResource(String resource) {
         URL url = ResourceUtils.class.getResource(resource);
 
-        if (url == null)
-            System.err.println("Resource not found: " + resource);
-
         return url;
     }
 
     private static InputStream getStream(String resource) {
         InputStream inputStream = ResourceUtils.class.getResourceAsStream(resource);
-
-        if (inputStream == null)
-            System.err.println("Resource could not be loaded: " + resource);
 
         return inputStream;
     }

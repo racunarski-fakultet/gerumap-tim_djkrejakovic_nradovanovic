@@ -2,7 +2,6 @@ package rs.raf.gerumap.gui.swing.view;
 
 import rs.raf.gerumap.gui.swing.event.GRMapComponentListener;
 import rs.raf.gerumap.gui.swing.event.GRMapWindowListener;
-import rs.raf.gerumap.gui.swing.event.GRMapWindowStateListener;
 import rs.raf.gerumap.gui.swing.util.ImageUtils;
 import rs.raf.gerumap.gui.swing.util.PreferenceUtils;
 import rs.raf.gerumap.gui.swing.view.menu.MenuBar;
@@ -68,7 +67,7 @@ public class MainWindow extends JFrame {
     private void addListeners() {
         addWindowListener(new GRMapWindowListener());
         addComponentListener(new GRMapComponentListener());
-        addWindowStateListener(new GRMapWindowStateListener());
+        addWindowStateListener(new GRMapWindowListener());
     }
 
     private void setAttributes() {

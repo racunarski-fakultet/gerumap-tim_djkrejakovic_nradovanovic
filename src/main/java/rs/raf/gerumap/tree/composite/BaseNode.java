@@ -14,7 +14,7 @@ public abstract class BaseNode {
     }
 
     @Override
-    public boolean equals(Object object) { //TODO compare parents
+    public boolean equals(Object object) {
         if (object == null || !(object instanceof BaseNode))
             return false;
 

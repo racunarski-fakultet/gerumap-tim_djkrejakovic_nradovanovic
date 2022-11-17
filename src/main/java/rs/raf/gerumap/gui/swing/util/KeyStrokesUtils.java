@@ -1,6 +1,8 @@
 package rs.raf.gerumap.gui.swing.util;
 
 import rs.raf.gerumap.gui.swing.util.model.KeyStrokes;
+import rs.raf.gerumap.log.Logger;
+import rs.raf.gerumap.log.model.Message;
 
 import javax.swing.KeyStroke;
 import java.io.IOException;
@@ -17,7 +19,7 @@ public class KeyStrokesUtils {
             properties.load(ResourceUtils.getKeyStrokesStream(keyStrokes));
         }
         catch (IOException exception) {
-            System.err.println("Error occurred when reading from: " + "KeyStrokes");
+            Logger.log(Message.UTILITY_KEYSTROKES_NOT_FOUND, keyStrokes.name());
         }
     }
 

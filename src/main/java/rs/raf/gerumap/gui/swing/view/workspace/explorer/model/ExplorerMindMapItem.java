@@ -5,9 +5,12 @@ import rs.raf.gerumap.gui.swing.util.ImageUtils;
 import rs.raf.gerumap.gui.swing.view.MainWindow;
 import rs.raf.gerumap.gui.swing.view.workspace.editor.MindMapDocument;
 import rs.raf.gerumap.gui.swing.view.workspace.explorer.menu.ExplorerMindMapMenu;
+import rs.raf.gerumap.log.Logger;
+import rs.raf.gerumap.log.model.Message;
 import rs.raf.gerumap.tree.composite.BaseNode;
 import rs.raf.gerumap.tree.composite.Node;
 import rs.raf.gerumap.tree.explorer.Element;
+import rs.raf.gerumap.tree.explorer.MindMap;
 import rs.raf.gerumap.tree.explorer.Project;
 
 import javax.swing.Icon;
@@ -22,16 +25,21 @@ public class ExplorerMindMapItem extends ExplorerItem {
     private final MindMapDocument document;
 
     public ExplorerMindMapItem(BaseNode node) {
-        super(node); //TODO Error message if not MindMapItem
+        super(node);
         document = new MindMapDocument(node.getName());
+
+        if (!(node instanceof MindMap))
+            Logger.log(Message.EXPLORER_INCORRECT_NODE, getClass().getSimpleName());
     }
 
     @Override
     protected ExplorerItem createChild() {
         Node parent = (Node)getNode();
 
-        BaseNode child = new Element(parent);
+        Element child = new Element(parent);
         parent.addChild(child);
+
+        Logger.log(Message.ADDED_ELEMENT, child.getName());
 
         return new ExplorerElementItem(child);
     }

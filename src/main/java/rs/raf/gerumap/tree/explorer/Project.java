@@ -14,10 +14,10 @@ public class Project extends Node {
     @Override
     public void addChild(BaseNode child) {
         if (child == null || !(child instanceof MindMap))
-            return; //TODO Error message - Project can only have child of type MindMap
+            return;
 
         if (getChildren().contains(child))
-            return; //TODO Warning message - Child already exist
+            return;
 
         getChildren().add(child);
     }

@@ -15,7 +15,7 @@ public class Menu extends JMenu {
     public Dimension getPreferredSize() {
         Dimension dimension = super.getPreferredSize();
 
-        dimension.width += 4;
+        dimension.width += 2;
 
         return dimension;
     }

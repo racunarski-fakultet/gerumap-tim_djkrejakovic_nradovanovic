@@ -1,5 +1,8 @@
 package rs.raf.gerumap.gui.swing.util;
 
+import rs.raf.gerumap.log.Logger;
+import rs.raf.gerumap.log.model.Message;
+
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import java.awt.Image;
@@ -13,7 +16,7 @@ public class ImageUtils {
         if (iconURL != null)
             return new ImageIcon(iconURL);
 
-        System.err.println("Icon not found: " + name);
+        Logger.log(Message.UTILITY_ICON_NOT_FOUND, name);
 
         return null;
     }
@@ -24,7 +27,7 @@ public class ImageUtils {
         if (imageURL != null)
             return new ImageIcon(imageURL).getImage();
 
-        System.err.println("Image not found: " + name);
+        Logger.log(Message.UTILITY_IMAGE_NOT_FOUND, name);
 
         return null;
     }
