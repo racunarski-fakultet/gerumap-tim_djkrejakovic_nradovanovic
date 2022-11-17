@@ -33,7 +33,7 @@ public class Pair<FirstType, SecondType> {
         if (obj == null || !(obj instanceof Pair<?, ?>))
             return false;
 
-        Pair<FirstType, SecondType> pair = (Pair) obj;
+        Pair<FirstType, SecondType> pair = (Pair<FirstType, SecondType>) obj;
         return Objects.equals(first, pair.first);
     }
 

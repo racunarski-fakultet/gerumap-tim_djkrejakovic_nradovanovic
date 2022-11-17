@@ -72,7 +72,7 @@ public class MainWindow extends JFrame {
 
     private void setAttributes() {
         setTitle("GeRuMap");
-        setIconImage(ImageUtils.loadImage("logo"));
+        setIconImage(ImageUtils.loadImage("Logo"));
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     }
 
