@@ -1,9 +1,9 @@
 package rs.raf.gerumap.gui.swing.view.workspace.explorer.model;
 
 import rs.raf.gerumap.gui.swing.view.MainWindow;
+import rs.raf.gerumap.gui.swing.view.workspace.explorer.dialog.ExplorerDialogBase;
 import rs.raf.gerumap.gui.swing.view.workspace.explorer.dialog.RenameItemDialog;
 import rs.raf.gerumap.gui.swing.view.workspace.explorer.view.ExplorerTree;
-import rs.raf.gerumap.log.Logger;
 import rs.raf.gerumap.tree.composite.BaseNode;
 
 import javax.swing.Icon;
@@ -63,7 +63,10 @@ public abstract class ExplorerItem extends DefaultMutableTreeNode {
     }
 
     public void rename() {
-        RenameItemDialog dialog = new RenameItemDialog(MainWindow.window, node.getName());
+        ExplorerItem parent = (ExplorerItem) getParent();
+        String nodeName = getNode().getName();
+
+        ExplorerDialogBase dialog = new RenameItemDialog(MainWindow.window, parent.getChildrenNames(nodeName), nodeName);
         dialog.setVisible(true);
         String name = (String) dialog.getValue();
 
@@ -92,6 +95,23 @@ public abstract class ExplorerItem extends DefaultMutableTreeNode {
             nodes.add(0, current);
 
         return new TreePath(nodes.toArray());
+    }
+
+    protected List<String> getChildrenNames() {
+        List<String> names = new ArrayList<>();
+
+        for (int i = 0; i < getChildCount(); ++i)
+             names.add(((ExplorerItem) getChildAt(i)).getNode().getName().toLowerCase());
+
+        return names;
+    }
+
+    protected List<String> getChildrenNames(String exclude) {
+        List<String> names = getChildrenNames();
+
+        names.remove(exclude.toLowerCase());
+
+        return names;
     }
 
     public abstract void showContextMenu(int x, int y);

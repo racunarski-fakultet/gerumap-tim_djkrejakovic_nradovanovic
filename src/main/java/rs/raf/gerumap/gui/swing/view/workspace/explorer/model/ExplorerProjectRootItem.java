@@ -3,7 +3,7 @@ package rs.raf.gerumap.gui.swing.view.workspace.explorer.model;
 import com.formdev.flatlaf.util.StringUtils;
 import rs.raf.gerumap.gui.swing.util.ImageUtils;
 import rs.raf.gerumap.gui.swing.view.MainWindow;
-import rs.raf.gerumap.gui.swing.view.custom.dialog.UndecoratedDialog;
+import rs.raf.gerumap.gui.swing.view.workspace.explorer.dialog.ExplorerDialogBase;
 import rs.raf.gerumap.gui.swing.view.workspace.explorer.dialog.NewProjectDialog;
 import rs.raf.gerumap.gui.swing.view.workspace.explorer.menu.ExplorerProjectRootMenu;
 import rs.raf.gerumap.log.Logger;
@@ -27,7 +27,7 @@ public class ExplorerProjectRootItem extends ExplorerItem {
 
     @Override
     protected ExplorerItem createChild() {
-        UndecoratedDialog dialog = new NewProjectDialog(MainWindow.window, "Project");
+        ExplorerDialogBase dialog = new NewProjectDialog(MainWindow.window, getChildrenNames());
         dialog.setVisible(true);
         String name = (String) dialog.getValue();
 
