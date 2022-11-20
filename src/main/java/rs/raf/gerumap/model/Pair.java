@@ -30,10 +30,9 @@ public class Pair<FirstType, SecondType> {
 
     @Override
     public boolean equals(Object obj) {
-        if (obj == null || !(obj instanceof Pair<?, ?>))
+        if (!(obj instanceof Pair<?, ?> pair))
             return false;
 
-        Pair<FirstType, SecondType> pair = (Pair<FirstType, SecondType>) obj;
         return Objects.equals(first, pair.first);
     }
 
