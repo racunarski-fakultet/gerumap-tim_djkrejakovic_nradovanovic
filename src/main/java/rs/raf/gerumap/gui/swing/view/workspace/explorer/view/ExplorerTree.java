@@ -11,8 +11,14 @@ import javax.swing.tree.TreePath;
 import java.util.LinkedList;
 import java.util.Queue;
 
+/**
+ * Tree structure that displays hierarchical data.
+ */
 public class ExplorerTree extends JTree {
 
+    /**
+     * Creates the explorer tree.
+     */
     public ExplorerTree() {
         setModel(new ExplorerModel(new ExplorerProjectRootItem()));
         DefaultTreeCellRenderer renderer = new ExplorerItemRenderer();
@@ -24,17 +30,30 @@ public class ExplorerTree extends JTree {
         addMouseListener(new ExplorerMouseListener());
     }
 
+    /**
+     * Returns the TreePath of the item at y position if the item exist, otherwise null.
+     * @param y coordinate y
+     * @return path if item exist, otherwise null
+     */
     public TreePath getPathAtLocation(int y) {
         int numberOfRows = getRowCount();
         int distance = y;
         int currentRow = -1;
 
+        //Until the distance is less than 0 or until the number of rows is exceeded
+        //the distance is reduced by the height of the current row.
+        //If the loop is exited due to (distance < 0) the current row is the row at
+        //position y, otherwise the position is outside the tree items
         while (distance > 0  && numberOfRows > ++currentRow)
             distance -= getRowBounds(currentRow).height;
 
         return (currentRow != numberOfRows) ? getPathForRow(currentRow) : null;
     }
 
+    /**
+     * Returns a snapshot of explorer tree.
+     * @return expansion state
+     */
     public Queue<TreePath> getExpansionState() {
         Queue<TreePath> expandedPaths = new LinkedList<>();
 
@@ -45,6 +64,11 @@ public class ExplorerTree extends JTree {
         return expandedPaths;
     }
 
+    /**
+     * Returns a snapshot of explorer tree. It does not check the "exclude" path.
+     * @param exclude exclude
+     * @return expansion state
+     */
     public Queue<TreePath> getExpansionState(TreePath exclude) {
         Queue<TreePath> expandedPaths = new LinkedList<>();
 
@@ -57,6 +81,10 @@ public class ExplorerTree extends JTree {
         return expandedPaths;
     }
 
+    /**
+     * Sets the expansion state for explorer tree.
+     * @param expansionState expansionState
+     */
     public void setExpansionState(Queue<TreePath> expansionState) {
         for (TreePath path : expansionState) {
             setExpandedState(path, true);

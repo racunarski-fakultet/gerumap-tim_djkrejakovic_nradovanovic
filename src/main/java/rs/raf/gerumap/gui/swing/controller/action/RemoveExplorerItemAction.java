@@ -6,6 +6,9 @@ import rs.raf.gerumap.tree.composite.BaseNode;
 
 import java.awt.event.ActionEvent;
 
+/**
+ * The action that handles the removal of an item (Project, MindMap or Element).
+ */
 public class RemoveExplorerItemAction extends GRMapAction {
 
     public RemoveExplorerItemAction() {

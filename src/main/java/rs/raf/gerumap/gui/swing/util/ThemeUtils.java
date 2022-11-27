@@ -7,6 +7,9 @@ import rs.raf.gerumap.gui.swing.util.model.Theme;
 import javax.swing.LookAndFeel;
 import java.lang.reflect.InvocationTargetException;
 
+/**
+ * A utility that handles themes.
+ */
 public class ThemeUtils {
 
     static {
@@ -15,6 +18,10 @@ public class ThemeUtils {
         FlatLaf.registerCustomDefaultsSource(ResourceUtils.getThemeDirectory());
     }
 
+    /**
+     * Setups theme.
+     * @param theme theme
+     */
     public static void setupTheme(Theme theme) {
         try {
             FlatLaf.setup((LookAndFeel) Class.forName(theme.getClassName()).getDeclaredConstructor().newInstance());

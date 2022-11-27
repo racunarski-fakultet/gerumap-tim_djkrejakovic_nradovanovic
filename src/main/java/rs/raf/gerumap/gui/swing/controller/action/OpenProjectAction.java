@@ -2,6 +2,9 @@ package rs.raf.gerumap.gui.swing.controller.action;
 
 import java.awt.event.ActionEvent;
 
+/**
+ * The action that handles the opening of an existing project.
+ */
 public class OpenProjectAction extends GRMapAction {
 
     public OpenProjectAction() {

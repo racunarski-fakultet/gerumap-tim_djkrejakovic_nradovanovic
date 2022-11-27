@@ -14,6 +14,9 @@ import rs.raf.gerumap.gui.swing.controller.action.RenameExplorerItemAction;
 
 import java.util.List;
 
+/**
+ * Manages all the actions in the program.
+ */
 public class ActionManager {
 
     private static final List<GRMapAction> actions = List.of(
@@ -30,6 +33,9 @@ public class ActionManager {
 
     //region Setup
 
+    /**
+     * Setups all the actions.
+     */
     public static void setup() {
         setupKeyStrokes();
         setupIcons();
@@ -37,24 +43,36 @@ public class ActionManager {
         setupTooltips();
     }
 
+    /**
+     * Setups all action icons.
+     */
     public static void setupIcons() {
         for (GRMapAction action : actions) {
             action.setIcon();
         }
     }
 
+    /**
+     * Setups all action keystrokes/
+     */
     public static void setupKeyStrokes() {
         for (GRMapAction action : actions) {
             action.setAcceleratorKey();
         }
     }
 
+    /**
+     * Setups all action names.
+     */
     public static void setupNames() {
         for (GRMapAction action : actions) {
             action.setName();
         }
     }
 
+    /**
+     * Setups all action tooltips.
+     */
     public static void setupTooltips() {
         for (GRMapAction action : actions) {
             action.setTooltip();
@@ -63,6 +81,11 @@ public class ActionManager {
 
     //endregion
 
+    /**
+     * Returns the action from the list if it exists, otherwise returns null.
+     * @param actionClass action class
+     * @return action if exists, otherwise null
+     */
     public static GRMapAction getAction(Class actionClass) {
         String actionName = StringUtils.removeTrailing(actionClass.getSimpleName(), "Action");
         for (GRMapAction action : actions)

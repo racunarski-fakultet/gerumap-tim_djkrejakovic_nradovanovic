@@ -5,6 +5,9 @@ import rs.raf.gerumap.gui.swing.view.workspace.explorer.dialog.ExplorerDialogBas
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
+/**
+ * Handles the keyboard event of the dialog.
+ */
 public class ExplorerDialogKeyListener extends KeyAdapter {
 
     private final ExplorerDialogBase window;

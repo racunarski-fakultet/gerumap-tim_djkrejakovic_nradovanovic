@@ -16,6 +16,9 @@ import rs.raf.gerumap.tree.explorer.Project;
 import javax.swing.Icon;
 import javax.swing.JPopupMenu;
 
+/**
+ * Project explorer tree mindmap item.
+ */
 public class ExplorerMindMapItem extends ExplorerItem {
 
     private static Icon icon = ImageUtils.loadIcon(StringUtils.removeTrailing(ExplorerMindMapItem.class.getSimpleName(), "Item"));
@@ -66,6 +69,10 @@ public class ExplorerMindMapItem extends ExplorerItem {
         return icon;
     }
 
+    /**
+     * Returns the document.
+     * @return document
+     */
     public MindMapDocument getDocument() {
         return document;
     }

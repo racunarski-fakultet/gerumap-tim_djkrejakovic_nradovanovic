@@ -7,6 +7,9 @@ import rs.raf.gerumap.gui.swing.view.custom.menu.MenuItem;
 
 import javax.swing.JPopupMenu;
 
+/**
+ * Project root context menu.
+ */
 public class ExplorerProjectRootMenu extends JPopupMenu {
 
     public ExplorerProjectRootMenu() {

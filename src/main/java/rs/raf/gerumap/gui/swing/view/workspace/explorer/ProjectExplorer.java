@@ -10,6 +10,9 @@ public class ProjectExplorer extends JScrollPane implements IExplorer {
 
     ExplorerTree explorer;
 
+    /**
+     * Creates the project explorer.
+     */
     public ProjectExplorer() {
         explorer = new ExplorerTree();
         setPreferredSize(new Dimension(200, 0));
@@ -41,10 +44,12 @@ public class ProjectExplorer extends JScrollPane implements IExplorer {
         return (ExplorerItem)explorer.getModel().getRoot();
     }
 
+    /**
+     * Returns the explorer tree.
+     * @return explorer tree
+     */
     public ExplorerTree getExplorerTree() {
         return explorer;
     }
-
-
 
 }

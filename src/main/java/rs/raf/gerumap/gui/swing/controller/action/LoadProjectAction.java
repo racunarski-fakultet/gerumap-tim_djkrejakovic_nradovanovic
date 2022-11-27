@@ -7,6 +7,9 @@ import rs.raf.gerumap.tree.explorer.Project;
 
 import java.awt.event.ActionEvent;
 
+/**
+ * The action that handles the loading of a project.
+ */
 public class LoadProjectAction extends GRMapAction {
 
     public LoadProjectAction() {

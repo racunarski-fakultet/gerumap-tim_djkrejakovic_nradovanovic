@@ -13,6 +13,9 @@ import javax.swing.JFrame;
 import java.awt.BorderLayout;
 import java.awt.event.WindowEvent;
 
+/**
+ * Application window.
+ */
 public class MainWindow extends JFrame {
 
     public static final MainWindow window = instantiate();
@@ -114,24 +117,43 @@ public class MainWindow extends JFrame {
 
     //region Get Components
 
+    /**
+     * Returns the main menu.
+     * @return main menu
+     */
     public MenuBar getMainMenu() {
         return menuBar;
     }
 
+    /**
+     * Returns the toolbar.
+     * @return toolbar
+     */
     public Toolbar getToolbar() {
         return toolbar;
     }
 
+    /**
+     * Returns the workspace.
+     * @return workspace
+     */
     public Workspace getWorkspace() {
         return workspace;
     }
 
+    /**
+     * Returns the explorer.
+     * @return explorer
+     */
     public IExplorer getExplorer() {
         return explorer;
     }
 
     //endregion
 
+    /**
+     * Closes the application.
+     */
     public void close() {
         dispatchEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSING));
     }

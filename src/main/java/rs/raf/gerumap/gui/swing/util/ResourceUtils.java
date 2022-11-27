@@ -6,6 +6,9 @@ import rs.raf.gerumap.gui.swing.util.model.Language;
 import java.io.InputStream;
 import java.net.URL;
 
+/**
+ * A utility that handles resources.
+ */
 public class ResourceUtils {
 
     private static final String separator = "/";
@@ -21,22 +24,40 @@ public class ResourceUtils {
 
     //region Auxiliary Methods
 
+    /**
+     * Returns the resource URL.
+     * @param resource resource
+     * @return resource URL
+     */
     private static URL getResource(String resource) {
         URL url = ResourceUtils.class.getResource(resource);
 
         return url;
     }
 
+    /**
+     * Returns the resource stream.
+     * @param resource resource
+     * @return resource stream
+     */
     private static InputStream getStream(String resource) {
         InputStream inputStream = ResourceUtils.class.getResourceAsStream(resource);
 
         return inputStream;
     }
 
+    /**
+     * Returns the icon directory based on type.
+     * @return icon directory
+     */
     private static String getIconDir() {
         return PreferenceUtils.getIconType().getIconDir();
     }
 
+    /**
+     * Returns the theme directory based on type.
+     * @return theme directory
+     */
     private static String getThemeDir() {
         return PreferenceUtils.getTheme().getThemeDir();
     }
@@ -45,10 +66,19 @@ public class ResourceUtils {
 
     //region Icon Utilities
 
+    /**
+     * Returns the icon directory.
+     * @return icon directory
+     */
     private static String getIconResourceDirectory() {
         return separator + imagesRoot + separator + getIconDir() + separator;
     }
 
+    /**
+     * Returns the icon path.
+     * @param iconName icon name
+     * @return icon path
+     */
     public static URL getIconPath(String iconName) {
         return getResource(getIconResourceDirectory() + iconName + pngFile);
     }
@@ -57,10 +87,19 @@ public class ResourceUtils {
 
     //region KeyStrokes Utilities
 
+    /**
+     * Returns the keystroke's directory.
+     * @return keystrokes directory
+     */
     private static String getKeyStrokesResourceDirectory() {
         return separator + keyStrokeRoot + separator;
     }
 
+    /**
+     * Returns the keystrokes stream.
+     * @param keyStrokes keystorkes
+     * @return keystrokes stream
+     */
     public static InputStream getKeyStrokesStream(KeyStrokes keyStrokes) {
         return getStream(getKeyStrokesResourceDirectory() + keyStrokes.getId() + propertiesFile);
     }
@@ -69,10 +108,19 @@ public class ResourceUtils {
 
     //region Language Utilities
 
+    /**
+     * Returns the language directory.
+     * @return language directory
+     */
     private static String getLanguageResourceDirectory() {
         return separator + languageRoot + separator;
     }
 
+    /**
+     * Returns the language stream.
+     * @param language language
+     * @return language stream
+     */
     public static InputStream getLanguageStream(Language language) {
         return getStream(getLanguageResourceDirectory() + language.getId() + propertiesFile);
     }
@@ -81,10 +129,18 @@ public class ResourceUtils {
 
     //region Theme Utilities
 
+    /**
+     * Returns the theme directory.
+     * @return theme directory
+     */
     private static String getThemeResourceDirectory() {
         return separator + themeRoot + separator + getThemeDir() + separator;
     }
 
+    /**
+     * Returns the theme URL.
+     * @return theme URL
+     */
     public static URL getThemeDirectory() {
         return getResource(getThemeResourceDirectory());
     }

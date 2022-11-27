@@ -7,6 +7,9 @@ import rs.raf.gerumap.gui.swing.controller.action.NewProjectAction;
 
 import javax.swing.JToolBar;
 
+/**
+ * Application toolbar.
+ */
 public class Toolbar extends JToolBar {
 
     public Toolbar() {

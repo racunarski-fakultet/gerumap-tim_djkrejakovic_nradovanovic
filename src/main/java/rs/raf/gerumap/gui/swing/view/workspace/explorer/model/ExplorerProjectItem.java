@@ -19,6 +19,9 @@ import javax.swing.JPopupMenu;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Project explorer tree project item.
+ */
 public class ExplorerProjectItem extends ExplorerItem {
 
     private static Icon icon = ImageUtils.loadIcon(StringUtils.removeTrailing(ExplorerProjectItem.class.getSimpleName(), "Item"));
@@ -82,6 +85,10 @@ public class ExplorerProjectItem extends ExplorerItem {
         return icon;
     }
 
+    /**
+     * Returns the list of documents within the project.
+     * @return documents
+     */
     public List<MindMapDocument> getDocuments() {
         List<MindMapDocument> documents = new ArrayList<>();
 

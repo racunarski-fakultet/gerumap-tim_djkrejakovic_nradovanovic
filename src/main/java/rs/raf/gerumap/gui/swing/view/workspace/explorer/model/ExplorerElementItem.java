@@ -12,12 +12,19 @@ import rs.raf.gerumap.tree.explorer.Element;
 import javax.swing.Icon;
 import javax.swing.JPopupMenu;
 
+/**
+ * Project explorer tree element.
+ */
 public class ExplorerElementItem extends ExplorerItem {
 
     private static Icon icon = ImageUtils.loadIcon(StringUtils.removeTrailing(ExplorerElementItem.class.getSimpleName(), "Item"));
 
     private static final JPopupMenu menu = new ExplorerElementMenu();
 
+    /**
+     * Create the explorer element.
+     * @param node node
+     */
     public ExplorerElementItem(BaseNode node) {
         super(node);
 

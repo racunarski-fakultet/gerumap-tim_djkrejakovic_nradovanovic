@@ -7,6 +7,9 @@ import rs.raf.gerumap.gui.swing.util.model.Theme;
 
 import java.awt.Toolkit;
 
+/**
+ * Default values for GeRuMap application preferences.
+ */
 public class PreferenceDefaultValues {
 
     public static final boolean MAXIMIZED     = false;
@@ -18,10 +21,18 @@ public class PreferenceDefaultValues {
     public static final String LANGUAGE   = Language.ENGLISH_US.getId();
     public static final String THEME      = Theme.FLAT_LAF_DARK.getId();
 
+    /**
+     * Calculates the height of the window based on the screen resolution. Target: 60%
+     * @return height
+     */
     private static int calculateWindowHeight() {
         return Toolkit.getDefaultToolkit().getScreenSize().height * 3 / 5;
     }
 
+    /**
+     * Calculates the width of the window based on the screen resolution. Target: 60%
+     * @return width
+     */
     private static int calculateWindowWidth() {
         return Toolkit.getDefaultToolkit().getScreenSize().width * 3 / 5;
     }

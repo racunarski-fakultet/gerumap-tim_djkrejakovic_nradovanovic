@@ -1,8 +1,17 @@
 package rs.raf.gerumap.gui.swing.util.model;
 
+/**
+ * Theme type
+ */
 public enum Theme {
 
+    /**
+     * FlatLaF Dark theme.
+     */
     FLAT_LAF_DARK ("Dark", "swing", "flatlaf", "com.formdev.flatlaf.FlatDarkLaf"),
+    /**
+     * FlatLaF Light theme.
+     */
     FLAT_LAF_LIGHT("Light", "swing", "flatlaf" , "com.formdev.flatlaf.FlatLightLaf");
 
     private final String widget;
@@ -17,6 +26,11 @@ public enum Theme {
         this.className = className;
     }
 
+    /**
+     * Returns Theme based on identifier.
+     * @param themeId theme id
+     * @return theme
+     */
     public static Theme getTheme(String themeId) {
         for (Theme theme : Theme.values())
             if (theme.getId().equals(themeId))
@@ -27,22 +41,42 @@ public enum Theme {
         return FLAT_LAF_DARK;
     }
 
+    /**
+     * Returns a theme widget.
+     * @return widget
+     */
     public String getWidget() {
         return widget;
     }
 
+    /**
+     * Returns the theme identifier.
+     * @return id
+     */
     public String getId() {
         return lookAndFeel + "-" + name.toLowerCase();
     }
 
+    /**
+     * Returns the theme's display name.
+     * @return name
+     */
     public String getName() {
         return name;
     }
 
+    /**
+     * Returns the theme class name.
+     * @return class name
+     */
     public String getClassName() {
         return className;
     }
 
+    /**
+     * Returns the theme directory.
+     * @return directory
+     */
     public String getThemeDir() {
         return widget + "/" + lookAndFeel;
     }

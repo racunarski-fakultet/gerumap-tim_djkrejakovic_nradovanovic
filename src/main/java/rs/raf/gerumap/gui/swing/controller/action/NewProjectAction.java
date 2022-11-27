@@ -6,6 +6,9 @@ import rs.raf.gerumap.tree.explorer.ProjectRoot;
 
 import java.awt.event.ActionEvent;
 
+/**
+ * The action that handles the creation of a new project.
+ */
 public class NewProjectAction extends GRMapAction {
 
     public NewProjectAction() {

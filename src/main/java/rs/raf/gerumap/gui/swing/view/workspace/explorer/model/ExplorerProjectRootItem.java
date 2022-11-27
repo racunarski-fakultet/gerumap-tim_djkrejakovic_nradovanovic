@@ -15,6 +15,9 @@ import rs.raf.gerumap.tree.explorer.ProjectRoot;
 import javax.swing.Icon;
 import javax.swing.JPopupMenu;
 
+/**
+ * Project explorer tree project root item.
+ */
 public class ExplorerProjectRootItem extends ExplorerItem {
 
     private static Icon icon = ImageUtils.loadIcon(StringUtils.removeTrailing(ExplorerProjectRootItem.class.getSimpleName(), "Item"));

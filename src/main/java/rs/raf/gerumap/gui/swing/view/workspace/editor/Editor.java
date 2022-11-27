@@ -29,11 +29,17 @@ public class Editor extends JTabbedPane {
     private final JToolBar leadingTools  = new JToolBar();
 
 
+    /**
+     * Create the editor.
+     */
     public Editor() {
         setup();
     }
     //region Setup
 
+    /**
+     * Setups basic editor functionalities.
+     */
     private void setup() {
         setupLeadingTools();
         setupTrailingTools();
@@ -51,8 +57,14 @@ public class Editor extends JTabbedPane {
         putClientProperty(FlatClientProperties.TABBED_PANE_TRAILING_COMPONENT, trailingTools.getComponentCount() > 0 ? trailingTools : null);
     }
 
+    /**
+     * Setups leading tools.
+     */
     private void setupLeadingTools() { }
 
+    /**
+     * Setups trailing tools.
+     */
     private void setupTrailingTools() {
         authorLabel.setBorder(BorderFactory.createEmptyBorder(0, 10, 0, 10));
         authorLabel.setText(author.getName());
@@ -65,43 +77,67 @@ public class Editor extends JTabbedPane {
 
     //region Load
 
+    /**
+     * Loads project documents in the editor.
+     * @param documents documents
+     * @param project project
+     */
     public void loadProject(List<MindMapDocument> documents, Project project) {
+        //Checks if the project is changing
         boolean sameProject = project.equals(this.project);
 
+        //Saves the last selected tab
         Component lastSelected = getSelectedComponent();
 
+        //Loads project documents
         for (MindMapDocument document : documents)
             loadDocument(document, project);
 
+        //If project was changed, new project is marked
         if (!sameProject)
             this.project = project;
 
+        //If the project has no documents, clear all tabs
         if (documents.size() == 0) {
             openedTabs.clear();
             removeAll();
         }
 
+        //Sets the saved tab as selected, if the project has not been changed
         if (lastSelected != null && sameProject)
             setSelectedComponent(lastSelected);
     }
 
+    /**
+     * Loads a document in the editor.
+     * @param document document
+     * @param project project
+     */
     public void loadDocument(MindMapDocument document, Project project) {
+        //If the project is changed, clear all tabs
         if (!project.equals(this.project)) {
             this.project = project;
             openedTabs.clear();
             removeAll();
         }
 
+        //The pairs are used to track whether the tab is opened or not
+        //False is default because in case if new document has been created,
+        //a tab for that document should be created
         Pair<String, Boolean> pair = new Pair<>(document.getName(), false);
 
+        //If the pair is not in the list of open tabs, it means that the document has been
+        //created and should be added to the list
         if (openedTabs.contains(pair))
             pair = openedTabs.get(openedTabs.indexOf(pair));
         else
             openedTabs.add(pair);
 
+        //If tab for the pair is not open, a new tab is created
         if (!pair.getSecond())
             addTab(document.getName(), document.getContent());
 
+        //Sets the open state and the tab is selected
         pair.setSecond(true);
         setSelectedIndex(getTabIndexWithTitle(document.getName()));
     }
@@ -110,10 +146,19 @@ public class Editor extends JTabbedPane {
 
     //region Add
 
+    /**
+     * Responds to the added project.
+     * @param project project
+     */
     public void projectAdded(Project project) {
         loadProject(List.of(), project);
     }
 
+    /**
+     * Responds to the added document.
+     * @param document document
+     * @param project project
+     */
     public void documentAdded(MindMapDocument document, Project project) {
         if (!project.equals(this.project))
             return;
@@ -125,6 +170,10 @@ public class Editor extends JTabbedPane {
 
     //region Remove
 
+    /**
+     * Responds to the removed project.
+     * @param project project
+     */
     public void projectRemoved(Project project) {
         if (!project.equals(this.project))
             return;
@@ -134,6 +183,11 @@ public class Editor extends JTabbedPane {
         removeAll();
     }
 
+    /**
+     * Responds to the removed document.
+     * @param document document
+     * @param project project
+     */
     public void documentRemoved(MindMapDocument document, Project project) {
         if (!project.equals(this.project))
             return;
@@ -150,11 +204,22 @@ public class Editor extends JTabbedPane {
 
     //region Rename
 
+    /**
+     * Responds to the renaming of the project.
+     * @param oldProject old project
+     * @param newProject new project
+     */
     public void projectRenamed(Project oldProject, Project newProject) {
         if (oldProject.equals(project))
             project.setName(newProject.getName());
     }
 
+    /**
+     * Responds to the renaming of the document.
+     * @param oldDocument old document
+     * @param newDocument new document
+     * @param project project
+     */
     public void documentRenamed(MindMapDocument oldDocument, MindMapDocument newDocument, Project project) {
         if (!project.equals(this.project))
             return;
@@ -171,6 +236,11 @@ public class Editor extends JTabbedPane {
 
     //endregion
 
+    /**
+     * Returns the tab index if tab with title is opened, otherwise returns -1.
+     * @param title tab title
+     * @return tab index if opened, otherwise -1
+     */
     private int getTabIndexWithTitle(String title) {
         for (int i = 0; i < getTabCount(); ++i)
             if (getTitleAt(i).equals(title))
@@ -179,17 +249,28 @@ public class Editor extends JTabbedPane {
         return -1;
     }
 
-
+    /**
+     * Sets the author.
+     * @param author author
+     */
     public void setAuthor(User author) {
         this.author = author;
 
         authorLabel.setText(author.getName());
     }
 
+    /**
+     * Returns the author.
+     * @return author
+     */
     public User getAuthor() {
         return author;
     }
 
+    /**
+     * Returns the project.
+     * @return project
+     */
     public Project getProject() {
         return project;
     }

@@ -1,5 +1,8 @@
 package rs.raf.gerumap.gui.swing.util.prefs;
 
+/**
+ * List of GeRuMap preferences keys
+ */
 public class PreferenceKeys {
 
     public static final String WINDOW_HEIGHT = "height";

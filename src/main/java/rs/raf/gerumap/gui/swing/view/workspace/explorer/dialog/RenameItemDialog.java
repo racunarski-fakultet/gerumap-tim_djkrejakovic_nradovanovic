@@ -6,8 +6,16 @@ import rs.raf.gerumap.gui.swing.view.workspace.explorer.dialog.event.ExplorerDia
 import java.awt.Frame;
 import java.util.List;
 
+/**
+ * Dialog used to retrieve user input for renaming an item.
+ */
 public class RenameItemDialog extends ExplorerDialogBase {
 
+    /**
+     * Creates a dialog for renaming an item.
+     * @param owner owner
+     * @param childrenNames children
+     */
     public RenameItemDialog(Frame owner, List<String> childrenNames, String itemName) {
         super(owner, "Rename", childrenNames);
 

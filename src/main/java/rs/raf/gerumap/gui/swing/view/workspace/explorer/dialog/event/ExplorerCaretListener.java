@@ -5,6 +5,9 @@ import rs.raf.gerumap.gui.swing.view.workspace.explorer.dialog.ExplorerDialogBas
 import javax.swing.event.CaretEvent;
 import javax.swing.event.CaretListener;
 
+/**
+ * Handles the text cursor pointer event.
+ */
 public class ExplorerCaretListener implements CaretListener {
 
     private final ExplorerDialogBase window;

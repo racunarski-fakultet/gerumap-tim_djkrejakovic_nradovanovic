@@ -8,6 +8,9 @@ import rs.raf.gerumap.tree.explorer.Project;
 
 import java.awt.event.ActionEvent;
 
+/**
+ * The action that handles the loading of a mindmap.
+ */
 public class LoadDocumentAction extends GRMapAction {
 
     public LoadDocumentAction() {

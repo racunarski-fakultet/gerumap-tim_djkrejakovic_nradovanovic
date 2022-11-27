@@ -8,8 +8,16 @@ import javax.swing.ImageIcon;
 import java.awt.Image;
 import java.net.URL;
 
+/**
+ * A utility that handles images.
+ */
 public class ImageUtils {
 
+    /**
+     * Loads an icon from the resource directory.
+     * @param name icon name
+     * @return icon if name exist, otherwise null
+     */
     public static Icon loadIcon(String name) {
         URL iconURL = ResourceUtils.getIconPath(name);
 
@@ -21,6 +29,11 @@ public class ImageUtils {
         return null;
     }
 
+    /**
+     * Loads an image from the resource directory.
+     * @param name image name
+     * @return image if name exist, otherwise null
+     */
     public static Image loadImage(String name) {
         URL imageURL = ResourceUtils.getIconPath(name);
 

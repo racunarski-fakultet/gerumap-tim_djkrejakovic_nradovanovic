@@ -9,6 +9,9 @@ import rs.raf.gerumap.gui.swing.view.custom.menu.MenuItem;
 
 import javax.swing.JPopupMenu;
 
+/**
+ * Mindmap context menu.
+ */
 public class ExplorerMindMapMenu extends JPopupMenu {
 
     public ExplorerMindMapMenu() {

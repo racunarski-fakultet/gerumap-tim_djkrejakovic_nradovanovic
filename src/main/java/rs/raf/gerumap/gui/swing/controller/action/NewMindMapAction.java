@@ -6,6 +6,9 @@ import rs.raf.gerumap.tree.explorer.Project;
 
 import java.awt.event.ActionEvent;
 
+/**
+ * The action that handles the creation of a new mindmap.
+ */
 public class NewMindMapAction extends GRMapAction {
 
     public NewMindMapAction() {

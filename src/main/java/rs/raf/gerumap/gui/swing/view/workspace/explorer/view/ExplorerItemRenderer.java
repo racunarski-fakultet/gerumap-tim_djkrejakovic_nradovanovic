@@ -8,6 +8,9 @@ import javax.swing.JTree;
 import javax.swing.tree.DefaultTreeCellRenderer;
 import java.awt.Component;
 
+/**
+ * Item renderer for JTree.
+ */
 public class ExplorerItemRenderer extends DefaultTreeCellRenderer {
 
     @Override

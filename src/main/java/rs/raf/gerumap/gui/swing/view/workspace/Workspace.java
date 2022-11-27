@@ -11,6 +11,9 @@ public class Workspace extends JSplitPane {
 
     private ProjectExplorer explorer;
 
+    /**
+     * Creates a workspace.
+     */
     public Workspace() {
         editor = new Editor();
         explorer = new ProjectExplorer();
@@ -20,10 +23,18 @@ public class Workspace extends JSplitPane {
 
     }
 
+    /**
+     * Returns the editor.
+     * @return editor
+     */
     public Editor getEditor() {
         return editor;
     }
 
+    /**
+     * Returns the project explorer.
+     * @return explorer
+     */
     public ProjectExplorer getExplorer() {
         return explorer;
     }

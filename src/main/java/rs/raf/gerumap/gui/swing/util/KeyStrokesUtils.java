@@ -8,13 +8,20 @@ import javax.swing.KeyStroke;
 import java.io.IOException;
 import java.util.Properties;
 
+/**
+ * A utility that handles keystrokes.
+ */
 public class KeyStrokesUtils {
 
     private static final String DEFAULT_VALUE = "NOT_FOUND";
 
     private static Properties properties = new Properties();
 
-    public static void LoadKeyStrokes(KeyStrokes keyStrokes) {
+    /**
+     * Loads keystrokes from the resource directory.
+     * @param keyStrokes keystrokes
+     */
+    public static void loadKeyStrokes(KeyStrokes keyStrokes) {
         try {
             properties.load(ResourceUtils.getKeyStrokesStream(keyStrokes));
         }
@@ -23,6 +30,11 @@ public class KeyStrokesUtils {
         }
     }
 
+    /**
+     * Returns the KeyStrokes with the given key.
+     * @param key key
+     * @return keystrokes
+     */
     public static KeyStroke getProperty(String key) {
         return KeyStroke.getKeyStroke(properties.getProperty(key, DEFAULT_VALUE));
     }

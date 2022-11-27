@@ -8,9 +8,10 @@ import java.awt.event.ComponentEvent;
 public class GRMapComponentListener extends ComponentAdapter {
 
     @Override
-    public void componentResized(ComponentEvent e) {
+    public void componentResized(ComponentEvent event) {
+        //Whenever the window is resized, the new size is saved
         if (!PreferenceUtils.getWindowMaximized())
-            PreferenceUtils.putWindowSize(e.getComponent().getSize());
+            PreferenceUtils.putWindowSize(event.getComponent().getSize());
     }
 
 }
