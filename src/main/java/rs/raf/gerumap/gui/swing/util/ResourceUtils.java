@@ -6,9 +6,6 @@ import rs.raf.gerumap.gui.swing.util.model.Language;
 import java.io.InputStream;
 import java.net.URL;
 
-/**
- * A utility that handles resources.
- */
 public class ResourceUtils {
 
     private static final String separator = "/";

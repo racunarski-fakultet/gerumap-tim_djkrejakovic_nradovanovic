@@ -1,4 +1,4 @@
-package rs.raf.gerumap.tree.composite;
+package rs.raf.gerumap.model.tree.composite;
 
 /**
  * A tree-like structure that represents a leaf of a tree that has a parent.

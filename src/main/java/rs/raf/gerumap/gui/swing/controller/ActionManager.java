@@ -13,9 +13,6 @@ import rs.raf.gerumap.gui.swing.controller.action.RenameExplorerItemAction;
 
 import java.util.List;
 
-/**
- * Manages all the actions in the program.
- */
 public class ActionManager {
 
     private static final List<GRMapAction> actions = List.of(

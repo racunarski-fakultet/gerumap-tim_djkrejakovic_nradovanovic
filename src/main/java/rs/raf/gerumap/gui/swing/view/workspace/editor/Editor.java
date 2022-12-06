@@ -1,99 +1,38 @@
 package rs.raf.gerumap.gui.swing.view.workspace.editor;
 
-import com.formdev.flatlaf.FlatClientProperties;
 import rs.raf.gerumap.gui.swing.view.MainWindow;
-import rs.raf.gerumap.gui.swing.view.workspace.editor.controller.EditorChangeListener;
-import rs.raf.gerumap.gui.swing.view.workspace.editor.controller.EditorTabMouseListener;
 import rs.raf.gerumap.gui.swing.view.workspace.editor.view.EditorPage;
 import rs.raf.gerumap.gui.swing.view.workspace.editor.view.EditorProject;
 import rs.raf.gerumap.gui.swing.view.workspace.editor.view.IEditorComponent;
 import rs.raf.gerumap.model.User;
 
 import javax.swing.BorderFactory;
-import javax.swing.Box;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JTabbedPane;
-import javax.swing.JToolBar;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Point;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.function.BiConsumer;
 
-public class Editor extends JTabbedPane implements IEditor {
+public class Editor extends JPanel implements IEditor {
 
-    private List<EditorProject> projects = new ArrayList<>();
+    private final List<EditorProject> projects = new ArrayList<>();
 
     private EditorProject activeProject = null;
 
     private EditorPage activePage = null;
 
-    private User author = new User("Unregistered");
-    private final JLabel authorLabel = new JLabel();
-
-    private final JToolBar trailingTools = new JToolBar();
-    private final JToolBar leadingTools  = new JToolBar();
-    private final JToolBar editorTools = new JToolBar(); //TODO prototype
-    private final JLabel statusBar = new JLabel();
-    private final JPanel propertiesPane = new JPanel();
-
-    /**
-     * Create the editor.
-     */
     public Editor() {
-        addListeners();
-        initializeComponents();
-    }
-
-    //region Setup
-
-    private void addListeners() {
-        addChangeListener(new EditorChangeListener());
-        addMouseListener(new EditorTabMouseListener());
+        super(new BorderLayout());
+        setupComponents();
     }
 
     /**
-     * Setups basic editor functionalities.
+     * Setups the editor components.
      */
-    private void initializeComponents() {
-        setupLeadingComponents();
-        setupTrailingComponents();
-        setupPageViewComponents();
-
-        setBorder(BorderFactory.createMatteBorder(1, 1, 0, 0, new Color(52, 53, 54))); //TODO move
-        setTabLayoutPolicy(JTabbedPane.SCROLL_TAB_LAYOUT);
-
-        putClientProperty(FlatClientProperties.TABBED_PANE_TAB_CLOSABLE, true);
-        putClientProperty(FlatClientProperties.TABBED_PANE_TAB_CLOSE_TOOLTIPTEXT, "Close" );
-        putClientProperty(FlatClientProperties.TABBED_PANE_TAB_CLOSE_CALLBACK, (BiConsumer<JTabbedPane, Integer>) (tabbedPane, tabIndex) -> closePage(tabIndex));
-        putClientProperty(FlatClientProperties.TABBED_PANE_LEADING_COMPONENT, leadingTools.getComponentCount() > 0 ? leadingTools : null);
-        putClientProperty(FlatClientProperties.TABBED_PANE_TRAILING_COMPONENT, trailingTools.getComponentCount() > 0 ? trailingTools : null);
+    private void setupComponents() {
+        setBorder(BorderFactory.createMatteBorder(1, 1, 0, 0, new Color(52, 53, 54)));
     }
-
-    /**
-     * Setups leading components.
-     */
-    private void setupLeadingComponents() { }
-
-    /**
-     * Setups trailing components.
-     */
-    private void setupTrailingComponents() {
-        authorLabel.setBorder(BorderFactory.createEmptyBorder(0, 10, 0, 10));
-        authorLabel.setText(author.getName());
-
-        trailingTools.add(Box.createHorizontalGlue());
-        trailingTools.add(authorLabel);
-    }
-
-    /**
-     * Setups the page view components.
-     */
-    private void setupPageViewComponents() { }
-
-    //endregion
 
     @Override
     public void load(IEditorComponent component) {
@@ -103,40 +42,31 @@ public class Editor extends JTabbedPane implements IEditor {
     @Override
     public void setActivePage(EditorPage page) {
         if (!page.isOpen()) {
-            setPageView(page);
+            openPage(page);
             page.setOpen(true);
         }
 
-        setSelectedIndex(getTabIndexForTitle(page.getTitle()));
+        activePage = page;
+        activeProject.setSelectedIndex(getTabIndexForTitle(page.getTitle()));
     }
 
     @Override
-    public void setPageView(EditorPage page) {
-        String title = page.getTitle();
+    public void setActiveProject(EditorProject project) {
+        if (activeProject != null)
+            closeProject();
 
-        JPanel view = new JPanel(new BorderLayout());
-        view.setBorder(BorderFactory.createEmptyBorder());
-
-        view.add(page, BorderLayout.CENTER);
-
-        add(title, view);
-    }
-
-    @Override
-    public void setActiveProject(EditorProject activeProject) {
-        this.activeProject = activeProject;
+        activeProject = project;
         updateWindowTitle();
     }
 
     @Override
     public void setAuthor(User author) {
-        this.author = author;
-        authorLabel.setText(author.getName());
+        activeProject.setAuthor(author);
     }
 
     @Override
     public void updateActivePage() {
-        activePage = getSelectedIndex() >= 0 ? getOpenPage(getSelectedIndex()) : null;
+        activePage = activeProject.getSelectedIndex() >= 0 ? getOpenPage(activeProject.getSelectedIndex()) : null;
     }
 
     @Override
@@ -151,12 +81,22 @@ public class Editor extends JTabbedPane implements IEditor {
 
     @Override
     public User getAuthor() {
-        return author;
+        return activeProject.getAuthor();
+    }
+
+    @Override
+    public void openPage(EditorPage page) {
+        String title = page.getTitle();
+
+        activeProject.add(title, page);
+
+        if (activeProject.getTabCount() == 1)
+            addComponents();
     }
 
     @Override
     public EditorPage getOpenPage(int index) {
-        return getOpenPage(getTitleAt(index));
+        return getOpenPage(activeProject.getTitleAt(index));
     }
 
     @Override
@@ -169,15 +109,13 @@ public class Editor extends JTabbedPane implements IEditor {
         EditorPage page = getOpenPage(index);
 
         page.setOpen(false);
-        remove(index);
+        activeProject.remove(index);
 
-        if (!page.equals(activePage))
-            return;
+        if (page.equals(this.activePage))
+            setActivePage(getOpenPage(index - Boolean.compare(activeProject.getTabCount() < index, false)));
 
-        if (getTabCount() > 0)
-            setActivePage(getOpenPage(index - Boolean.compare(getTabCount() < index, false)));
-        else
-            activePage = null;
+        if (activePage == null)
+            removeComponents();
     }
 
     @Override
@@ -187,18 +125,18 @@ public class Editor extends JTabbedPane implements IEditor {
 
     @Override
     public void closePages() {
-        while (getTabCount() > 0)
+        while (activeProject.getTabCount() > 0)
             closePage(0);
     }
 
     @Override
     public void closeTabAt(Point location) {
-        closePage(getUI().tabForCoordinate(this, location.x, location.y));
+        closePage(activeProject.getUI().tabForCoordinate(activeProject, location.x, location.y));
     }
 
     @Override
     public void renameTab(String newName, String oldName) {
-        setTitleAt(getTabIndexForTitle(oldName), newName);
+        activeProject.setTitleAt(getTabIndexForTitle(oldName), newName);
     }
 
     @Override
@@ -221,7 +159,7 @@ public class Editor extends JTabbedPane implements IEditor {
      * @param project project
      */
     public void removeProject(EditorProject project) {
-        if (project.equals(activeProject)) {
+        if (project.equals(this.activeProject)) {
             closeProject();
             updateWindowTitle();
         }
@@ -229,8 +167,24 @@ public class Editor extends JTabbedPane implements IEditor {
         projects.remove(project);
     }
 
-    private void updateWindowTitle() {
-        MainWindow.window.setTitle("GeRuMap" + (activeProject != null ? " - " + activeProject.getProject() : ""));
+    /**
+     * Adds components to the editor.
+     */
+    private void addComponents() {
+        add(activeProject, BorderLayout.CENTER);
+
+        validate();
+        repaint();
+    }
+
+    /**
+     * Removes components from the editor.
+     */
+    private void removeComponents() {
+        removeAll();
+
+        validate();
+        repaint();
     }
 
     /**
@@ -238,13 +192,19 @@ public class Editor extends JTabbedPane implements IEditor {
      * @param title tab title
      * @return tab index if opened, otherwise -1
      */
-    public int getTabIndexForTitle(String title) {
-        for (int i = 0; i < getTabCount(); ++i)
-            if (getTitleAt(i).equals(title))
+    private int getTabIndexForTitle(String title) {
+        for (int i = 0; i < activeProject.getTabCount(); ++i)
+            if (activeProject.getTitleAt(i).equals(title))
                 return i;
 
         return -1;
     }
 
-}
+    /**
+     * Updates the title of the window.
+     */
+    private void updateWindowTitle() {
+        MainWindow.window.setTitle("GeRuMap" + (activeProject != null ? " - " + activeProject.getProject() : ""));
+    }
 
+}

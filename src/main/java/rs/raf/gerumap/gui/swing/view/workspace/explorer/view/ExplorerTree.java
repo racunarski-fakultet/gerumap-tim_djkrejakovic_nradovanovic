@@ -15,9 +15,6 @@ import java.util.Queue;
 
 public class ExplorerTree extends JTree {
 
-    /**
-     * Creates the explorer tree.
-     */
     public ExplorerTree(Editor editor) {
         setModel(new ExplorerModel(new ExplorerProjectRootItem(editor)));
         DefaultTreeCellRenderer renderer = new ExplorerItemRenderer();

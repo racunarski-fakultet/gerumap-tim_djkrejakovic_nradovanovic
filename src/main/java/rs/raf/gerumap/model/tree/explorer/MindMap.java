@@ -1,11 +1,8 @@
-package rs.raf.gerumap.tree.explorer;
+package rs.raf.gerumap.model.tree.explorer;
 
-import rs.raf.gerumap.tree.composite.BaseNode;
-import rs.raf.gerumap.tree.composite.Node;
+import rs.raf.gerumap.model.tree.composite.BaseNode;
+import rs.raf.gerumap.model.tree.composite.Node;
 
-/**
- * A mindmap represents a node in the explorer structure.
- */
 public class MindMap extends Node {
 
     private static final String id = MindMap.class.getSimpleName();

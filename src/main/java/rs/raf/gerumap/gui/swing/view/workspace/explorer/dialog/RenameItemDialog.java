@@ -8,11 +8,6 @@ import java.util.List;
 
 public class RenameItemDialog extends ExplorerDialogBase {
 
-    /**
-     * Creates a dialog for renaming an item.
-     * @param owner owner
-     * @param childrenNames children
-     */
     public RenameItemDialog(Frame owner, List<String> childrenNames, String itemName) {
         super(owner, "Rename", childrenNames);
 

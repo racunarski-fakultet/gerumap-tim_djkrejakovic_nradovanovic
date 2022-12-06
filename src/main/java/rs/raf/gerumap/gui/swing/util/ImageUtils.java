@@ -8,9 +8,6 @@ import javax.swing.ImageIcon;
 import java.awt.Image;
 import java.net.URL;
 
-/**
- * A utility that handles images.
- */
 public class ImageUtils {
 
     /**

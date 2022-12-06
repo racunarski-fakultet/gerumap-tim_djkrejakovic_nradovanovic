@@ -1,8 +1,5 @@
 package rs.raf.gerumap.gui.swing.util.model;
 
-/**
- * Keystrokes type
- */
 public enum KeyStrokes {
 
     /**

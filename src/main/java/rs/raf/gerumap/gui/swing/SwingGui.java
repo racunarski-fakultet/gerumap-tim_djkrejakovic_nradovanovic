@@ -6,9 +6,6 @@ import rs.raf.gerumap.gui.swing.controller.UIManager;
 import rs.raf.gerumap.gui.swing.util.PreferenceUtils;
 import rs.raf.gerumap.gui.swing.view.MainWindow;
 
-/**
- * Handles Swing GUI.
- */
 public class SwingGui implements Gui {
 
     @Override

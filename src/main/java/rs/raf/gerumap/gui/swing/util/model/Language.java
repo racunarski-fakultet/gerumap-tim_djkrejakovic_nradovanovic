@@ -1,8 +1,5 @@
 package rs.raf.gerumap.gui.swing.util.model;
 
-/**
- * Display language type
- */
 public enum Language {
 
     /**

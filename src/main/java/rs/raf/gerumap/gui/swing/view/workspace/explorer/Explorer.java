@@ -1,10 +1,11 @@
 package rs.raf.gerumap.gui.swing.view.workspace.explorer;
 
 import rs.raf.gerumap.gui.swing.view.workspace.editor.Editor;
+import rs.raf.gerumap.gui.swing.view.workspace.editor.view.IEditorComponent;
 import rs.raf.gerumap.gui.swing.view.workspace.explorer.model.ExplorerItem;
 import rs.raf.gerumap.gui.swing.view.workspace.explorer.model.ExplorerModel;
 import rs.raf.gerumap.gui.swing.view.workspace.explorer.view.ExplorerTree;
-import rs.raf.gerumap.tree.composite.BaseNode;
+import rs.raf.gerumap.model.tree.composite.BaseNode;
 
 import javax.swing.BorderFactory;
 import javax.swing.JScrollPane;
@@ -69,7 +70,7 @@ public class Explorer extends JScrollPane implements IExplorer {
                 return item;
         }
 
-        return null; //TODO warning - path not found
+        return null;
     }
 
     @Override
@@ -83,6 +84,11 @@ public class Explorer extends JScrollPane implements IExplorer {
             nodes.add(0, current);
 
         return getItem(new TreePath(nodes.toArray()));
+    }
+
+    @Override
+    public IEditorComponent getComponent(BaseNode node) {
+        return getItem(node).getComponent();
     }
 
     @Override

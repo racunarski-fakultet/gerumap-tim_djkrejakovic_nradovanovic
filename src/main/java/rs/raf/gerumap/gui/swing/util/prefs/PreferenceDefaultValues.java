@@ -7,9 +7,6 @@ import rs.raf.gerumap.gui.swing.util.model.Theme;
 
 import java.awt.Toolkit;
 
-/**
- * Default values for GeRuMap application preferences.
- */
 public class PreferenceDefaultValues {
 
     public static final boolean MAXIMIZED     = false;

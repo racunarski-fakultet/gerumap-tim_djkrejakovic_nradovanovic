@@ -1,4 +1,4 @@
-package rs.raf.gerumap.tree.composite;
+package rs.raf.gerumap.model.tree.composite;
 
 import java.util.ArrayList;
 import java.util.List;

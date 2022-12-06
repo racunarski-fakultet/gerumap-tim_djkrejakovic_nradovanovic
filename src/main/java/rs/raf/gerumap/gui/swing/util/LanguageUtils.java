@@ -7,9 +7,6 @@ import rs.raf.gerumap.log.model.Message;
 import java.io.IOException;
 import java.util.Properties;
 
-/**
- * A utility that handles languages.
- */
 public class LanguageUtils {
 
     private static final String DEFAULT_VALUE = "NOT_FOUND";

@@ -1,8 +1,5 @@
 package rs.raf.gerumap.gui.swing.util.model;
 
-/**
- * Icon color type
- */
 public enum IconType {
 
     /**

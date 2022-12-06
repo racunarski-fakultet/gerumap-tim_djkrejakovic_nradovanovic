@@ -1,12 +1,9 @@
-package rs.raf.gerumap.tree.explorer;
+package rs.raf.gerumap.model.tree.explorer;
 
 import rs.raf.gerumap.gui.swing.util.LanguageUtils;
-import rs.raf.gerumap.tree.composite.BaseNode;
-import rs.raf.gerumap.tree.composite.Node;
+import rs.raf.gerumap.model.tree.composite.BaseNode;
+import rs.raf.gerumap.model.tree.composite.Node;
 
-/**
- * The root of the project represents a node without a parent in the explorer structure.
- */
 public class ProjectRoot extends Node {
 
     private static final String id = ProjectRoot.class.getSimpleName();

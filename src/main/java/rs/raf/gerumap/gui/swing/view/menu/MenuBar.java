@@ -10,9 +10,6 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 
-/**
- * Application main menu bar.
- */
 public class MenuBar extends JMenuBar {
 
     public MenuBar() {

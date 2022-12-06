@@ -7,9 +7,6 @@ import rs.raf.gerumap.gui.swing.util.model.Theme;
 import javax.swing.LookAndFeel;
 import java.lang.reflect.InvocationTargetException;
 
-/**
- * A utility that handles themes.
- */
 public class ThemeUtils {
 
     static {

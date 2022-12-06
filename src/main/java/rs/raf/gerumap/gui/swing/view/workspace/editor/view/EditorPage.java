@@ -2,7 +2,7 @@ package rs.raf.gerumap.gui.swing.view.workspace.editor.view;
 
 import rs.raf.gerumap.gui.swing.view.MainWindow;
 import rs.raf.gerumap.gui.swing.view.workspace.editor.IEditor;
-import rs.raf.gerumap.tree.explorer.MindMap;
+import rs.raf.gerumap.model.tree.explorer.MindMap;
 
 import javax.swing.BorderFactory;
 import javax.swing.JPanel;
@@ -19,9 +19,9 @@ public class EditorPage extends JScrollPane implements IEditorComponent {
 
     private static final IEditor editor = MainWindow.window.getEditor();
 
-    private MindMap mindMap;
+    private final MindMap mindMap;
 
-    private JPanel content;
+    private final JPanel content;
 
     private boolean isOpen = false;
 
@@ -49,10 +49,10 @@ public class EditorPage extends JScrollPane implements IEditorComponent {
         container.setBackground(new Color(66, 69, 72));
         container.setPreferredSize(new Dimension(width + 200, height + 200));
 
-        content.setPreferredSize(new Dimension(width, height));
-        content.setBackground(new Color(255, 255, 255));
+        this.content.setPreferredSize(new Dimension(width, height));
+        this.content.setBackground(new Color(255, 255, 255));
 
-        container.add(content);
+        container.add(this.content);
 
         setBorder(BorderFactory.createEmptyBorder());
         setViewportView(container);
@@ -60,12 +60,8 @@ public class EditorPage extends JScrollPane implements IEditorComponent {
 
     @Override
     public void load() {
-        EditorProject activeProject = editor.getActiveProject();
-
-        if (!mindMap.getParent().equals(activeProject.getProject())) {
-            editor.closePages();
-            editor.setActiveProject((EditorProject) MainWindow.window.getExplorer().getItem(mindMap.getParent()).getComponent());
-        }
+        if (!editor.getActiveProject().contains(this))
+            editor.setActiveProject((EditorProject) MainWindow.window.getExplorer().getComponent(mindMap.getParent()));
 
         editor.setActivePage(this);
     }
@@ -78,16 +74,28 @@ public class EditorPage extends JScrollPane implements IEditorComponent {
         editor.renameTab(getTitle(), oldName);
     }
 
-    public String getTitle() {
-        return mindMap.getName();
+    /**
+     * Sets whether the page is open.
+     * @param open open state
+     */
+    public void setOpen(boolean open) {
+        isOpen = open;
     }
 
+    /**
+     * Returns whether the page is open.
+     * @return true if open, otherwise false
+     */
     public boolean isOpen() {
         return isOpen;
     }
 
-    public void setOpen(boolean open) {
-        isOpen = open;
+    /**
+     * Returns the title of the page.
+     * @return title
+     */
+    public String getTitle() {
+        return mindMap.getName();
     }
 
     @Override

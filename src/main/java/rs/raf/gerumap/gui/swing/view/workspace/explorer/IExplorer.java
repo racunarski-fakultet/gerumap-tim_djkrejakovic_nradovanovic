@@ -1,26 +1,30 @@
 package rs.raf.gerumap.gui.swing.view.workspace.explorer;
 
+import rs.raf.gerumap.gui.swing.view.workspace.editor.view.IEditorComponent;
 import rs.raf.gerumap.gui.swing.view.workspace.explorer.model.ExplorerItem;
 import rs.raf.gerumap.gui.swing.view.workspace.explorer.model.ExplorerModel;
 import rs.raf.gerumap.gui.swing.view.workspace.explorer.view.ExplorerTree;
-import rs.raf.gerumap.tree.composite.BaseNode;
+import rs.raf.gerumap.model.tree.composite.BaseNode;
 
 import javax.swing.tree.TreePath;
 
 public interface IExplorer {
 
     /**
-     * Adds a new item in the explorer.
+     * Adds a new child to the explorer item.
+     * @param item item
      */
     void addChild(ExplorerItem item);
 
     /**
-     * Removes the selected explorer item.
+     * Removes the explorer item.
+     * @param item item
      */
     void remove(ExplorerItem item);
 
     /**
-     * Renames the selected explorer item.
+     * Renames the explorer item.
+     * @param item item
      */
     void rename(ExplorerItem item);
 
@@ -36,14 +40,26 @@ public interface IExplorer {
     ExplorerItem getSelectedItem();
 
     /**
-     * Returns the explorer item with given path.
+     * Returns the explorer item with the given path.
+     * @param path path
+     * @return explorer item
      */
     ExplorerItem getItem(TreePath path);
 
+
     /**
-     * Returns the explorer item with given node.
+     * Returns the explorer item with the given node.
+     * @param node node
+     * @return explorer item
      */
     ExplorerItem getItem(BaseNode node);
+
+    /**
+     * Returns the editor component with the given node.
+     * @param node node
+     * @return editor component
+     */
+    IEditorComponent getComponent(BaseNode node);
 
     /**
      * Returns the explorer item with locations x and y.
@@ -55,11 +71,13 @@ public interface IExplorer {
 
     /**
      * Returns the explorer root item.
+     * @return explorer root
      */
     ExplorerItem getRoot();
 
     /**
      * Returns the explorer model.
+     * @return explorer model
      */
     ExplorerModel getModel();
 

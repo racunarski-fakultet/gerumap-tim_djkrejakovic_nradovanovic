@@ -2,8 +2,8 @@ package rs.raf.gerumap.gui.swing.util;
 
 import rs.raf.gerumap.gui.swing.util.model.IconType;
 import rs.raf.gerumap.gui.swing.util.model.KeyStrokes;
-import rs.raf.gerumap.gui.swing.util.model.Theme;
 import rs.raf.gerumap.gui.swing.util.model.Language;
+import rs.raf.gerumap.gui.swing.util.model.Theme;
 import rs.raf.gerumap.gui.swing.util.prefs.PreferenceDefaultValues;
 import rs.raf.gerumap.gui.swing.util.prefs.PreferenceKeys;
 import rs.raf.gerumap.log.Logger;
@@ -13,9 +13,6 @@ import java.awt.Dimension;
 import java.util.prefs.BackingStoreException;
 import java.util.prefs.Preferences;
 
-/**
- * A utility that handles preferences.
- */
 public class PreferenceUtils {
 
     private static final Preferences preferences = Preferences.userRoot().node(PreferenceUtils.class.getName());

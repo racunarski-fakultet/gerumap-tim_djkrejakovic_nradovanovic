@@ -4,9 +4,6 @@ import javax.swing.Action;
 import javax.swing.JMenuItem;
 import java.awt.Dimension;
 
-/**
- * GeRuMap menu item.
- */
 public class MenuItem extends JMenuItem {
 
     public MenuItem(Action a) {

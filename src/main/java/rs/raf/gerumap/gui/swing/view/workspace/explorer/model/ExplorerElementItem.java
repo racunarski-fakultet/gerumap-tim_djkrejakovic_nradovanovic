@@ -7,7 +7,7 @@ import rs.raf.gerumap.gui.swing.view.workspace.editor.view.IEditorComponent;
 import rs.raf.gerumap.gui.swing.view.workspace.explorer.menu.ExplorerElementMenu;
 import rs.raf.gerumap.log.Logger;
 import rs.raf.gerumap.log.model.Message;
-import rs.raf.gerumap.tree.explorer.Element;
+import rs.raf.gerumap.model.tree.explorer.Element;
 
 import javax.swing.Icon;
 import javax.swing.JPopupMenu;
@@ -18,10 +18,6 @@ public class ExplorerElementItem extends ExplorerItem {
 
     private static final JPopupMenu menu = new ExplorerElementMenu();
 
-    /**
-     * Create the explorer element.
-     * @param node node
-     */
     public ExplorerElementItem(Element node) {
         super(node);
 

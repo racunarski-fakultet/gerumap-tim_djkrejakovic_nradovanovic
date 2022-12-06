@@ -29,12 +29,6 @@ public abstract class ExplorerDialogBase extends JDialog {
     protected boolean discarded = false;
     protected boolean validName = true;
 
-    /**
-     * Creates a explorer dialog.
-     * @param owner owner
-     * @param title title
-     * @param names names
-     */
     protected ExplorerDialogBase(Frame owner, String title, List<String> names) {
         super(owner);
         //Dialog decoration, size and location

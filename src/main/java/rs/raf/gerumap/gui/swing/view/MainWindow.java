@@ -16,9 +16,6 @@ import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.event.WindowEvent;
 
-/**
- * Application window.
- */
 public class MainWindow extends JFrame {
 
     public static final MainWindow window = instantiate();

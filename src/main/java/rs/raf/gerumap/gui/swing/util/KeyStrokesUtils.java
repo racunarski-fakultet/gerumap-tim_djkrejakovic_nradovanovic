@@ -8,9 +8,6 @@ import javax.swing.KeyStroke;
 import java.io.IOException;
 import java.util.Properties;
 
-/**
- * A utility that handles keystrokes.
- */
 public class KeyStrokesUtils {
 
     private static final String DEFAULT_VALUE = "NOT_FOUND";

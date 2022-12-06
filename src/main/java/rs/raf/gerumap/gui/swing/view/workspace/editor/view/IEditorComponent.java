@@ -7,6 +7,10 @@ public interface IEditorComponent {
      */
     void load();
 
+    /**
+     * Perform a rename operation for the component.
+     * @param oldName old name
+     */
     void rename(String oldName);
 
 }

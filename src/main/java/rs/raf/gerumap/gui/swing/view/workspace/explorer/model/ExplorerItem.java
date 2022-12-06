@@ -5,7 +5,7 @@ import rs.raf.gerumap.gui.swing.view.workspace.editor.view.IEditorComponent;
 import rs.raf.gerumap.gui.swing.view.workspace.explorer.IExplorer;
 import rs.raf.gerumap.gui.swing.view.workspace.explorer.dialog.ExplorerDialogBase;
 import rs.raf.gerumap.gui.swing.view.workspace.explorer.dialog.RenameItemDialog;
-import rs.raf.gerumap.tree.composite.BaseNode;
+import rs.raf.gerumap.model.tree.composite.BaseNode;
 
 import javax.swing.Icon;
 import javax.swing.tree.DefaultMutableTreeNode;
@@ -19,10 +19,6 @@ public abstract class ExplorerItem extends DefaultMutableTreeNode {
 
     protected final BaseNode node;
 
-    /**
-     * Create the explorer item.
-     * @param node node
-     */
     public ExplorerItem(BaseNode node) {
         super(node);
         this.node = node;

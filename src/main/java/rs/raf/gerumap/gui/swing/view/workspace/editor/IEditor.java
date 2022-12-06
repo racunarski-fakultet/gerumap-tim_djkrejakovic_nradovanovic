@@ -17,21 +17,15 @@ public interface IEditor {
 
     /**
      * Sets the page as the active page for editing.
-     * @param page page
+     * @param activePage page
      */
-    void setActivePage(EditorPage page);
-
-    /**
-     * Sets the page view.
-     * @param page page
-     */
-    void setPageView(EditorPage page);
+    void setActivePage(EditorPage activePage);
 
     /**
      * Sets the project as the active project that is being edited.
-     * @param project
+     * @param activeProject project
      */
-    void setActiveProject(EditorProject project);
+    void setActiveProject(EditorProject activeProject);
 
     /**
      * Sets the author of the project.
@@ -61,6 +55,12 @@ public interface IEditor {
      * @return author
      */
     User getAuthor();
+
+    /**
+     * Opens the page in editor view.
+     * @param page page
+     */
+    void openPage(EditorPage page);
 
     /**
      * Returns the open page at the index.

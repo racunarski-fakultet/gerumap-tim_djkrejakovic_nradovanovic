@@ -3,9 +3,6 @@ package rs.raf.gerumap.gui.swing.view.custom.menu;
 import javax.swing.JMenu;
 import java.awt.Dimension;
 
-/**
- * GeRuMap menu.
- */
 public class Menu extends JMenu {
 
     public Menu(String s) {

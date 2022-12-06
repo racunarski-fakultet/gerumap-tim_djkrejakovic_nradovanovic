@@ -1,10 +1,9 @@
-package rs.raf.gerumap.tree.composite;
+package rs.raf.gerumap.model.tree.composite;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
-/**
- * The base of the tree-like structure.
- */
 public abstract class BaseNode {
 
     String name;
@@ -53,13 +52,29 @@ public abstract class BaseNode {
         return parent;
     }
 
+    /**
+     * Returns the predecessor tree.
+     * @return tree
+     */
+    public List<BaseNode> getTree() {
+        List<BaseNode> nodes = new ArrayList<>();
+        BaseNode current = this;
+
+        nodes.add(this);
+
+        while ((current = current.parent) != null)
+            nodes.add(0, current);
+
+        return nodes;
+    }
+
     @Override
-    public boolean equals(Object object) {
-        if (object == null || !(object instanceof BaseNode))
+    public boolean equals(Object obj) {
+        if (obj == null || !(obj instanceof BaseNode))
             return false;
 
-        BaseNode component = (BaseNode) object;
-        return Objects.equals(component.getName(), this.getName());
+        BaseNode node = (BaseNode) obj;
+        return Objects.equals(node.getName(), this.getName()) && Objects.equals(getTree(), node.getTree());
     }
 
     @Override
