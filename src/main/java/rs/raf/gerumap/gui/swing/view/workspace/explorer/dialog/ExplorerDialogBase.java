@@ -8,6 +8,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
+import javax.swing.border.Border;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Frame;
@@ -16,16 +17,12 @@ import java.awt.GridBagLayout;
 import java.awt.event.WindowEvent;
 import java.util.List;
 
-/**
- * Dialog base class used to retrieve user input.
- */
 public abstract class ExplorerDialogBase extends JDialog {
 
     protected final JPanel             panel        = new JPanel(new GridBagLayout());
     protected final GridBagConstraints constraints  = new GridBagConstraints();
     protected final JLabel             titleLabel   = new JLabel();
     protected final JTextField         nameField    = new JTextField();
-    protected final JLabel             invalidLabel = new JLabel();
 
     protected List<String> names;
 
@@ -43,13 +40,11 @@ public abstract class ExplorerDialogBase extends JDialog {
         //Dialog decoration, size and location
         setModal(true);
         setUndecorated(true);
-        setSize(new Dimension(180, 49));
+        setSize(new Dimension(180, 58));
         setLocationRelativeTo(owner);
         setLocation(getLocation().x, getLocation().y - MainWindow.window.getSize().height / 16);
 
         this.names = names;
-
-        panel.setBackground(new Color(66, 69, 72));
 
         //Constraints for GridBagLayout
         constraints.fill = GridBagConstraints.HORIZONTAL;
@@ -58,24 +53,16 @@ public abstract class ExplorerDialogBase extends JDialog {
 
         //Title label
         titleLabel.setText(title);
-        titleLabel.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createMatteBorder(1, 1, 0, 1, new Color(86, 89, 92)),
-                                                                BorderFactory.createEmptyBorder(3,3,5,3)));
+        titleLabel.setBorder(BorderFactory.createEmptyBorder(3,3,5,3));
         titleLabel.setHorizontalAlignment(SwingConstants.CENTER);
         titleLabel.setVerticalAlignment(SwingConstants.CENTER);
 
-        //Invalid label
-        invalidLabel.setText("This name already exist!");
-        invalidLabel.setForeground(new Color(210, 72, 25));
-        invalidLabel.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createMatteBorder(0, 1, 1, 1, new Color(86, 89, 92)),
-                                                                  BorderFactory.createEmptyBorder(3,3,5,3)));
+        //Name field
+        nameField.setBorder(createRegularBorder());
 
-        invalidLabel.setHorizontalAlignment(SwingConstants.CENTER);
-        invalidLabel.setVerticalAlignment(SwingConstants.CENTER);
-
-        //Name Filed
-        nameField.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createLineBorder(new Color(86, 89, 92), 1),
-                                                               BorderFactory.createEmptyBorder(3,3,3,3)));
-
+        //Panel
+        panel.setBackground(new Color(66, 69, 72));
+        panel.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createLineBorder(new Color(86, 89, 92), 1), BorderFactory.createEmptyBorder(4, 4, 4, 4)));
         panel.add(titleLabel, constraints);
         panel.add(nameField, constraints);
 
@@ -86,7 +73,8 @@ public abstract class ExplorerDialogBase extends JDialog {
      * Updates the appearance of the dialog.
      */
     public void update() {
-        setValidName(!names.contains(nameField.getText().toLowerCase().trim()));
+        String newName = nameField.getText().toLowerCase().trim();
+        setValidName(!names.contains(newName) && newName.length() != 0);
     }
 
     /**
@@ -121,19 +109,27 @@ public abstract class ExplorerDialogBase extends JDialog {
         if (validName == isValid)
             return;
 
-        if (isValid) {
-            panel.remove(invalidLabel);
-            setSize(getWidth(), getHeight() - (int) invalidLabel.getPreferredSize().getHeight());
-        }
-        else {
-            panel.add(invalidLabel, constraints);
-            setSize(getWidth(), getHeight() + (int) invalidLabel.getPreferredSize().getHeight());
-        }
-
-        panel.validate();
-        panel.repaint();
+        nameField.setBorder(isValid ? createRegularBorder() : createErrorBorder());
 
         validName = isValid;
+    }
+
+    /**
+     * Returns the border of the text field when the name is not valid.
+     * @return border
+     */
+    private Border createErrorBorder() {
+        return BorderFactory.createCompoundBorder(BorderFactory.createCompoundBorder(BorderFactory.createMatteBorder(1, 0, 0, 0, new Color(86, 89, 92)),
+                                                                                     BorderFactory.createMatteBorder(0,0, 2,0, new Color(200, 20, 20))),
+                                                  BorderFactory.createEmptyBorder(3, 4, 2, 4));
+    }
+
+    /**
+     * Returns the border of the text field when the name is valid.
+     * @return border
+     */
+    private Border createRegularBorder() {
+        return BorderFactory.createCompoundBorder(BorderFactory.createMatteBorder(1, 0, 0, 0, new Color(86, 89, 92)), BorderFactory.createEmptyBorder(3,4,4,4));
     }
 
     /**

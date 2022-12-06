@@ -1,32 +1,97 @@
 package rs.raf.gerumap.gui.swing.view.workspace.explorer;
 
 import rs.raf.gerumap.gui.swing.view.workspace.explorer.model.ExplorerItem;
+import rs.raf.gerumap.gui.swing.view.workspace.explorer.model.ExplorerModel;
+import rs.raf.gerumap.gui.swing.view.workspace.explorer.view.ExplorerTree;
+import rs.raf.gerumap.tree.composite.BaseNode;
+
+import javax.swing.tree.TreePath;
 
 public interface IExplorer {
 
     /**
-     * adds a new child to the explorer for the passed node
+     * Adds a new item in the explorer.
      */
-    void addChild(ExplorerItem parent);
+    void addChild(ExplorerItem item);
 
     /**
-     * remove the passed node
+     * Removes the selected explorer item.
      */
-    void remove(ExplorerItem node);
+    void remove(ExplorerItem item);
 
     /**
-     * renames the passed node
+     * Renames the selected explorer item.
      */
-    void rename(ExplorerItem node);
+    void rename(ExplorerItem item);
 
     /**
-     * returns the last selected node from the explorer
+     * Sets the selected explorer item.
+     * @return true
      */
-    ExplorerItem getSelectedNode();
+    boolean setSelectedItem(ExplorerItem item);
 
     /**
-     * returns the explorer root item
+     * Returns the selected explorer item.
+     */
+    ExplorerItem getSelectedItem();
+
+    /**
+     * Returns the explorer item with given path.
+     */
+    ExplorerItem getItem(TreePath path);
+
+    /**
+     * Returns the explorer item with given node.
+     */
+    ExplorerItem getItem(BaseNode node);
+
+    /**
+     * Returns the explorer item with locations x and y.
+     * @param x mouse x position
+     * @param y mouse y position
+     * @return item if exists, otherwise null.
+     */
+    ExplorerItem getItemAtLocation(int x, int y);
+
+    /**
+     * Returns the explorer root item.
      */
     ExplorerItem getRoot();
+
+    /**
+     * Returns the explorer model.
+     */
+    ExplorerModel getModel();
+
+    /**
+     * Returns the explorer tree.
+     */
+    ExplorerTree getTree();
+
+    /**
+     * Reloads all descendants below the item.
+     * @param item item
+     */
+    void reload(ExplorerItem item);
+
+    /**
+     * Saves the current expanded states.
+     */
+    void saveExpandedStates();
+
+    /**
+     * Saves the current expanded states. Includes the path.
+     */
+    void saveExpandedStatesInclude(TreePath path);
+
+    /**
+     * Saves the current expanded states. Excludes the path and its children.
+     */
+    void saveExpandedStatesExclude(TreePath path);
+
+    /**
+     * Applies saved expanded states.
+     */
+    void applyExpandedStates();
 
 }

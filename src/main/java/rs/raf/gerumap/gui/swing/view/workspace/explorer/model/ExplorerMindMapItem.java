@@ -3,33 +3,29 @@ package rs.raf.gerumap.gui.swing.view.workspace.explorer.model;
 import com.formdev.flatlaf.util.StringUtils;
 import rs.raf.gerumap.gui.swing.util.ImageUtils;
 import rs.raf.gerumap.gui.swing.view.MainWindow;
-import rs.raf.gerumap.gui.swing.view.workspace.editor.MindMapDocument;
+import rs.raf.gerumap.gui.swing.view.workspace.editor.view.EditorPage;
+import rs.raf.gerumap.gui.swing.view.workspace.editor.view.IEditorComponent;
 import rs.raf.gerumap.gui.swing.view.workspace.explorer.menu.ExplorerMindMapMenu;
 import rs.raf.gerumap.log.Logger;
 import rs.raf.gerumap.log.model.Message;
-import rs.raf.gerumap.tree.composite.BaseNode;
-import rs.raf.gerumap.tree.composite.Node;
 import rs.raf.gerumap.tree.explorer.Element;
 import rs.raf.gerumap.tree.explorer.MindMap;
-import rs.raf.gerumap.tree.explorer.Project;
 
 import javax.swing.Icon;
 import javax.swing.JPopupMenu;
 
-/**
- * Project explorer tree mindmap item.
- */
 public class ExplorerMindMapItem extends ExplorerItem {
 
     private static Icon icon = ImageUtils.loadIcon(StringUtils.removeTrailing(ExplorerMindMapItem.class.getSimpleName(), "Item"));
 
     private static final JPopupMenu menu = new ExplorerMindMapMenu();
 
-    private final MindMapDocument document;
+    private EditorPage mindMapEditor;
 
-    public ExplorerMindMapItem(BaseNode node) {
+    public ExplorerMindMapItem(MindMap node) {
         super(node);
-        document = new MindMapDocument(node.getName());
+
+        mindMapEditor = new EditorPage(node);
 
         if (!(node instanceof MindMap))
             Logger.log(Message.EXPLORER_INCORRECT_NODE, getClass().getSimpleName());
@@ -37,31 +33,28 @@ public class ExplorerMindMapItem extends ExplorerItem {
 
     @Override
     protected ExplorerItem createChild() {
-        Node parent = (Node)getNode();
+        MindMap mindMap = (MindMap) getNode();
 
-        Element child = new Element(parent);
-        parent.addChild(child);
+        Element element = new Element(mindMap);
+        mindMap.addChild(element);
 
-        Logger.log(Message.ADDED_ELEMENT, child.getName());
+        Logger.log(Message.ADDED_ELEMENT, element.getName());
 
-        return new ExplorerElementItem(child);
+        return new ExplorerElementItem(element);
     }
 
     @Override
     public void rename() {
-        MindMapDocument oldMindMap = new MindMapDocument(getDocument().getName(), getDocument().getContent());
-        MindMapDocument newMindMap = getDocument();
-        Project project = (Project) ((ExplorerProjectItem) getParent()).getNode();
+        String oldName = mindMapEditor.getTitle();
 
         super.rename();
-        newMindMap.setName(getNode().getName());
 
-        MainWindow.window.getWorkspace().getEditor().documentRenamed(oldMindMap, newMindMap, project);
+        mindMapEditor.rename(oldName);
     }
 
     @Override
     public void showContextMenu(int x, int y) {
-        menu.show(MainWindow.window.getWorkspace().getExplorer().getExplorerTree(), x, y);
+        menu.show(MainWindow.window.getExplorer().getTree(), x, y);
     }
 
     @Override
@@ -69,12 +62,9 @@ public class ExplorerMindMapItem extends ExplorerItem {
         return icon;
     }
 
-    /**
-     * Returns the document.
-     * @return document
-     */
-    public MindMapDocument getDocument() {
-        return document;
+    @Override
+    public IEditorComponent getComponent() {
+        return mindMapEditor;
     }
 
 }

@@ -3,33 +3,32 @@ package rs.raf.gerumap.gui.swing.view.workspace.explorer.model;
 import com.formdev.flatlaf.util.StringUtils;
 import rs.raf.gerumap.gui.swing.util.ImageUtils;
 import rs.raf.gerumap.gui.swing.view.MainWindow;
-import rs.raf.gerumap.gui.swing.view.workspace.editor.MindMapDocument;
+import rs.raf.gerumap.gui.swing.view.workspace.editor.view.EditorPage;
+import rs.raf.gerumap.gui.swing.view.workspace.editor.view.EditorProject;
+import rs.raf.gerumap.gui.swing.view.workspace.editor.view.IEditorComponent;
 import rs.raf.gerumap.gui.swing.view.workspace.explorer.dialog.ExplorerDialogBase;
 import rs.raf.gerumap.gui.swing.view.workspace.explorer.dialog.NewMindMapDialog;
 import rs.raf.gerumap.gui.swing.view.workspace.explorer.menu.ExplorerProjectMenu;
 import rs.raf.gerumap.log.Logger;
 import rs.raf.gerumap.log.model.Message;
-import rs.raf.gerumap.tree.composite.BaseNode;
-import rs.raf.gerumap.tree.composite.Node;
 import rs.raf.gerumap.tree.explorer.MindMap;
 import rs.raf.gerumap.tree.explorer.Project;
 
 import javax.swing.Icon;
 import javax.swing.JPopupMenu;
-import java.util.ArrayList;
-import java.util.List;
 
-/**
- * Project explorer tree project item.
- */
 public class ExplorerProjectItem extends ExplorerItem {
 
     private static Icon icon = ImageUtils.loadIcon(StringUtils.removeTrailing(ExplorerProjectItem.class.getSimpleName(), "Item"));
 
-    public static final JPopupMenu menu = new ExplorerProjectMenu();
+    private JPopupMenu menu = new ExplorerProjectMenu();
 
-    public ExplorerProjectItem(BaseNode node) {
+    private EditorProject editorProject;
+
+    public ExplorerProjectItem(Project node) {
         super(node);
+
+        editorProject = new EditorProject(node);
 
         if (!(node instanceof Project))
             Logger.log(Message.EXPLORER_INCORRECT_NODE, getClass().getSimpleName());
@@ -44,40 +43,38 @@ public class ExplorerProjectItem extends ExplorerItem {
         if (name == null)
             return null;
 
-        Node parent = (Node)getNode();
-        MindMap child = new MindMap(name, parent);
-        parent.addChild(child);
+        Logger.log(Message.ADDED_MINDMAP, name);
 
-        ExplorerMindMapItem mindMapItem = new ExplorerMindMapItem(child);
         Project project = (Project) getNode();
 
-        MainWindow.window.getWorkspace().getEditor().documentAdded(mindMapItem.getDocument(), project);
+        MindMap mindMap = new MindMap(name, project);
+        project.addChild(mindMap);
 
-        Logger.log(Message.ADDED_MINDMAP, child.getName());
+        ExplorerMindMapItem mindMapItem = new ExplorerMindMapItem(mindMap);
+        editorProject.addPage((EditorPage) mindMapItem.getComponent());
 
         return mindMapItem;
     }
 
     @Override
     public void removeChild(ExplorerItem child) {
-        MainWindow.window.getWorkspace().getEditor().documentRemoved(((ExplorerMindMapItem) child).getDocument(), (Project) getNode());
+        editorProject.removePage((EditorPage) child.getComponent());
 
         super.removeChild(child);
     }
 
     @Override
     public void rename() {
-        Project oldProject = new Project(getNode().getName(), getNode().getParent());
-        oldProject.getChildren().addAll(((Node) getNode()).getChildren());
+        String oldName = editorProject.getProject().getName();
 
         super.rename();
 
-        MainWindow.window.getWorkspace().getEditor().projectRenamed(oldProject, (Project) getNode());
+        editorProject.rename(oldName);
     }
 
     @Override
     public void showContextMenu(int x, int y) {
-        menu.show(MainWindow.window.getWorkspace().getExplorer().getExplorerTree(), x, y);
+        menu.show(MainWindow.window.getExplorer().getTree(), x, y);
     }
 
     @Override
@@ -85,17 +82,9 @@ public class ExplorerProjectItem extends ExplorerItem {
         return icon;
     }
 
-    /**
-     * Returns the list of documents within the project.
-     * @return documents
-     */
-    public List<MindMapDocument> getDocuments() {
-        List<MindMapDocument> documents = new ArrayList<>();
-
-        for (int i = 0; i < getChildCount(); ++i)
-             documents.add(((ExplorerMindMapItem)getChildAt(i)).getDocument());
-
-        return documents;
+    @Override
+    public IEditorComponent getComponent() {
+        return editorProject;
     }
 
 }

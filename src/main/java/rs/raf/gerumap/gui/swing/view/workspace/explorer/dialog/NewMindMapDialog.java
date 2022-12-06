@@ -6,9 +6,6 @@ import rs.raf.gerumap.gui.swing.view.workspace.explorer.dialog.event.ExplorerDia
 import java.awt.Frame;
 import java.util.List;
 
-/**
- * Dialog used to retrieve user input for a new mindmap name.
- */
 public class NewMindMapDialog extends ExplorerDialogBase {
 
     /**

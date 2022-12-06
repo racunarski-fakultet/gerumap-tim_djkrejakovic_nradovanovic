@@ -7,9 +7,6 @@ import rs.raf.gerumap.gui.swing.view.custom.menu.MenuItem;
 
 import javax.swing.JPopupMenu;
 
-/**
- * Element context menu.
- */
 public class ExplorerElementMenu extends JPopupMenu {
 
     public ExplorerElementMenu() {

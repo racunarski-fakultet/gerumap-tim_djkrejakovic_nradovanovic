@@ -1,8 +1,10 @@
 package rs.raf.gerumap.gui.swing.view.workspace.explorer.view;
 
-import rs.raf.gerumap.gui.swing.view.workspace.explorer.controller.ExplorerMouseListener;
-import rs.raf.gerumap.gui.swing.view.workspace.explorer.model.ExplorerProjectRootItem;
+import rs.raf.gerumap.gui.swing.view.workspace.editor.Editor;
+import rs.raf.gerumap.gui.swing.view.workspace.explorer.controller.ExplorerContextMenuMouseListener;
+import rs.raf.gerumap.gui.swing.view.workspace.explorer.controller.ExplorerLoadItemMouseListener;
 import rs.raf.gerumap.gui.swing.view.workspace.explorer.model.ExplorerModel;
+import rs.raf.gerumap.gui.swing.view.workspace.explorer.model.ExplorerProjectRootItem;
 
 import javax.swing.JTree;
 import javax.swing.tree.DefaultTreeCellEditor;
@@ -11,23 +13,21 @@ import javax.swing.tree.TreePath;
 import java.util.LinkedList;
 import java.util.Queue;
 
-/**
- * Tree structure that displays hierarchical data.
- */
 public class ExplorerTree extends JTree {
 
     /**
      * Creates the explorer tree.
      */
-    public ExplorerTree() {
-        setModel(new ExplorerModel(new ExplorerProjectRootItem()));
+    public ExplorerTree(Editor editor) {
+        setModel(new ExplorerModel(new ExplorerProjectRootItem(editor)));
         DefaultTreeCellRenderer renderer = new ExplorerItemRenderer();
         setCellEditor(new DefaultTreeCellEditor(this, renderer));
         setCellRenderer(renderer);
 
         setRowHeight(20);
 
-        addMouseListener(new ExplorerMouseListener());
+        addMouseListener(new ExplorerContextMenuMouseListener());
+        addMouseListener(new ExplorerLoadItemMouseListener());
     }
 
     /**
@@ -54,7 +54,7 @@ public class ExplorerTree extends JTree {
      * Returns a snapshot of explorer tree.
      * @return expansion state
      */
-    public Queue<TreePath> getExpansionState() {
+    public Queue<TreePath> getExpansionStates() {
         Queue<TreePath> expandedPaths = new LinkedList<>();
 
         for (int i = 0; i < getRowCount(); ++i)
@@ -69,7 +69,7 @@ public class ExplorerTree extends JTree {
      * @param exclude exclude
      * @return expansion state
      */
-    public Queue<TreePath> getExpansionState(TreePath exclude) {
+    public Queue<TreePath> getExpansionStates(TreePath exclude) {
         Queue<TreePath> expandedPaths = new LinkedList<>();
 
         for (int i = 0; i < getRowCount(); ++i) {
@@ -82,10 +82,10 @@ public class ExplorerTree extends JTree {
     }
 
     /**
-     * Sets the expansion state for explorer tree.
+     * Sets the expansion states for explorer tree.
      * @param expansionState expansionState
      */
-    public void setExpansionState(Queue<TreePath> expansionState) {
+    public void setExpansionStates(Queue<TreePath> expansionState) {
         for (TreePath path : expansionState) {
             setExpandedState(path, true);
         }

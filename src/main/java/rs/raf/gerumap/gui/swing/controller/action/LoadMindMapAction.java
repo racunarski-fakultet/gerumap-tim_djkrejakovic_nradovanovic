@@ -4,15 +4,15 @@ import rs.raf.gerumap.gui.swing.view.MainWindow;
 
 import java.awt.event.ActionEvent;
 
-public class RenameExplorerItemAction extends GRMapAction {
+public class LoadMindMapAction extends GRMapAction {
 
-    public RenameExplorerItemAction() {
-        super(RenameExplorerItemAction.class);
+    public LoadMindMapAction() {
+        super(LoadMindMapAction.class);
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        MainWindow.window.getWorkspace().rename();
+        MainWindow.window.getWorkspace().loadMindMap();
     }
 
 }

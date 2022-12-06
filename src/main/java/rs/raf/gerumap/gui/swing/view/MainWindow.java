@@ -6,11 +6,14 @@ import rs.raf.gerumap.gui.swing.util.ImageUtils;
 import rs.raf.gerumap.gui.swing.util.PreferenceUtils;
 import rs.raf.gerumap.gui.swing.view.menu.MenuBar;
 import rs.raf.gerumap.gui.swing.view.toolbar.Toolbar;
+import rs.raf.gerumap.gui.swing.view.workspace.IWorkspace;
 import rs.raf.gerumap.gui.swing.view.workspace.Workspace;
+import rs.raf.gerumap.gui.swing.view.workspace.editor.IEditor;
 import rs.raf.gerumap.gui.swing.view.workspace.explorer.IExplorer;
 
 import javax.swing.JFrame;
 import java.awt.BorderLayout;
+import java.awt.Component;
 import java.awt.event.WindowEvent;
 
 /**
@@ -37,9 +40,11 @@ public class MainWindow extends JFrame {
 
     private Toolbar toolbar;
 
-    private Workspace workspace;
+    private IWorkspace workspace;
 
     private IExplorer explorer;
+
+    private IEditor editor;
 
     private void initialize() {
         setSettings();
@@ -89,6 +94,9 @@ public class MainWindow extends JFrame {
         workspace = new Workspace();
 
         explorer = workspace.getExplorer();
+        editor = workspace.getEditor();
+
+        explorer.setSelectedItem(explorer.getRoot());
     }
 
     //endregion
@@ -110,7 +118,7 @@ public class MainWindow extends JFrame {
     }
 
     private void addWorkspace() {
-        add(workspace);
+        add((Component) workspace);
     }
 
     //endregion
@@ -118,35 +126,27 @@ public class MainWindow extends JFrame {
     //region Get Components
 
     /**
-     * Returns the main menu.
-     * @return main menu
-     */
-    public MenuBar getMainMenu() {
-        return menuBar;
-    }
-
-    /**
-     * Returns the toolbar.
-     * @return toolbar
-     */
-    public Toolbar getToolbar() {
-        return toolbar;
-    }
-
-    /**
-     * Returns the workspace.
+     * Returns the workspace interface.
      * @return workspace
      */
-    public Workspace getWorkspace() {
+    public IWorkspace getWorkspace() {
         return workspace;
     }
 
     /**
-     * Returns the explorer.
+     * Returns the explorer interface.
      * @return explorer
      */
     public IExplorer getExplorer() {
         return explorer;
+    }
+
+    /**
+     * Returns the editor interface.
+     * @return editor
+     */
+    public IEditor getEditor() {
+        return editor;
     }
 
     //endregion

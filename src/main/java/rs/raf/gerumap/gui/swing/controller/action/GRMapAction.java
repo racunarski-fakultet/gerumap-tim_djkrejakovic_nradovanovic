@@ -10,9 +10,6 @@ import javax.swing.Action;
 import javax.swing.ImageIcon;
 import javax.swing.KeyStroke;
 
-/**
- * Implementation of the default GeRuMap action.
- */
 public abstract class GRMapAction extends AbstractAction {
 
     private String id;

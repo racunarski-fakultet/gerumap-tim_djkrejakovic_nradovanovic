@@ -3,7 +3,6 @@ package rs.raf.gerumap.gui.swing.view.menu;
 import rs.raf.gerumap.gui.swing.controller.ActionManager;
 import rs.raf.gerumap.gui.swing.controller.action.ExitAction;
 import rs.raf.gerumap.gui.swing.controller.action.NewProjectAction;
-import rs.raf.gerumap.gui.swing.controller.action.OpenProjectAction;
 import rs.raf.gerumap.gui.swing.view.custom.menu.Menu;
 import rs.raf.gerumap.gui.swing.view.custom.menu.MenuItem;
 
@@ -28,7 +27,6 @@ public class MenuBar extends JMenuBar {
         JMenuItem aboutItem    = new MenuItem("About");
 
         fileMenu.add(ActionManager.getAction(NewProjectAction.class));
-        fileMenu.add(ActionManager.getAction(OpenProjectAction.class));
         fileMenu.add(ActionManager.getAction(ExitAction.class));
 
         editMenu.add(undoItem);

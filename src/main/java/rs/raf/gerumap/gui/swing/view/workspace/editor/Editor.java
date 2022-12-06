@@ -1,71 +1,86 @@
 package rs.raf.gerumap.gui.swing.view.workspace.editor;
 
 import com.formdev.flatlaf.FlatClientProperties;
-import rs.raf.gerumap.model.Pair;
+import rs.raf.gerumap.gui.swing.view.MainWindow;
+import rs.raf.gerumap.gui.swing.view.workspace.editor.controller.EditorChangeListener;
+import rs.raf.gerumap.gui.swing.view.workspace.editor.controller.EditorTabMouseListener;
+import rs.raf.gerumap.gui.swing.view.workspace.editor.view.EditorPage;
+import rs.raf.gerumap.gui.swing.view.workspace.editor.view.EditorProject;
+import rs.raf.gerumap.gui.swing.view.workspace.editor.view.IEditorComponent;
 import rs.raf.gerumap.model.User;
-import rs.raf.gerumap.tree.explorer.Project;
 
 import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 import javax.swing.JToolBar;
+import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Component;
+import java.awt.Point;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.BiConsumer;
 
-public class Editor extends JTabbedPane {
+public class Editor extends JTabbedPane implements IEditor {
 
-    private Project project;
+    private List<EditorProject> projects = new ArrayList<>();
 
-    private List<Pair<String, Boolean>> openedTabs = new ArrayList<>();
+    private EditorProject activeProject = null;
 
-    private       User   author      = new User("Unregistered");
+    private EditorPage activePage = null;
+
+    private User author = new User("Unregistered");
     private final JLabel authorLabel = new JLabel();
 
     private final JToolBar trailingTools = new JToolBar();
     private final JToolBar leadingTools  = new JToolBar();
-
+    private final JToolBar editorTools = new JToolBar(); //TODO prototype
+    private final JLabel statusBar = new JLabel();
+    private final JPanel propertiesPane = new JPanel();
 
     /**
      * Create the editor.
      */
     public Editor() {
-        setup();
+        addListeners();
+        initializeComponents();
     }
+
     //region Setup
+
+    private void addListeners() {
+        addChangeListener(new EditorChangeListener());
+        addMouseListener(new EditorTabMouseListener());
+    }
 
     /**
      * Setups basic editor functionalities.
      */
-    private void setup() {
-        setupLeadingTools();
-        setupTrailingTools();
+    private void initializeComponents() {
+        setupLeadingComponents();
+        setupTrailingComponents();
+        setupPageViewComponents();
 
-        setBorder(BorderFactory.createLineBorder(new Color(52, 53, 54), 1)); //TODO move
+        setBorder(BorderFactory.createMatteBorder(1, 1, 0, 0, new Color(52, 53, 54))); //TODO move
         setTabLayoutPolicy(JTabbedPane.SCROLL_TAB_LAYOUT);
 
         putClientProperty(FlatClientProperties.TABBED_PANE_TAB_CLOSABLE, true);
         putClientProperty(FlatClientProperties.TABBED_PANE_TAB_CLOSE_TOOLTIPTEXT, "Close" );
-        putClientProperty(FlatClientProperties.TABBED_PANE_TAB_CLOSE_CALLBACK, (BiConsumer<JTabbedPane, Integer>) (tabbedPane, tabIndex) -> {
-            openedTabs.get(openedTabs.indexOf(new Pair<>(tabbedPane.getTitleAt(tabIndex), true))).setSecond(false);
-            removeTabAt(tabIndex);
-        });
+        putClientProperty(FlatClientProperties.TABBED_PANE_TAB_CLOSE_CALLBACK, (BiConsumer<JTabbedPane, Integer>) (tabbedPane, tabIndex) -> closePage(tabIndex));
         putClientProperty(FlatClientProperties.TABBED_PANE_LEADING_COMPONENT, leadingTools.getComponentCount() > 0 ? leadingTools : null);
         putClientProperty(FlatClientProperties.TABBED_PANE_TRAILING_COMPONENT, trailingTools.getComponentCount() > 0 ? trailingTools : null);
     }
 
     /**
-     * Setups leading tools.
+     * Setups leading components.
      */
-    private void setupLeadingTools() { }
+    private void setupLeadingComponents() { }
 
     /**
-     * Setups trailing tools.
+     * Setups trailing components.
      */
-    private void setupTrailingTools() {
+    private void setupTrailingComponents() {
         authorLabel.setBorder(BorderFactory.createEmptyBorder(0, 10, 0, 10));
         authorLabel.setText(author.getName());
 
@@ -73,206 +88,162 @@ public class Editor extends JTabbedPane {
         trailingTools.add(authorLabel);
     }
 
+    /**
+     * Setups the page view components.
+     */
+    private void setupPageViewComponents() { }
+
     //endregion
 
-    //region Load
-
-    /**
-     * Loads project documents in the editor.
-     * @param documents documents
-     * @param project project
-     */
-    public void loadProject(List<MindMapDocument> documents, Project project) {
-        //Checks if the project is changing
-        boolean sameProject = project.equals(this.project);
-
-        //Saves the last selected tab
-        Component lastSelected = getSelectedComponent();
-
-        //Loads project documents
-        for (MindMapDocument document : documents)
-            loadDocument(document, project);
-
-        //If project was changed, new project is marked
-        if (!sameProject)
-            this.project = project;
-
-        //If the project has no documents, clear all tabs
-        if (documents.size() == 0) {
-            openedTabs.clear();
-            removeAll();
-        }
-
-        //Sets the saved tab as selected, if the project has not been changed
-        if (lastSelected != null && sameProject)
-            setSelectedComponent(lastSelected);
+    @Override
+    public void load(IEditorComponent component) {
+        component.load();
     }
 
-    /**
-     * Loads a document in the editor.
-     * @param document document
-     * @param project project
-     */
-    public void loadDocument(MindMapDocument document, Project project) {
-        //If the project is changed, clear all tabs
-        if (!project.equals(this.project)) {
-            this.project = project;
-            openedTabs.clear();
-            removeAll();
+    @Override
+    public void setActivePage(EditorPage page) {
+        if (!page.isOpen()) {
+            setPageView(page);
+            page.setOpen(true);
         }
 
-        //The pairs are used to track whether the tab is opened or not
-        //False is default because in case if new document has been created,
-        //a tab for that document should be created
-        Pair<String, Boolean> pair = new Pair<>(document.getName(), false);
+        setSelectedIndex(getTabIndexForTitle(page.getTitle()));
+    }
 
-        //If the pair is not in the list of open tabs, it means that the document has been
-        //created and should be added to the list
-        if (openedTabs.contains(pair))
-            pair = openedTabs.get(openedTabs.indexOf(pair));
+    @Override
+    public void setPageView(EditorPage page) {
+        String title = page.getTitle();
+
+        JPanel view = new JPanel(new BorderLayout());
+        view.setBorder(BorderFactory.createEmptyBorder());
+
+        view.add(page, BorderLayout.CENTER);
+
+        add(title, view);
+    }
+
+    @Override
+    public void setActiveProject(EditorProject activeProject) {
+        this.activeProject = activeProject;
+        updateWindowTitle();
+    }
+
+    @Override
+    public void setAuthor(User author) {
+        this.author = author;
+        authorLabel.setText(author.getName());
+    }
+
+    @Override
+    public void updateActivePage() {
+        activePage = getSelectedIndex() >= 0 ? getOpenPage(getSelectedIndex()) : null;
+    }
+
+    @Override
+    public EditorPage getActivePage() {
+        return activePage;
+    }
+
+    @Override
+    public EditorProject getActiveProject() {
+        return activeProject;
+    }
+
+    @Override
+    public User getAuthor() {
+        return author;
+    }
+
+    @Override
+    public EditorPage getOpenPage(int index) {
+        return getOpenPage(getTitleAt(index));
+    }
+
+    @Override
+    public EditorPage getOpenPage(String title) {
+        return activeProject.getPage(title);
+    }
+
+    @Override
+    public void closePage(int index) {
+        EditorPage page = getOpenPage(index);
+
+        page.setOpen(false);
+        remove(index);
+
+        if (!page.equals(activePage))
+            return;
+
+        if (getTabCount() > 0)
+            setActivePage(getOpenPage(index - Boolean.compare(getTabCount() < index, false)));
         else
-            openedTabs.add(pair);
-
-        //If tab for the pair is not open, a new tab is created
-        if (!pair.getSecond())
-            addTab(document.getName(), document.getContent());
-
-        //Sets the open state and the tab is selected
-        pair.setSecond(true);
-        setSelectedIndex(getTabIndexWithTitle(document.getName()));
+            activePage = null;
     }
 
-    //endregion
+    @Override
+    public void closePage(String title) {
+        closePage(getTabIndexForTitle(title));
+    }
 
-    //region Add
+    @Override
+    public void closePages() {
+        while (getTabCount() > 0)
+            closePage(0);
+    }
+
+    @Override
+    public void closeTabAt(Point location) {
+        closePage(getUI().tabForCoordinate(this, location.x, location.y));
+    }
+
+    @Override
+    public void renameTab(String newName, String oldName) {
+        setTitleAt(getTabIndexForTitle(oldName), newName);
+    }
+
+    @Override
+    public void closeProject() {
+        closePages();
+        activeProject = null;
+    }
 
     /**
-     * Responds to the added project.
+     * Adds the project to the editor.
      * @param project project
      */
-    public void projectAdded(Project project) {
-        loadProject(List.of(), project);
+    public void addProject(EditorProject project) {
+        projects.add(project);
+        project.load();
     }
 
     /**
-     * Responds to the added document.
-     * @param document document
+     * Removes the project from the editor.
      * @param project project
      */
-    public void documentAdded(MindMapDocument document, Project project) {
-        if (!project.equals(this.project))
-            return;
+    public void removeProject(EditorProject project) {
+        if (project.equals(activeProject)) {
+            closeProject();
+            updateWindowTitle();
+        }
 
-        loadDocument(document, project);
+        projects.remove(project);
     }
 
-    //endregion
-
-    //region Remove
-
-    /**
-     * Responds to the removed project.
-     * @param project project
-     */
-    public void projectRemoved(Project project) {
-        if (!project.equals(this.project))
-            return;
-
-        this.project = null;
-        openedTabs.clear();
-        removeAll();
+    private void updateWindowTitle() {
+        MainWindow.window.setTitle("GeRuMap" + (activeProject != null ? " - " + activeProject.getProject() : ""));
     }
-
-    /**
-     * Responds to the removed document.
-     * @param document document
-     * @param project project
-     */
-    public void documentRemoved(MindMapDocument document, Project project) {
-        if (!project.equals(this.project))
-            return;
-
-        int openedTabIndex = openedTabs.indexOf(new Pair<>(document.getName(), true));
-
-        if (openedTabs.get(openedTabIndex).getSecond())
-            remove(getTabIndexWithTitle(document.getName()));
-
-        openedTabs.remove(openedTabIndex);
-    }
-
-    //endregion
-
-    //region Rename
-
-    /**
-     * Responds to the renaming of the project.
-     * @param oldProject old project
-     * @param newProject new project
-     */
-    public void projectRenamed(Project oldProject, Project newProject) {
-        if (oldProject.equals(project))
-            project.setName(newProject.getName());
-    }
-
-    /**
-     * Responds to the renaming of the document.
-     * @param oldDocument old document
-     * @param newDocument new document
-     * @param project project
-     */
-    public void documentRenamed(MindMapDocument oldDocument, MindMapDocument newDocument, Project project) {
-        if (!project.equals(this.project))
-            return;
-
-        if (!openedTabs.contains(new Pair<>(oldDocument.getName(), true)))
-            return;
-
-        int openedTabIndex = openedTabs.indexOf(new Pair<>(oldDocument.getName(), true));
-        openedTabs.get(openedTabIndex).setFirst(newDocument.getName());
-
-        if (openedTabs.get(openedTabIndex).getSecond())
-            setTitleAt(getTabIndexWithTitle(oldDocument.getName()), newDocument.getName());
-    }
-
-    //endregion
 
     /**
      * Returns the tab index if tab with title is opened, otherwise returns -1.
      * @param title tab title
      * @return tab index if opened, otherwise -1
      */
-    private int getTabIndexWithTitle(String title) {
+    public int getTabIndexForTitle(String title) {
         for (int i = 0; i < getTabCount(); ++i)
             if (getTitleAt(i).equals(title))
                 return i;
 
         return -1;
-    }
-
-    /**
-     * Sets the author.
-     * @param author author
-     */
-    public void setAuthor(User author) {
-        this.author = author;
-
-        authorLabel.setText(author.getName());
-    }
-
-    /**
-     * Returns the author.
-     * @return author
-     */
-    public User getAuthor() {
-        return author;
-    }
-
-    /**
-     * Returns the project.
-     * @return project
-     */
-    public Project getProject() {
-        return project;
     }
 
 }

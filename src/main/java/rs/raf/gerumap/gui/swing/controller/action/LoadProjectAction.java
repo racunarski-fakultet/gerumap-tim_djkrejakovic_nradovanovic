@@ -1,15 +1,9 @@
 package rs.raf.gerumap.gui.swing.controller.action;
 
 import rs.raf.gerumap.gui.swing.view.MainWindow;
-import rs.raf.gerumap.gui.swing.view.workspace.editor.Editor;
-import rs.raf.gerumap.gui.swing.view.workspace.explorer.model.ExplorerProjectItem;
-import rs.raf.gerumap.tree.explorer.Project;
 
 import java.awt.event.ActionEvent;
 
-/**
- * The action that handles the loading of a project.
- */
 public class LoadProjectAction extends GRMapAction {
 
     public LoadProjectAction() {
@@ -18,10 +12,7 @@ public class LoadProjectAction extends GRMapAction {
 
     @Override
     public void actionPerformed(ActionEvent event) {
-        ExplorerProjectItem project = (ExplorerProjectItem) MainWindow.window.getExplorer().getSelectedNode();
-        Editor editor = MainWindow.window.getWorkspace().getEditor();
-
-        editor.loadProject(project.getDocuments(), (Project) project.getNode());
+        MainWindow.window.getWorkspace().loadProject();
     }
 
 }

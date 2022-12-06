@@ -1,9 +1,10 @@
 package rs.raf.gerumap.gui.swing.view.workspace.explorer.model;
 
 import rs.raf.gerumap.gui.swing.view.MainWindow;
+import rs.raf.gerumap.gui.swing.view.workspace.editor.view.IEditorComponent;
+import rs.raf.gerumap.gui.swing.view.workspace.explorer.IExplorer;
 import rs.raf.gerumap.gui.swing.view.workspace.explorer.dialog.ExplorerDialogBase;
 import rs.raf.gerumap.gui.swing.view.workspace.explorer.dialog.RenameItemDialog;
-import rs.raf.gerumap.gui.swing.view.workspace.explorer.view.ExplorerTree;
 import rs.raf.gerumap.tree.composite.BaseNode;
 
 import javax.swing.Icon;
@@ -12,14 +13,11 @@ import javax.swing.tree.TreeNode;
 import javax.swing.tree.TreePath;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Queue;
+import java.util.Objects;
 
-/**
- * Project explorer tree item base.
- */
 public abstract class ExplorerItem extends DefaultMutableTreeNode {
 
-    private BaseNode node;
+    protected final BaseNode node;
 
     /**
      * Create the explorer item.
@@ -47,19 +45,15 @@ public abstract class ExplorerItem extends DefaultMutableTreeNode {
         if (child == null)
             return;
 
-        ExplorerTree explorer = MainWindow.window.getWorkspace().getExplorer().getExplorerTree();
-        ExplorerModel explorerModel = (ExplorerModel)explorer.getModel();
+        IExplorer explorer = MainWindow.window.getExplorer();
 
-        //Creates a snapshot
-        Queue<TreePath> expansionState = explorer.getExpansionState();
-        expansionState.add(getTreePath());
+        explorer.saveExpandedStatesInclude(getTreePath());
 
         add(child);
-        explorerModel.reload(this);
-        explorer.setSelectionPath(child.getTreePath());
+        explorer.reload(this);
+        explorer.setSelectedItem(child);
 
-        //Restores a snapshot
-        explorer.setExpansionState(expansionState);
+        explorer.applyExpandedStates();
     }
 
     /**
@@ -73,19 +67,16 @@ public abstract class ExplorerItem extends DefaultMutableTreeNode {
      * @param child child
      */
     public void removeChild(ExplorerItem child) {
-        ExplorerTree explorer = MainWindow.window.getWorkspace().getExplorer().getExplorerTree();
-        ExplorerModel explorerModel = (ExplorerModel)explorer.getModel();
+        IExplorer explorer = MainWindow.window.getExplorer();
 
-        //Creates a snapshot
-        Queue<TreePath> expansionState = explorer.getExpansionState(child.getTreePath());
+        explorer.saveExpandedStatesExclude(child.getTreePath());
 
         remove(child);
 
-        explorerModel.reload(this);
-        explorer.setSelectionPath(getTreePath());
+        explorer.reload(this);
+        explorer.setSelectedItem(this);
 
-        //Restores a snapshot
-        explorer.setExpansionState(expansionState);
+        explorer.applyExpandedStates();
     }
 
     /**
@@ -95,26 +86,23 @@ public abstract class ExplorerItem extends DefaultMutableTreeNode {
         ExplorerItem parent = (ExplorerItem) getParent();
         String nodeName = getNode().getName();
 
-        //Displays rename dialog
         ExplorerDialogBase dialog = new RenameItemDialog(MainWindow.window, parent.getChildrenNames(nodeName), nodeName);
         dialog.setVisible(true);
-        //Retrieves the value after interaction
         String name = (String) dialog.getValue();
 
         if (name == null)
             return;
 
-        ExplorerTree explorer = MainWindow.window.getWorkspace().getExplorer().getExplorerTree();
-        ExplorerModel explorerModel = (ExplorerModel)explorer.getModel();
+        IExplorer explorer = MainWindow.window.getExplorer();
 
-        //Saves expanded state
-        boolean isExpanded = explorer.isExpanded(this.getTreePath());
+        explorer.saveExpandedStates();
 
         node.setName(name);
 
-        explorerModel.reload(this);
-        explorer.setSelectionPath(this.getTreePath());
-        explorer.setExpandedState(this.getTreePath(), isExpanded);
+        explorer.reload(this);
+        explorer.setSelectedItem(this);
+
+        explorer.applyExpandedStates();
     }
 
     /**
@@ -127,7 +115,6 @@ public abstract class ExplorerItem extends DefaultMutableTreeNode {
 
         nodes.add(this);
 
-        //Makes a full path (This item name, parent name, ... , ProjectRoot name)
         while ((current = current.getParent()) != null)
             nodes.add(0, current);
 
@@ -168,9 +155,20 @@ public abstract class ExplorerItem extends DefaultMutableTreeNode {
     public abstract void showContextMenu(int x, int y);
 
     /**
-     * Returns the icon of item.
-     * @return
+     * Returns the icon of the item.
+     * @return icon
      */
     public abstract Icon getIcon();
+
+    public abstract IEditorComponent getComponent();
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null || !(obj instanceof ExplorerItem))
+            return false;
+
+        ExplorerItem item = (ExplorerItem) obj;
+        return Objects.equals(node, item.node);
+    }
 
 }
