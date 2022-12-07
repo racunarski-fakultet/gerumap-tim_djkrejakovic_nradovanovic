@@ -104,7 +104,7 @@ public class UserDialog extends JDialog {
      * @return border
      */
     private Border createErrorBorder() {
-        return BorderFactory.createCompoundBorder(BorderFactory.createCompoundBorder(BorderFactory.createLineBorder(new Color(86, 89, 92), 1, true),
+        return BorderFactory.createCompoundBorder(BorderFactory.createCompoundBorder(BorderFactory.createLineBorder(new Color(86, 89, 92), 1),
                                                                                      BorderFactory.createMatteBorder(0,0, 2,0, new Color(200, 20, 20))),
                                                   BorderFactory.createEmptyBorder(3, 4, 2, 4));
     }
@@ -114,7 +114,7 @@ public class UserDialog extends JDialog {
      * @return border
      */
     private Border createRegularBorder() {
-        return BorderFactory.createCompoundBorder(BorderFactory.createLineBorder(new Color(86, 89, 92), 1, true), BorderFactory.createEmptyBorder(3,4,4,4));
+        return BorderFactory.createCompoundBorder(BorderFactory.createLineBorder(new Color(86, 89, 92), 1), BorderFactory.createEmptyBorder(3,4,4,4));
     }
 
     /**

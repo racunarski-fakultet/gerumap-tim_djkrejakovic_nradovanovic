@@ -21,6 +21,7 @@ public class UIManager {
         setupTheme(PreferenceUtils.getTheme());
         setupLanguage(PreferenceUtils.getLanguage());
         setupKeyStrokes(PreferenceUtils.getKeyStrokes());
+        setupState();
     }
 
     /**
@@ -61,6 +62,12 @@ public class UIManager {
         FlatAnimatedLafChange.hideSnapshotWithAnimation();
 
         PreferenceUtils.putTheme(theme);
+
+        ActionManager.setupIcons();
+    }
+
+    public static void setupState() {
+        StateManager.setup();
     }
 
     //endregion

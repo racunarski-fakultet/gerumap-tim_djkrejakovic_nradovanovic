@@ -6,6 +6,7 @@ import rs.raf.gerumap.gui.swing.view.workspace.explorer.controller.ExplorerLoadI
 import rs.raf.gerumap.gui.swing.view.workspace.explorer.model.ExplorerModel;
 import rs.raf.gerumap.gui.swing.view.workspace.explorer.model.ExplorerProjectRootItem;
 
+import javax.swing.BorderFactory;
 import javax.swing.JTree;
 import javax.swing.tree.DefaultTreeCellEditor;
 import javax.swing.tree.DefaultTreeCellRenderer;
@@ -21,6 +22,7 @@ public class ExplorerTree extends JTree {
         setCellEditor(new DefaultTreeCellEditor(this, renderer));
         setCellRenderer(renderer);
 
+        setBorder(BorderFactory.createEmptyBorder(1, 10, 0, 0));
         setRowHeight(20);
 
         addMouseListener(new ExplorerContextMenuMouseListener());

@@ -1,31 +1,43 @@
 package rs.raf.gerumap.gui.swing.controller;
 
 import com.formdev.flatlaf.util.StringUtils;
+import rs.raf.gerumap.gui.swing.controller.action.ConceptStateAction;
+import rs.raf.gerumap.gui.swing.controller.action.ConnectStateAction;
 import rs.raf.gerumap.gui.swing.controller.action.ExitAction;
 import rs.raf.gerumap.gui.swing.controller.action.GRMapAction;
 import rs.raf.gerumap.gui.swing.controller.action.LoadMindMapAction;
 import rs.raf.gerumap.gui.swing.controller.action.LoadProjectAction;
+import rs.raf.gerumap.gui.swing.controller.action.MoveStateAction;
 import rs.raf.gerumap.gui.swing.controller.action.NewElementAction;
 import rs.raf.gerumap.gui.swing.controller.action.NewMindMapAction;
 import rs.raf.gerumap.gui.swing.controller.action.NewProjectAction;
 import rs.raf.gerumap.gui.swing.controller.action.RemoveExplorerItemAction;
+import rs.raf.gerumap.gui.swing.controller.action.RemoveStateAction;
 import rs.raf.gerumap.gui.swing.controller.action.RenameExplorerItemAction;
+import rs.raf.gerumap.gui.swing.controller.action.SelectStateAction;
 import rs.raf.gerumap.gui.swing.controller.action.UserAction;
+import rs.raf.gerumap.gui.swing.controller.action.ZoomStateAction;
 
 import java.util.List;
 
 public class ActionManager {
 
     private static final List<GRMapAction> actions = List.of(
+            new ConceptStateAction(),
+            new ConnectStateAction(),
+            new ExitAction(),
             new LoadMindMapAction(),
             new LoadProjectAction(),
+            new MoveStateAction(),
             new NewElementAction(),
             new NewMindMapAction(),
             new NewProjectAction(),
             new RemoveExplorerItemAction(),
+            new RemoveStateAction(),
             new RenameExplorerItemAction(),
+            new SelectStateAction(),
             new UserAction(),
-            new ExitAction()
+            new ZoomStateAction()
     );
 
     //region Setup
@@ -50,7 +62,7 @@ public class ActionManager {
     }
 
     /**
-     * Setups all action keystrokes/
+     * Setups all action keystrokes.
      */
     public static void setupKeyStrokes() {
         for (GRMapAction action : actions) {

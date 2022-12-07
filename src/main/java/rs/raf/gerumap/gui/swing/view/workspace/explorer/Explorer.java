@@ -4,8 +4,8 @@ import rs.raf.gerumap.gui.swing.view.workspace.editor.Editor;
 import rs.raf.gerumap.gui.swing.view.workspace.editor.view.IEditorComponent;
 import rs.raf.gerumap.gui.swing.view.workspace.explorer.model.ExplorerItem;
 import rs.raf.gerumap.gui.swing.view.workspace.explorer.model.ExplorerModel;
-import rs.raf.gerumap.gui.swing.view.workspace.explorer.view.ExplorerTree;
 import rs.raf.gerumap.gui.swing.view.workspace.explorer.model.tree.composite.BaseNode;
+import rs.raf.gerumap.gui.swing.view.workspace.explorer.view.ExplorerTree;
 
 import javax.swing.BorderFactory;
 import javax.swing.JScrollPane;

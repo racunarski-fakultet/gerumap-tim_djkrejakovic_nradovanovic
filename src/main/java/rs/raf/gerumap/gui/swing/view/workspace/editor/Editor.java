@@ -1,10 +1,11 @@
 package rs.raf.gerumap.gui.swing.view.workspace.editor;
 
 import rs.raf.gerumap.gui.swing.view.MainWindow;
+import rs.raf.gerumap.gui.swing.view.user.model.User;
+import rs.raf.gerumap.gui.swing.view.workspace.editor.toolbar.EditorToolbar;
 import rs.raf.gerumap.gui.swing.view.workspace.editor.view.EditorPage;
 import rs.raf.gerumap.gui.swing.view.workspace.editor.view.EditorProject;
 import rs.raf.gerumap.gui.swing.view.workspace.editor.view.IEditorComponent;
-import rs.raf.gerumap.gui.swing.view.user.model.User;
 
 import javax.swing.BorderFactory;
 import javax.swing.JPanel;
@@ -18,11 +19,13 @@ public class Editor extends JPanel implements IEditor {
 
     private final List<EditorProject> projects = new ArrayList<>();
 
+    private User author = null;
+
     private EditorProject activeProject = null;
 
     private EditorPage activePage = null;
 
-    private User author = null;
+    private final EditorToolbar toolbar = new EditorToolbar();
 
     public Editor() {
         super(new BorderLayout());
@@ -177,6 +180,7 @@ public class Editor extends JPanel implements IEditor {
      */
     private void addComponents() {
         add(activeProject, BorderLayout.CENTER);
+        add(toolbar, BorderLayout.WEST);
 
         validate();
         repaint();

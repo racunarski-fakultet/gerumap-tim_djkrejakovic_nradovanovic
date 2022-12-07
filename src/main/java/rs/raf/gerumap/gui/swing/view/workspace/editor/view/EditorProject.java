@@ -2,10 +2,10 @@ package rs.raf.gerumap.gui.swing.view.workspace.editor.view;
 
 import com.formdev.flatlaf.FlatClientProperties;
 import rs.raf.gerumap.gui.swing.view.MainWindow;
+import rs.raf.gerumap.gui.swing.view.user.model.User;
 import rs.raf.gerumap.gui.swing.view.workspace.editor.IEditor;
 import rs.raf.gerumap.gui.swing.view.workspace.editor.controller.EditorChangeListener;
 import rs.raf.gerumap.gui.swing.view.workspace.editor.controller.EditorTabMouseListener;
-import rs.raf.gerumap.gui.swing.view.user.model.User;
 import rs.raf.gerumap.gui.swing.view.workspace.explorer.model.tree.explorer.Project;
 
 import javax.swing.BorderFactory;
@@ -13,6 +13,7 @@ import javax.swing.Box;
 import javax.swing.JLabel;
 import javax.swing.JTabbedPane;
 import javax.swing.JToolBar;
+import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -55,6 +56,7 @@ public class EditorProject extends JTabbedPane implements IEditorComponent {
         setupLeadingComponents();
         setupTrailingComponents();
 
+        setBorder(BorderFactory.createMatteBorder(0, 1, 0, 0, new Color(52, 53, 54)));
         setTabLayoutPolicy(JTabbedPane.SCROLL_TAB_LAYOUT);
 
         putClientProperty(FlatClientProperties.TABBED_PANE_TAB_CLOSABLE, true);
