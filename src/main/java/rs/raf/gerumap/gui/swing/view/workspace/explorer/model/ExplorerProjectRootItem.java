@@ -11,8 +11,8 @@ import rs.raf.gerumap.gui.swing.view.workspace.explorer.dialog.NewProjectDialog;
 import rs.raf.gerumap.gui.swing.view.workspace.explorer.menu.ExplorerProjectRootMenu;
 import rs.raf.gerumap.log.Logger;
 import rs.raf.gerumap.log.model.Message;
-import rs.raf.gerumap.model.tree.explorer.Project;
-import rs.raf.gerumap.model.tree.explorer.ProjectRoot;
+import rs.raf.gerumap.gui.swing.view.workspace.explorer.model.tree.explorer.Project;
+import rs.raf.gerumap.gui.swing.view.workspace.explorer.model.tree.explorer.ProjectRoot;
 
 import javax.swing.Icon;
 import javax.swing.JPopupMenu;

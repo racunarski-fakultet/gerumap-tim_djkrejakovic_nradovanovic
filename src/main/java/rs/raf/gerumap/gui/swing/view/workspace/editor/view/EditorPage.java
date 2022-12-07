@@ -2,7 +2,7 @@ package rs.raf.gerumap.gui.swing.view.workspace.editor.view;
 
 import rs.raf.gerumap.gui.swing.view.MainWindow;
 import rs.raf.gerumap.gui.swing.view.workspace.editor.IEditor;
-import rs.raf.gerumap.model.tree.explorer.MindMap;
+import rs.raf.gerumap.gui.swing.view.workspace.explorer.model.tree.explorer.MindMap;
 
 import javax.swing.BorderFactory;
 import javax.swing.JPanel;

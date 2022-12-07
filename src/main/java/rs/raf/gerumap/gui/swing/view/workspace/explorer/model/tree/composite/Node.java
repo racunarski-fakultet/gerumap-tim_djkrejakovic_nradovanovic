@@ -1,4 +1,4 @@
-package rs.raf.gerumap.model.tree.composite;
+package rs.raf.gerumap.gui.swing.view.workspace.explorer.model.tree.composite;
 
 import java.util.ArrayList;
 import java.util.List;

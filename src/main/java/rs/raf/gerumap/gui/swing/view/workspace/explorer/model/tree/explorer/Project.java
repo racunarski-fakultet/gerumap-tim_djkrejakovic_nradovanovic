@@ -1,7 +1,7 @@
-package rs.raf.gerumap.model.tree.explorer;
+package rs.raf.gerumap.gui.swing.view.workspace.explorer.model.tree.explorer;
 
-import rs.raf.gerumap.model.tree.composite.BaseNode;
-import rs.raf.gerumap.model.tree.composite.Node;
+import rs.raf.gerumap.gui.swing.view.workspace.explorer.model.tree.composite.BaseNode;
+import rs.raf.gerumap.gui.swing.view.workspace.explorer.model.tree.composite.Node;
 
 public class Project extends Node {
 

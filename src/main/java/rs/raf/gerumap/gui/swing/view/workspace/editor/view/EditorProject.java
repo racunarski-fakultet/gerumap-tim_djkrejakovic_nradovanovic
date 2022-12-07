@@ -6,7 +6,7 @@ import rs.raf.gerumap.gui.swing.view.workspace.editor.IEditor;
 import rs.raf.gerumap.gui.swing.view.workspace.editor.controller.EditorChangeListener;
 import rs.raf.gerumap.gui.swing.view.workspace.editor.controller.EditorTabMouseListener;
 import rs.raf.gerumap.gui.swing.view.user.model.User;
-import rs.raf.gerumap.model.tree.explorer.Project;
+import rs.raf.gerumap.gui.swing.view.workspace.explorer.model.tree.explorer.Project;
 
 import javax.swing.BorderFactory;
 import javax.swing.Box;

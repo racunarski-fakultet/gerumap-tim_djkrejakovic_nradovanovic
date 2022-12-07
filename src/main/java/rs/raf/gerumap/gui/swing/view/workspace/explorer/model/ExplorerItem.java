@@ -5,7 +5,7 @@ import rs.raf.gerumap.gui.swing.view.workspace.editor.view.IEditorComponent;
 import rs.raf.gerumap.gui.swing.view.workspace.explorer.IExplorer;
 import rs.raf.gerumap.gui.swing.view.workspace.explorer.dialog.ExplorerDialogBase;
 import rs.raf.gerumap.gui.swing.view.workspace.explorer.dialog.RenameItemDialog;
-import rs.raf.gerumap.model.tree.composite.BaseNode;
+import rs.raf.gerumap.gui.swing.view.workspace.explorer.model.tree.composite.BaseNode;
 
 import javax.swing.Icon;
 import javax.swing.tree.DefaultMutableTreeNode;
