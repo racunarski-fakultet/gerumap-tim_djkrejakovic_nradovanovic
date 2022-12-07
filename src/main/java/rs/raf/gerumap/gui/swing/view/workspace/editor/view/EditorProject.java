@@ -5,7 +5,7 @@ import rs.raf.gerumap.gui.swing.view.MainWindow;
 import rs.raf.gerumap.gui.swing.view.workspace.editor.IEditor;
 import rs.raf.gerumap.gui.swing.view.workspace.editor.controller.EditorChangeListener;
 import rs.raf.gerumap.gui.swing.view.workspace.editor.controller.EditorTabMouseListener;
-import rs.raf.gerumap.model.User;
+import rs.raf.gerumap.gui.swing.view.user.model.User;
 import rs.raf.gerumap.model.tree.explorer.Project;
 
 import javax.swing.BorderFactory;
@@ -26,7 +26,6 @@ public class EditorProject extends JTabbedPane implements IEditorComponent {
 
     private List<EditorPage> pages = new ArrayList<>();
 
-    private User author = new User("Unregistered");
     private final JLabel authorLabel = new JLabel();
 
     private final JToolBar trailingTools = new JToolBar();
@@ -75,7 +74,7 @@ public class EditorProject extends JTabbedPane implements IEditorComponent {
      */
     private void setupTrailingComponents() {
         authorLabel.setBorder(BorderFactory.createEmptyBorder(0, 10, 0, 10));
-        authorLabel.setText(author.getName());
+        authorLabel.setText(editor.getAuthor() != null ? editor.getAuthor().getName() : "Unregistered");
 
         trailingTools.add(Box.createHorizontalGlue());
         trailingTools.add(authorLabel);
@@ -157,16 +156,7 @@ public class EditorProject extends JTabbedPane implements IEditorComponent {
      * @param author author
      */
     public void setAuthor(User author) {
-        this.author = author;
         authorLabel.setText(author.getName());
-    }
-
-    /**
-     * Returns the author of the project
-     * @return author
-     */
-    public User getAuthor() {
-        return author;
     }
 
     /**

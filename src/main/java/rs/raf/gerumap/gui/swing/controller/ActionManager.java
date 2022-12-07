@@ -10,6 +10,7 @@ import rs.raf.gerumap.gui.swing.controller.action.NewMindMapAction;
 import rs.raf.gerumap.gui.swing.controller.action.NewProjectAction;
 import rs.raf.gerumap.gui.swing.controller.action.RemoveExplorerItemAction;
 import rs.raf.gerumap.gui.swing.controller.action.RenameExplorerItemAction;
+import rs.raf.gerumap.gui.swing.controller.action.UserAction;
 
 import java.util.List;
 
@@ -23,6 +24,7 @@ public class ActionManager {
             new NewProjectAction(),
             new RemoveExplorerItemAction(),
             new RenameExplorerItemAction(),
+            new UserAction(),
             new ExitAction()
     );
 

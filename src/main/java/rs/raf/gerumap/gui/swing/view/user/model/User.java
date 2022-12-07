@@ -1,4 +1,4 @@
-package rs.raf.gerumap.model;
+package rs.raf.gerumap.gui.swing.view.user.model;
 
 /**
  * Stores user data.

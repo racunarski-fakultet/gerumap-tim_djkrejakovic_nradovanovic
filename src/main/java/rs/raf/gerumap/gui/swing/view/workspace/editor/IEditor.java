@@ -3,7 +3,7 @@ package rs.raf.gerumap.gui.swing.view.workspace.editor;
 import rs.raf.gerumap.gui.swing.view.workspace.editor.view.EditorPage;
 import rs.raf.gerumap.gui.swing.view.workspace.editor.view.EditorProject;
 import rs.raf.gerumap.gui.swing.view.workspace.editor.view.IEditorComponent;
-import rs.raf.gerumap.model.User;
+import rs.raf.gerumap.gui.swing.view.user.model.User;
 
 import java.awt.Point;
 

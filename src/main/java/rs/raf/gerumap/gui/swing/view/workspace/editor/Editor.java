@@ -4,7 +4,7 @@ import rs.raf.gerumap.gui.swing.view.MainWindow;
 import rs.raf.gerumap.gui.swing.view.workspace.editor.view.EditorPage;
 import rs.raf.gerumap.gui.swing.view.workspace.editor.view.EditorProject;
 import rs.raf.gerumap.gui.swing.view.workspace.editor.view.IEditorComponent;
-import rs.raf.gerumap.model.User;
+import rs.raf.gerumap.gui.swing.view.user.model.User;
 
 import javax.swing.BorderFactory;
 import javax.swing.JPanel;
@@ -21,6 +21,8 @@ public class Editor extends JPanel implements IEditor {
     private EditorProject activeProject = null;
 
     private EditorPage activePage = null;
+
+    private User author = null;
 
     public Editor() {
         super(new BorderLayout());
@@ -61,7 +63,10 @@ public class Editor extends JPanel implements IEditor {
 
     @Override
     public void setAuthor(User author) {
-        activeProject.setAuthor(author);
+        this.author = author;
+
+        if (activeProject != null)
+            activeProject.setAuthor(author);
     }
 
     @Override
@@ -81,7 +86,7 @@ public class Editor extends JPanel implements IEditor {
 
     @Override
     public User getAuthor() {
-        return activeProject.getAuthor();
+        return author;
     }
 
     @Override
