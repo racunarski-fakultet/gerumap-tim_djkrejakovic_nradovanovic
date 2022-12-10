@@ -12,6 +12,7 @@ import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreeNode;
 import javax.swing.tree.TreePath;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
@@ -80,9 +81,10 @@ public abstract class ExplorerItem extends DefaultMutableTreeNode {
      */
     public void rename() {
         ExplorerItem parent = (ExplorerItem) getParent();
-        String nodeName = getNode().getName();
+        String nodeName = node.getName();
+        List<String> childrenNames = parent != null ? parent.getChildrenNames(nodeName) : Collections.emptyList();
 
-        ExplorerDialogBase dialog = new RenameItemDialog(MainWindow.window, parent.getChildrenNames(nodeName), nodeName);
+        ExplorerDialogBase dialog = new RenameItemDialog(MainWindow.window, childrenNames, nodeName);
         dialog.setVisible(true);
         String name = (String) dialog.getValue();
 
