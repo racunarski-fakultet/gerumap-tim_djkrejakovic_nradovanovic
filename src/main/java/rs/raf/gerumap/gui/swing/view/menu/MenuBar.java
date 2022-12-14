@@ -5,8 +5,8 @@ import rs.raf.gerumap.gui.swing.controller.ActionManager;
 import rs.raf.gerumap.gui.swing.controller.action.ExitAction;
 import rs.raf.gerumap.gui.swing.controller.action.NewProjectAction;
 import rs.raf.gerumap.gui.swing.controller.action.UserAction;
-import rs.raf.gerumap.gui.swing.view.custom.menu.Menu;
-import rs.raf.gerumap.gui.swing.view.custom.menu.MenuItem;
+import rs.raf.gerumap.gui.swing.view.custom.GRMapMenu;
+import rs.raf.gerumap.gui.swing.view.custom.GRMapMenuItem;
 
 import javax.swing.Box;
 import javax.swing.JMenu;
@@ -16,14 +16,14 @@ import javax.swing.JMenuItem;
 public class MenuBar extends JMenuBar {
 
     public MenuBar() {
-        JMenu fileMenu = new Menu("File");
-        JMenu editMenu = new Menu("Edit");
-        JMenu helpMenu = new Menu("Help");
+        JMenu fileMenu = new GRMapMenu("File");
+        JMenu editMenu = new GRMapMenu("Edit");
+        JMenu helpMenu = new GRMapMenu("Help");
 
-        JMenuItem undoItem = new MenuItem("Undo");
-        JMenuItem redoItem = new MenuItem("Redo");
+        JMenuItem undoItem = new GRMapMenuItem("Undo");
+        JMenuItem redoItem = new GRMapMenuItem("Redo");
 
-        JMenuItem aboutItem = new MenuItem("About");
+        JMenuItem aboutItem = new GRMapMenuItem("About");
 
         FlatButton userButton = new FlatButton();
         userButton.setAction(ActionManager.getAction(UserAction.class));

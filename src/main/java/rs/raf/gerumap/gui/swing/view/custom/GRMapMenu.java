@@ -1,11 +1,11 @@
-package rs.raf.gerumap.gui.swing.view.custom.menu;
+package rs.raf.gerumap.gui.swing.view.custom;
 
 import javax.swing.JMenu;
 import java.awt.Dimension;
 
-public class Menu extends JMenu {
+public class GRMapMenu extends JMenu {
 
-    public Menu(String s) {
+    public GRMapMenu(String s) {
         super(s);
         setHorizontalAlignment(JMenu.CENTER);
         setVerticalAlignment(JMenu.CENTER);

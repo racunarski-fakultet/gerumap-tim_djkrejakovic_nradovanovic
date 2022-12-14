@@ -5,17 +5,17 @@ import rs.raf.gerumap.gui.swing.controller.action.LoadProjectAction;
 import rs.raf.gerumap.gui.swing.controller.action.NewMindMapAction;
 import rs.raf.gerumap.gui.swing.controller.action.RemoveExplorerItemAction;
 import rs.raf.gerumap.gui.swing.controller.action.RenameExplorerItemAction;
-import rs.raf.gerumap.gui.swing.view.custom.menu.MenuItem;
+import rs.raf.gerumap.gui.swing.view.custom.GRMapMenuItem;
 
 import javax.swing.JPopupMenu;
 
 public class ExplorerProjectMenu extends JPopupMenu {
 
     public ExplorerProjectMenu() {
-        add(new MenuItem(ActionManager.getAction(NewMindMapAction.class)));
-        add(new MenuItem(ActionManager.getAction(LoadProjectAction.class)));
-        add(new MenuItem(ActionManager.getAction(RenameExplorerItemAction.class)));
-        add(new MenuItem(ActionManager.getAction(RemoveExplorerItemAction.class)));
+        add(new GRMapMenuItem(ActionManager.getAction(NewMindMapAction.class)));
+        add(new GRMapMenuItem(ActionManager.getAction(LoadProjectAction.class)));
+        add(new GRMapMenuItem(ActionManager.getAction(RenameExplorerItemAction.class)));
+        add(new GRMapMenuItem(ActionManager.getAction(RemoveExplorerItemAction.class)));
     }
 
 }

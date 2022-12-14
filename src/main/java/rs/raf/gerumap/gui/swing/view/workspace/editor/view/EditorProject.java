@@ -4,7 +4,7 @@ import com.formdev.flatlaf.FlatClientProperties;
 import rs.raf.gerumap.gui.swing.view.MainWindow;
 import rs.raf.gerumap.gui.swing.view.user.model.User;
 import rs.raf.gerumap.gui.swing.view.workspace.editor.IEditor;
-import rs.raf.gerumap.gui.swing.view.workspace.editor.controller.EditorChangeListener;
+import rs.raf.gerumap.gui.swing.view.workspace.editor.controller.EditorTabChangeListener;
 import rs.raf.gerumap.gui.swing.view.workspace.editor.controller.EditorTabMouseListener;
 import rs.raf.gerumap.gui.swing.view.workspace.explorer.model.tree.explorer.Project;
 
@@ -23,9 +23,9 @@ public class EditorProject extends JTabbedPane implements IEditorComponent {
 
     private static final IEditor editor = MainWindow.window.getEditor();
 
-    private Project project;
+    private final Project project;
 
-    private List<EditorPage> pages = new ArrayList<>();
+    private final List<EditorPage> pages = new ArrayList<>();
 
     private final JLabel authorLabel = new JLabel();
 
@@ -45,7 +45,7 @@ public class EditorProject extends JTabbedPane implements IEditorComponent {
      * Setups the project listeners.
      */
     private void addListeners() {
-        addChangeListener(new EditorChangeListener());
+        addChangeListener(new EditorTabChangeListener());
         addMouseListener(new EditorTabMouseListener());
     }
 
@@ -61,7 +61,7 @@ public class EditorProject extends JTabbedPane implements IEditorComponent {
 
         putClientProperty(FlatClientProperties.TABBED_PANE_TAB_CLOSABLE, true);
         putClientProperty(FlatClientProperties.TABBED_PANE_TAB_CLOSE_TOOLTIPTEXT, "Close" );
-        putClientProperty(FlatClientProperties.TABBED_PANE_TAB_CLOSE_CALLBACK, (IntConsumer) tabIndex -> editor.closePage(tabIndex));
+        putClientProperty(FlatClientProperties.TABBED_PANE_TAB_CLOSE_CALLBACK, (IntConsumer) editor::closePage);
         putClientProperty(FlatClientProperties.TABBED_PANE_LEADING_COMPONENT, leadingTools.getComponentCount() > 0 ? leadingTools : null);
         putClientProperty(FlatClientProperties.TABBED_PANE_TRAILING_COMPONENT, trailingTools.getComponentCount() > 0 ? trailingTools : null);
     }
@@ -171,10 +171,9 @@ public class EditorProject extends JTabbedPane implements IEditorComponent {
 
     @Override
     public boolean equals(Object obj) {
-        if (obj == null || !(obj instanceof EditorProject))
+        if (!(obj instanceof EditorProject editorProject))
             return false;
 
-        EditorProject editorProject = (EditorProject) obj;
         return Objects.equals(editorProject.project, this.project);
     }
 

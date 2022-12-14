@@ -1,11 +1,15 @@
 package rs.raf.gerumap.gui.swing.view.workspace.editor;
 
+import rs.raf.gerumap.gui.swing.controller.StateManager;
 import rs.raf.gerumap.gui.swing.view.MainWindow;
 import rs.raf.gerumap.gui.swing.view.user.model.User;
-import rs.raf.gerumap.gui.swing.view.workspace.editor.toolbar.EditorToolbar;
+import rs.raf.gerumap.gui.swing.view.workspace.editor.view.EditorDiagram;
 import rs.raf.gerumap.gui.swing.view.workspace.editor.view.EditorPage;
 import rs.raf.gerumap.gui.swing.view.workspace.editor.view.EditorProject;
+import rs.raf.gerumap.gui.swing.view.workspace.editor.view.EditorProperties;
+import rs.raf.gerumap.gui.swing.view.workspace.editor.view.EditorToolbar;
 import rs.raf.gerumap.gui.swing.view.workspace.editor.view.IEditorComponent;
+import rs.raf.gerumap.gui.swing.view.workspace.editor.view.properties.PropertiesBase;
 
 import javax.swing.BorderFactory;
 import javax.swing.JPanel;
@@ -27,6 +31,8 @@ public class Editor extends JPanel implements IEditor {
 
     private final EditorToolbar toolbar = new EditorToolbar();
 
+    private final EditorProperties properties = new EditorProperties();
+
     public Editor() {
         super(new BorderLayout());
         setupComponents();
@@ -45,6 +51,16 @@ public class Editor extends JPanel implements IEditor {
     }
 
     @Override
+    public void render() {
+        getDiagram().repaint();
+    }
+
+    @Override
+    public void setProperties(PropertiesBase properties) {
+        //TODO
+    }
+
+    @Override
     public void setActivePage(EditorPage page) {
         if (!page.isOpen()) {
             openPage(page);
@@ -53,6 +69,7 @@ public class Editor extends JPanel implements IEditor {
 
         activePage = page;
         activeProject.setSelectedIndex(getTabIndexForTitle(page.getTitle()));
+        activeProject.requestFocus();
     }
 
     @Override
@@ -75,6 +92,14 @@ public class Editor extends JPanel implements IEditor {
     @Override
     public void updateActivePage() {
         activePage = activeProject.getSelectedIndex() >= 0 ? getOpenPage(activeProject.getSelectedIndex()) : null;
+
+        if (activePage != null)
+            properties.reset();
+    }
+
+    @Override
+    public void updatePageDimension() {
+        activePage.updateContainerDimensions();
     }
 
     @Override
@@ -110,6 +135,11 @@ public class Editor extends JPanel implements IEditor {
     @Override
     public EditorPage getOpenPage(String title) {
         return activeProject.getPage(title);
+    }
+
+    @Override
+    public EditorDiagram getDiagram() {
+        return activePage.getDiagram();
     }
 
     @Override
@@ -181,6 +211,7 @@ public class Editor extends JPanel implements IEditor {
     private void addComponents() {
         add(activeProject, BorderLayout.CENTER);
         add(toolbar, BorderLayout.WEST);
+        add(properties, BorderLayout.EAST);
 
         validate();
         repaint();
@@ -190,6 +221,8 @@ public class Editor extends JPanel implements IEditor {
      * Removes components from the editor.
      */
     private void removeComponents() {
+        StateManager.reset();
+        toolbar.reset();
         removeAll();
 
         validate();

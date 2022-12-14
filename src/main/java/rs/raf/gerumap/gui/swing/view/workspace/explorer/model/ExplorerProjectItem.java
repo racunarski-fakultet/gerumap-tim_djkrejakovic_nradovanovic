@@ -29,9 +29,6 @@ public class ExplorerProjectItem extends ExplorerItem {
         super(node);
 
         editorProject = new EditorProject(node);
-
-        if (!(node instanceof Project))
-            Logger.log(Message.EXPLORER_INCORRECT_NODE, getClass().getSimpleName());
     }
 
     @Override

@@ -1,7 +1,9 @@
 package rs.raf.gerumap.gui.swing.view.workspace.editor.view;
 
 import rs.raf.gerumap.gui.swing.view.MainWindow;
+import rs.raf.gerumap.gui.swing.view.workspace.editor.EditorValues;
 import rs.raf.gerumap.gui.swing.view.workspace.editor.IEditor;
+import rs.raf.gerumap.gui.swing.view.workspace.explorer.model.tree.explorer.Element;
 import rs.raf.gerumap.gui.swing.view.workspace.explorer.model.tree.explorer.MindMap;
 
 import javax.swing.BorderFactory;
@@ -10,52 +12,53 @@ import javax.swing.JScrollPane;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridBagLayout;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
-/**
- * Mindmap editor view.
- */
 public class EditorPage extends JScrollPane implements IEditorComponent {
 
     private static final IEditor editor = MainWindow.window.getEditor();
 
     private final MindMap mindMap;
 
-    private final JPanel content;
+    private final EditorDiagram diagram;
+
+    private final JPanel container = new JPanel(new GridBagLayout());
 
     private boolean isOpen = false;
 
-    /**
-     * Creates a mindmap document.
-     * @param mindMap mind map
-     */
+    private final List<EditorElement> elements = new ArrayList<>();
+
     public EditorPage(MindMap mindMap) {
-        this(mindMap, new JPanel());
+        this(mindMap, new EditorDiagram());
     }
 
     /**
      * Creates a mindmap document.
      * @param mindMap mind map
-     * @param content editor
+     * @param diagram diagram
      */
-    public EditorPage(MindMap mindMap, JPanel content) {
+    public EditorPage(MindMap mindMap, EditorDiagram diagram) {
         this.mindMap = mindMap;
-        this.content = content;
-
-        int width = 600; //TODO remove - prototype - constructor argument
-        int height = 400; //TODO remove - prototype - constructor argument
-
-        JPanel container = new JPanel(new GridBagLayout());
-        container.setBackground(new Color(66, 69, 72));
-        container.setPreferredSize(new Dimension(width + 200, height + 200));
-
-        this.content.setPreferredSize(new Dimension(width, height));
-        this.content.setBackground(new Color(255, 255, 255));
-
-        container.add(this.content);
+        this.diagram = diagram;
 
         setBorder(BorderFactory.createEmptyBorder());
+
+        container.setBackground(new Color(66, 69, 72));
+        container.setPreferredSize(new Dimension(EditorValues.DIAGRAM_WIDTH + 200, EditorValues.DIAGRAM_HEIGHT + 200));
+        container.add(this.diagram);
+
         setViewportView(container);
+
+        this.diagram.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mousePressed(MouseEvent e) {
+                editor.getActiveProject().requestFocus();
+            }
+        });
     }
 
     @Override
@@ -75,6 +78,15 @@ public class EditorPage extends JScrollPane implements IEditorComponent {
     }
 
     /**
+     * Adds an editor element.
+     * @param element element
+     */
+    public void addElement(EditorElement element) {
+        elements.add(element);
+        element.load();
+    }
+
+    /**
      * Sets whether the page is open.
      * @param open open state
      */
@@ -83,11 +95,83 @@ public class EditorPage extends JScrollPane implements IEditorComponent {
     }
 
     /**
+     * Removes an editor element.
+     * @param element element
+     */
+    public void removeElement(EditorElement element) {
+        if (element == null)
+            return;
+
+        elements.remove(element);
+        editor.render();
+    }
+
+    /**
+     * Removes an editor element.
+     * @param element element
+     */
+    public void removeElement(Element element) {
+        removeElement(getEditorElement(element));
+    }
+
+    /**
+     * Returns the editor element.
+     * @param element element
+     * @return editor element
+     */
+    public EditorElement getEditorElement(Element element) {
+        for (EditorElement editorElement : elements)
+            if (editorElement.getGraphicElement().equals(element))
+                return editorElement;
+
+        return null;
+    }
+
+    /**
+     * Returns the last added editor element.
+     * @return editor element
+     */
+    public EditorElement getLastEditorElement() {
+        return elements.get(elements.size() - 1);
+    }
+
+    /**
+     * Returns the editor elements.
+     * @return editor elements
+     */
+    public List<EditorElement> getEditorElements() {
+        return elements;
+    }
+
+    /**
+     * Updates the container dimensions.
+     */
+    public void updateContainerDimensions() {
+        container.setPreferredSize(new Dimension(diagram.getWidth() + 200, diagram.getHeight() + 200));
+    }
+
+    /**
      * Returns whether the page is open.
      * @return true if open, otherwise false
      */
     public boolean isOpen() {
         return isOpen;
+    }
+
+    /**
+     * Returns the page diagram.
+     * @return diagram.
+     */
+    public EditorDiagram getDiagram() {
+        return diagram;
+    }
+
+    /**
+     * Returns the mind map associated with this page.
+     * @return mind map
+     */
+    public MindMap getMindMap() {
+        return mindMap;
     }
 
     /**
@@ -100,10 +184,9 @@ public class EditorPage extends JScrollPane implements IEditorComponent {
 
     @Override
     public boolean equals(Object obj) {
-        if (obj == null || !(obj instanceof EditorPage))
+        if (!(obj instanceof EditorPage page))
             return false;
 
-        EditorPage page = (EditorPage) obj;
         return Objects.equals(page.mindMap, this.mindMap);
     }
 

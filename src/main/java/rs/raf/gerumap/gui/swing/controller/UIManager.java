@@ -66,6 +66,9 @@ public class UIManager {
         ActionManager.setupIcons();
     }
 
+    /**
+     * Setups the editor state.
+     */
     public static void setupState() {
         StateManager.setup();
     }

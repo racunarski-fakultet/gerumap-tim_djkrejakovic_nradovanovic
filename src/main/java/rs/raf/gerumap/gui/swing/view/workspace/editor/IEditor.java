@@ -1,9 +1,11 @@
 package rs.raf.gerumap.gui.swing.view.workspace.editor;
 
+import rs.raf.gerumap.gui.swing.view.workspace.editor.view.EditorDiagram;
 import rs.raf.gerumap.gui.swing.view.workspace.editor.view.EditorPage;
 import rs.raf.gerumap.gui.swing.view.workspace.editor.view.EditorProject;
 import rs.raf.gerumap.gui.swing.view.workspace.editor.view.IEditorComponent;
 import rs.raf.gerumap.gui.swing.view.user.model.User;
+import rs.raf.gerumap.gui.swing.view.workspace.editor.view.properties.PropertiesBase;
 
 import java.awt.Point;
 
@@ -14,6 +16,17 @@ public interface IEditor {
      * @param component component
      */
     void load(IEditorComponent component);
+
+    /**
+     * Renders a diagram of the page.
+     */
+    void render();
+
+    /**
+     * Sets the properties tab.
+     * @param properties properties
+     */
+    void setProperties(PropertiesBase properties);
 
     /**
      * Sets the page as the active page for editing.
@@ -37,6 +50,11 @@ public interface IEditor {
      * Updates the active page. it should be called whenever there is a change to the tab, which includes adding, selecting and removing.
      */
     void updateActivePage();
+
+    /**
+     * Updates the active page size of the container.
+     */
+    void updatePageDimension();
 
     /**
      * Returns the active page.
@@ -75,6 +93,12 @@ public interface IEditor {
      * @return page
      */
     EditorPage getOpenPage(String title);
+
+    /**
+     * Returns a diagram of the active page.
+     * @return diagram
+     */
+    EditorDiagram getDiagram();
 
     /**
      * Closes the open page at the index.

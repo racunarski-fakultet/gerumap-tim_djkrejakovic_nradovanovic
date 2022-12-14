@@ -1,16 +1,16 @@
-package rs.raf.gerumap.gui.swing.view.custom.menu;
+package rs.raf.gerumap.gui.swing.view.custom;
 
 import javax.swing.Action;
 import javax.swing.JMenuItem;
 import java.awt.Dimension;
 
-public class MenuItem extends JMenuItem {
+public class GRMapMenuItem extends JMenuItem {
 
-    public MenuItem(Action a) {
+    public GRMapMenuItem(Action a) {
         super(a);
     }
 
-    public MenuItem(String text) {
+    public GRMapMenuItem(String text) {
         super(text);
     }
 

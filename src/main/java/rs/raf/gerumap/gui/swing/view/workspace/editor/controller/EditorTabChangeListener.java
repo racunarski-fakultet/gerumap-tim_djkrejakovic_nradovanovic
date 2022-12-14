@@ -5,7 +5,7 @@ import rs.raf.gerumap.gui.swing.view.MainWindow;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
-public class EditorChangeListener implements ChangeListener {
+public class EditorTabChangeListener implements ChangeListener {
 
     @Override
     public void stateChanged(ChangeEvent e) {

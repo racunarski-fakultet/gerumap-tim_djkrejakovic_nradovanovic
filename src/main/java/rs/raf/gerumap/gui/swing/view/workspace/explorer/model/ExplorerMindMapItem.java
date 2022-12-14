@@ -3,6 +3,7 @@ package rs.raf.gerumap.gui.swing.view.workspace.explorer.model;
 import com.formdev.flatlaf.util.StringUtils;
 import rs.raf.gerumap.gui.swing.util.ImageUtils;
 import rs.raf.gerumap.gui.swing.view.MainWindow;
+import rs.raf.gerumap.gui.swing.view.workspace.editor.view.EditorElement;
 import rs.raf.gerumap.gui.swing.view.workspace.editor.view.EditorPage;
 import rs.raf.gerumap.gui.swing.view.workspace.editor.view.IEditorComponent;
 import rs.raf.gerumap.gui.swing.view.workspace.explorer.menu.ExplorerMindMapMenu;
@@ -20,22 +21,19 @@ public class ExplorerMindMapItem extends ExplorerItem {
 
     private static final JPopupMenu menu = new ExplorerMindMapMenu();
 
-    private EditorPage mindMapEditor;
+    private EditorPage editorPage;
 
     public ExplorerMindMapItem(MindMap node) {
         super(node);
 
-        mindMapEditor = new EditorPage(node);
-
-        if (!(node instanceof MindMap))
-            Logger.log(Message.EXPLORER_INCORRECT_NODE, getClass().getSimpleName());
+        editorPage = new EditorPage(node);
     }
 
     @Override
     protected ExplorerItem createChild() {
         MindMap mindMap = (MindMap) getNode();
 
-        Element element = new Element(mindMap);
+        Element element = editorPage.getLastEditorElement().getGraphicElement();
         mindMap.addChild(element);
 
         Logger.log(Message.ADDED_ELEMENT, element.getName());
@@ -44,12 +42,19 @@ public class ExplorerMindMapItem extends ExplorerItem {
     }
 
     @Override
+    public void removeChild(ExplorerItem child) {
+        editorPage.removeElement((EditorElement) child.getComponent());
+
+        super.removeChild(child);
+    }
+
+    @Override
     public void rename() {
-        String oldName = mindMapEditor.getTitle();
+        String oldName = editorPage.getTitle();
 
         super.rename();
 
-        mindMapEditor.rename(oldName);
+        editorPage.rename(oldName);
     }
 
     @Override
@@ -64,7 +69,7 @@ public class ExplorerMindMapItem extends ExplorerItem {
 
     @Override
     public IEditorComponent getComponent() {
-        return mindMapEditor;
+        return editorPage;
     }
 
 }

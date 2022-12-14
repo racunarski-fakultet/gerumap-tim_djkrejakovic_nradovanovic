@@ -1,4 +1,4 @@
-package rs.raf.gerumap.gui.swing.view.workspace.editor.toolbar;
+package rs.raf.gerumap.gui.swing.view.workspace.editor.view;
 
 import rs.raf.gerumap.gui.swing.controller.ActionManager;
 import rs.raf.gerumap.gui.swing.controller.action.ConceptStateAction;
@@ -30,6 +30,13 @@ public class EditorToolbar extends JToolBar {
         group.add((AbstractButton) add(new JToggleButton(ActionManager.getAction(MoveStateAction.class))));
         group.add((AbstractButton) add(new JToggleButton(ActionManager.getAction(ZoomStateAction.class))));
 
+        reset();
+    }
+
+    /**
+     * Resets selected tool.
+     */
+    public void reset() {
         group.setSelected(group.getElements().nextElement().getModel(), true);
     }
 

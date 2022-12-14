@@ -3,6 +3,7 @@ package rs.raf.gerumap.gui.swing.view.workspace.explorer.model;
 import com.formdev.flatlaf.util.StringUtils;
 import rs.raf.gerumap.gui.swing.util.ImageUtils;
 import rs.raf.gerumap.gui.swing.view.MainWindow;
+import rs.raf.gerumap.gui.swing.view.workspace.editor.view.EditorElement;
 import rs.raf.gerumap.gui.swing.view.workspace.editor.view.IEditorComponent;
 import rs.raf.gerumap.gui.swing.view.workspace.explorer.menu.ExplorerElementMenu;
 import rs.raf.gerumap.log.Logger;
@@ -18,17 +19,32 @@ public class ExplorerElementItem extends ExplorerItem {
 
     private static final JPopupMenu menu = new ExplorerElementMenu();
 
+    private EditorElement editorElement;
+
     public ExplorerElementItem(Element node) {
         super(node);
 
-        if (!(node instanceof Element))
-            Logger.log(Message.EXPLORER_INCORRECT_NODE, getClass().getSimpleName());
+        editorElement = MainWindow.window.getEditor().getActivePage().getEditorElement(node);
     }
 
     @Override
     protected ExplorerItem createChild() {
         Logger.log(Message.EXPLORER_CANNOT_HAVE_CHILD);
         return null;
+    }
+
+    @Override
+    public void removeChild(ExplorerItem child) {
+        super.removeChild(child);
+    }
+
+    @Override
+    public void rename() {
+        String oldName = editorElement.getGraphicElement().getName();
+
+        super.rename();
+
+        editorElement.rename(oldName);
     }
 
     @Override
@@ -43,7 +59,7 @@ public class ExplorerElementItem extends ExplorerItem {
 
     @Override
     public IEditorComponent getComponent() {
-        return null; //TODO to be implemented when developing the editor
+        return editorElement;
     }
 
 }

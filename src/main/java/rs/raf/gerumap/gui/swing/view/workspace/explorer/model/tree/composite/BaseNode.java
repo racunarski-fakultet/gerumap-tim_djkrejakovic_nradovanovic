@@ -78,6 +78,11 @@ public abstract class BaseNode {
     }
 
     @Override
+    public int hashCode() {
+        return Objects.hash(name, parent);
+    }
+
+    @Override
     public String toString() {
         return getName();
     }
