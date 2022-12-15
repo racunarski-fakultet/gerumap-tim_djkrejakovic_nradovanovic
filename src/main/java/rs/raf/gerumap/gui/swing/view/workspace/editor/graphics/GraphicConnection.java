@@ -124,6 +124,11 @@ public class GraphicConnection extends ConnectiveGraphicElement {
     }
 
     @Override
+    public boolean contains(GraphicElement element) {
+        return super.contains(element) && !(getFirst().equals(element) || getSecond().equals(element));
+    }
+
+    @Override
     public void update(Point2D startLocation, Point2D mouseLocation) {
         setSecondX(mouseLocation.getX());
         setSecondY(mouseLocation.getY());
@@ -200,6 +205,16 @@ public class GraphicConnection extends ConnectiveGraphicElement {
     @Override
     public int getCode() {
         return 0x10;
+    }
+
+    //endregion
+
+    //region IConnectable Methods
+
+    @Override
+    public void reconnect() {
+        setFirst(getFirst());
+        setSecond(getSecond());
     }
 
     //endregion

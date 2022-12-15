@@ -7,6 +7,7 @@ import rs.raf.gerumap.gui.swing.view.workspace.editor.controller.EditorDiagramMo
 import rs.raf.gerumap.gui.swing.view.workspace.editor.controller.EditorDiagramMouseMotionListener;
 import rs.raf.gerumap.gui.swing.view.workspace.editor.controller.EditorFocusMouseListener;
 import rs.raf.gerumap.gui.swing.view.workspace.editor.graphics.GraphicElement;
+import rs.raf.gerumap.gui.swing.view.workspace.editor.graphics.IConnectable;
 
 import javax.swing.JPanel;
 import java.awt.Dimension;
@@ -103,6 +104,15 @@ public class EditorDiagram extends JPanel {
      */
     public GraphicElement getGraphicElement() {
         return graphicElement;
+    }
+
+    /**
+     * Reconnects all connectable elements.
+     */
+    public void reconnect() {
+        for (EditorElement editorElement : editor.getActivePage().getEditorElements())
+            if (editorElement.getGraphicElement() instanceof IConnectable)
+                ((IConnectable) editorElement.getGraphicElement()).reconnect();
     }
 
     /**

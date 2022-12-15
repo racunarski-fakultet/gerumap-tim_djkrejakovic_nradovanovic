@@ -3,6 +3,7 @@ package rs.raf.gerumap.gui.swing.controller;
 import rs.raf.gerumap.gui.swing.view.MainWindow;
 import rs.raf.gerumap.gui.swing.view.workspace.editor.IEditor;
 import rs.raf.gerumap.gui.swing.view.workspace.editor.graphics.GraphicConcept;
+import rs.raf.gerumap.gui.swing.view.workspace.editor.graphics.IMovable;
 import rs.raf.gerumap.gui.swing.view.workspace.editor.graphics.ISelectable;
 import rs.raf.gerumap.gui.swing.view.workspace.editor.graphics.IStroke;
 import rs.raf.gerumap.gui.swing.view.workspace.editor.view.properties.ConceptProperties;
@@ -66,6 +67,20 @@ public class SelectionManager {
                 strokes.add((IStroke) element);
 
         return strokes;
+    }
+
+    /**
+     * Returns the selected graphical elements that can be moved.
+     * @return movable elements
+     */
+    public static List<IMovable> getSelectedMovables() {
+        List<IMovable> movables = new ArrayList<>();
+
+        for (ISelectable element : selected)
+            if (element instanceof IMovable)
+                movables.add((IMovable) element);
+
+        return movables;
     }
 
     /**

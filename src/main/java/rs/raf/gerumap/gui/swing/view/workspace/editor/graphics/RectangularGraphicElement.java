@@ -5,7 +5,7 @@ import java.awt.Dimension;
 import java.awt.geom.Dimension2D;
 import java.awt.geom.Point2D;
 
-public abstract class RectangularGraphicElement extends GraphicElement implements IRectangular, IBackground, IStroke {
+public abstract class RectangularGraphicElement extends GraphicElement implements IMovable, IResizable, IBackground, IStroke {
 
     protected double x;
     protected double y;
@@ -50,6 +50,21 @@ public abstract class RectangularGraphicElement extends GraphicElement implement
         setLocation(location.getX(), location.getY());
     }
 
+    @Override
+    public double getX() {
+        return x;
+    }
+
+    @Override
+    public double getY() {
+        return y;
+    }
+
+    @Override
+    public Point2D getLocation() {
+        return new Point2D.Double(getX(), getY());
+    }
+
     //endregion
 
     //region IResizable Methods
@@ -73,25 +88,6 @@ public abstract class RectangularGraphicElement extends GraphicElement implement
     @Override
     public void setSize(Dimension2D dimension) {
         setSize(dimension.getWidth(), dimension.getHeight());
-    }
-
-    //endregion
-
-    //region IRectangular Methods
-
-    @Override
-    public double getX() {
-        return x;
-    }
-
-    @Override
-    public double getY() {
-        return y;
-    }
-
-    @Override
-    public Point2D getLocation() {
-        return new Point2D.Double(getX(), getY());
     }
 
     @Override

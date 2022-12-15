@@ -5,6 +5,11 @@ import java.awt.geom.Point2D;
 public interface IConnectable {
 
     /**
+     * Reconnects to connector.
+     */
+    void reconnect();
+
+    /**
      * Sets the x coordinate for the first connector.
      * @param x x coordinate
      */

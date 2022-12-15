@@ -29,4 +29,22 @@ public interface IResizable {
      */
     void setSize(Dimension2D dimension);
 
+    /**
+     * Returns the width.
+     * @return width
+     */
+    double getWidth();
+
+    /**
+     * Returns the height.
+     * @return height
+     */
+    double getHeight();
+
+    /**
+     * Returns the size.
+     * @return size
+     */
+    Dimension2D getSize();
+
 }

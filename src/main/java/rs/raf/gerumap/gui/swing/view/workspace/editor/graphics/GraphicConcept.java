@@ -101,6 +101,25 @@ public class GraphicConcept extends RectangularGraphicElement implements IForegr
         graphics.draw(selectionShape);
     }
 
+    @Override
+    public boolean contains(GraphicElement element) {
+        if (!(element instanceof GraphicConnection))
+            return super.contains(element);
+
+        return element.contains(this);
+    }
+
+    @Override
+    public Shape getShapeArea() {
+        double ellipseX = this.x - strokeWidth / 2;
+        double ellipseY = this.y - strokeWidth / 2;
+
+        double ellipseWidth  = width + strokeWidth;
+        double ellipseHeight = height + strokeWidth;
+
+        return new Ellipse2D.Double(ellipseX, ellipseY, ellipseWidth, ellipseHeight);
+    }
+
     /**
      * Returns whether the creation of the concept is discarded.
      * @return true if discarded, false otherwise
@@ -115,17 +134,6 @@ public class GraphicConcept extends RectangularGraphicElement implements IForegr
                 return true;
 
         return false;
-    }
-
-    @Override
-    public Shape getShapeArea() {
-        double ellipseX = this.x - strokeWidth / 2;
-        double ellipseY = this.y - strokeWidth / 2;
-
-        double ellipseWidth  = width + strokeWidth;
-        double ellipseHeight = height + strokeWidth;
-
-        return new Ellipse2D.Double(ellipseX, ellipseY, ellipseWidth, ellipseHeight);
     }
 
     //region IForeground Methods

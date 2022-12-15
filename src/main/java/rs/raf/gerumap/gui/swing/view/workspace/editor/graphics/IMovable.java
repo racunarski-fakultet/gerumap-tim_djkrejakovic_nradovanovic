@@ -29,4 +29,22 @@ public interface IMovable {
      */
     void setLocation(Point2D location);
 
+    /**
+     * Returns the x coordinate.
+     * @return coordinate x
+     */
+    double getX();
+
+    /**
+     * Returns the y coordinate.
+     * @return coordinate y
+     */
+    double getY();
+
+    /**
+     * Returns the location.
+     * @return location
+     */
+    Point2D getLocation();
+
 }
