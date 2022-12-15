@@ -1,7 +1,7 @@
 package rs.raf.gerumap.gui.swing.controller.action;
 
 import rs.raf.gerumap.gui.swing.controller.StateManager;
-import rs.raf.gerumap.gui.swing.view.workspace.editor.model.state.MoveState;
+import rs.raf.gerumap.gui.swing.view.workspace.editor.state.MoveState;
 
 import java.awt.event.ActionEvent;
 

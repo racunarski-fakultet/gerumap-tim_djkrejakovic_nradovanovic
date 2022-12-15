@@ -18,4 +18,9 @@ public class EditorValues {
     public static final String    PROPERTIES_BACKGROUND_IDENTIFIER     = "Fill";
     public static final String    PROPERTIES_HEXADECIMAL_IDENTIFIER    = "Hex";
 
+    public static final Float   SELECTION_STROKE_WIDTH     = 1F;
+    public static final Integer SELECTION_ALPHA            = 20;
+    public static final Color   SELECTION_STROKE_COLOR     = new Color(9, 166, 243);
+    public static final Color   SELECTION_BACKGROUND_COLOR = new Color((SELECTION_STROKE_COLOR.getRGB() & 0xFFFFFF) | (SELECTION_ALPHA % 0x100 << 0x18), true);
+
 }

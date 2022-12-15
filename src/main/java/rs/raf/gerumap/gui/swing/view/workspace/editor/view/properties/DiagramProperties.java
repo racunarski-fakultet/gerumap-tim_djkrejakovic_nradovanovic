@@ -84,7 +84,7 @@ public class DiagramProperties extends PropertiesBase {
         int diagramHeight = editor.getDiagram().getHeight();
 
         Color diagramBackground = editor.getDiagram().getBackground();
-        
+
         textHex.setText(colorToHex(diagramBackground));
         spinnerWidth.setValue(diagramWidth);
         spinnerHeight.setValue(diagramHeight);

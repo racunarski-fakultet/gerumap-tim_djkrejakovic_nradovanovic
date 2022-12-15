@@ -1,7 +1,7 @@
 package rs.raf.gerumap.gui.swing.controller.action;
 
 import rs.raf.gerumap.gui.swing.controller.StateManager;
-import rs.raf.gerumap.gui.swing.view.workspace.editor.model.state.ZoomState;
+import rs.raf.gerumap.gui.swing.view.workspace.editor.state.ZoomState;
 
 import java.awt.event.ActionEvent;
 

@@ -1,7 +1,7 @@
 package rs.raf.gerumap.gui.swing.controller.action;
 
 import rs.raf.gerumap.gui.swing.controller.StateManager;
-import rs.raf.gerumap.gui.swing.view.workspace.editor.model.state.ConnectState;
+import rs.raf.gerumap.gui.swing.view.workspace.editor.state.ConnectState;
 
 import java.awt.event.ActionEvent;
 

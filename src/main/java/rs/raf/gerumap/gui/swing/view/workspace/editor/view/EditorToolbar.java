@@ -6,7 +6,7 @@ import rs.raf.gerumap.gui.swing.controller.action.ConnectStateAction;
 import rs.raf.gerumap.gui.swing.controller.action.MoveStateAction;
 import rs.raf.gerumap.gui.swing.controller.action.RemoveStateAction;
 import rs.raf.gerumap.gui.swing.controller.action.ZoomStateAction;
-import rs.raf.gerumap.gui.swing.view.workspace.editor.model.state.SelectState;
+import rs.raf.gerumap.gui.swing.view.workspace.editor.state.SelectState;
 
 import javax.swing.AbstractButton;
 import javax.swing.BorderFactory;
