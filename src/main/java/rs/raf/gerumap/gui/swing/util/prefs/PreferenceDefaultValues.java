@@ -19,19 +19,19 @@ public class PreferenceDefaultValues {
     public static final String THEME      = Theme.FLAT_LAF_DARK.getId();
 
     /**
-     * Calculates the height of the window based on the screen resolution. Target: 60%
+     * Calculates the height of the window based on the screen resolution. Target: 71.43%
      * @return height
      */
     private static int calculateWindowHeight() {
-        return Toolkit.getDefaultToolkit().getScreenSize().height * 3 / 5;
+        return Toolkit.getDefaultToolkit().getScreenSize().height * 5 / 7;
     }
 
     /**
-     * Calculates the width of the window based on the screen resolution. Target: 60%
+     * Calculates the width of the window based on the screen resolution. Target: 71.43%
      * @return width
      */
     private static int calculateWindowWidth() {
-        return Toolkit.getDefaultToolkit().getScreenSize().width * 3 / 5;
+        return Toolkit.getDefaultToolkit().getScreenSize().width * 5 / 7;
     }
 
 }
