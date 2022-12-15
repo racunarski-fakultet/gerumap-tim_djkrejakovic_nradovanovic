@@ -55,6 +55,7 @@ public class ConceptProperties extends PropertiesBase {
     public ConceptProperties() {
         initialize();
         setup();
+        addListeners();
 
         add(labelWidth,    new GridBagConstraints(0, 0, 1, 1, 0, 0, GridBagConstraints.LINE_END, GridBagConstraints.NONE, new Insets(16, 12, 8,  4), 0, 0));
         add(spinnerWidth,  new GridBagConstraints(1, 0, 1, 1, 0, 0, GridBagConstraints.CENTER,   GridBagConstraints.NONE, new Insets(16,  4, 8,  5), 0, 0));
@@ -126,7 +127,12 @@ public class ConceptProperties extends PropertiesBase {
         spinnerWidth      .setPreferredSize(EditorValues.PROPERTIES_INPUT_COMPONENT_DIMENSION);
         spinnerHeight     .setPreferredSize(EditorValues.PROPERTIES_INPUT_COMPONENT_DIMENSION);
         spinnerStrokeWidth.setPreferredSize(EditorValues.PROPERTIES_INPUT_COMPONENT_DIMENSION);
+    }
 
+    /**
+     * Assigns listeners to components
+     */
+    private void addListeners() {
         textContent.addCaretListener(new ContentCaretListener());
 
         paneForeground.addMouseListener(new ForegroundMouseListener());
@@ -172,7 +178,7 @@ public class ConceptProperties extends PropertiesBase {
         for (GraphicConcept concept : concepts) {
             Integer width = (int) concept.getWidth();
 
-            if (width.equals(value)) {
+            if (value != null && !width.equals(value)) {
                 value = null;
                 break;
             }
@@ -190,7 +196,7 @@ public class ConceptProperties extends PropertiesBase {
         for (GraphicConcept concept : concepts) {
             Integer height = (int) concept.getHeight();
 
-            if (height.equals(value)) {
+            if (value != null && !height.equals(value)) {
                 value = null;
                 break;
             }
@@ -208,7 +214,7 @@ public class ConceptProperties extends PropertiesBase {
         for (GraphicConcept concept : concepts) {
             String content = concept.getText();
 
-            if (content.equals(text)) {
+            if (text != null && !content.equals(text)) {
                 text = null;
                 break;
             }
@@ -226,7 +232,7 @@ public class ConceptProperties extends PropertiesBase {
         for (GraphicConcept concept : concepts) {
             Color foreground = concept.getForegroundColor();
 
-            if (foreground.equals(color)) {
+            if (color != null && !foreground.equals(color)) {
                 color = null;
                 break;
             }
@@ -247,7 +253,7 @@ public class ConceptProperties extends PropertiesBase {
         for (GraphicConcept concept : concepts) {
             Color background = concept.getBackgroundColor();
 
-            if (background.equals(color)) {
+            if (color != null && !background.equals(color)) {
                 color = null;
                 break;
             }
@@ -268,7 +274,7 @@ public class ConceptProperties extends PropertiesBase {
         for (GraphicConcept concept : concepts) {
             Color stroke = concept.getStrokeColor();
 
-            if (stroke.equals(color)) {
+            if (color != null && !stroke.equals(color)) {
                 color = null;
                 break;
             }
@@ -289,7 +295,7 @@ public class ConceptProperties extends PropertiesBase {
         for (GraphicConcept concept : concepts) {
             Integer width = (int) concept.getStrokeWidth();
 
-            if (width.equals(value)) {
+            if (value != null && !width.equals(value)) {
                 value = null;
                 break;
             }
