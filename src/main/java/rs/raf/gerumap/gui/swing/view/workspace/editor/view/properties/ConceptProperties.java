@@ -321,6 +321,7 @@ public class ConceptProperties extends PropertiesBase {
             for (GraphicConcept concept : concepts)
                 concept.setWidth(value);
 
+            editor.getDiagram().reconnect();
             editor.render();
         }
     }
@@ -334,6 +335,7 @@ public class ConceptProperties extends PropertiesBase {
             for (GraphicConcept concept : concepts)
                 concept.setHeight(value);
 
+            editor.getDiagram().reconnect();
             editor.render();
         }
 
