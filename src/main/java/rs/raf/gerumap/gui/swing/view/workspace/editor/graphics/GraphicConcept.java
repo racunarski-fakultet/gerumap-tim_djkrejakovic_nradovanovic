@@ -14,7 +14,7 @@ import java.awt.geom.Ellipse2D;
 import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
 
-public class GraphicConcept extends RectangularGraphicElement {
+public class GraphicConcept extends RectangularGraphicElement implements IForeground {
 
     private static int counter = 0;
 
@@ -128,54 +128,45 @@ public class GraphicConcept extends RectangularGraphicElement {
         return new Ellipse2D.Double(ellipseX, ellipseY, ellipseWidth, ellipseHeight);
     }
 
-    //region Setters and Getters
+    //region IForeground Methods
 
-    /**
-     * Sets the text color.
-     * @param color color
-     */
+    @Override
     public void setForegroundColor(Color color) {
         this.foregroundColor = color;
     }
 
-    /**
-     * Sets the text content.
-     * @param text text
-     */
+    @Override
     public void setText(String text) {
         this.text = text;
     }
 
-    /**
-     * Sets the font.
-     * @param font font
-     */
+    @Override
     public void setFont(Font font) {
         this.font = font;
     }
 
-    /**
-     * Returns the text color.
-     * @return color
-     */
+    @Override
     public Color getForegroundColor() {
         return foregroundColor;
     }
 
-    /**
-     * Returns the text content.
-     * @return text
-     */
+    @Override
     public String getText() {
         return text;
     }
 
-    /**
-     * Returns the font.
-     * @return font
-     */
+    @Override
     public Font getFont() {
         return font;
+    }
+
+    //endregion
+
+    //region ISelectable code
+
+    @Override
+    public int getCode() {
+        return 0x100;
     }
 
     //endregion

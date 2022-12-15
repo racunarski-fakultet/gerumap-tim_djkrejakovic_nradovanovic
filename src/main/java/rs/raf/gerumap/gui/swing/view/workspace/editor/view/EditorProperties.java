@@ -18,10 +18,10 @@ public class EditorProperties extends JPanel {
 
     public EditorProperties() {
         setBorder(BorderFactory.createMatteBorder(0, 1, 0, 0, new Color(52, 53, 54)));
-        setPreferredSize(new Dimension(214, 0));
+        setPreferredSize(new Dimension(240, 0));
 
         labelTitle.setBorder(BorderFactory.createEmptyBorder());
-        labelTitle.setPreferredSize(new Dimension(230, 22));
+        labelTitle.setPreferredSize(new Dimension(240, 22));
         labelTitle.setHorizontalAlignment(SwingConstants.CENTER);
 
         add(labelTitle);
@@ -43,6 +43,13 @@ public class EditorProperties extends JPanel {
 
         validate();
         repaint();
+    }
+
+    /**
+     * Gives focus to the component.
+     */
+    public void getFocus() {
+        activeProperties.getFocus();
     }
 
     /**

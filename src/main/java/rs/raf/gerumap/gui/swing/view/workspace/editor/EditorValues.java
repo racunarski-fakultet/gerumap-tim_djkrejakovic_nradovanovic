@@ -18,18 +18,24 @@ public class EditorValues {
     public static final String    PROPERTIES_WIDTH_IDENTIFIER          = "W";
     public static final String    PROPERTIES_HEIGHT_IDENTIFIER         = "H";
     public static final String    PROPERTIES_BACKGROUND_IDENTIFIER     = "Fill";
+    public static final String    PROPERTIES_FOREGROUND_IDENTIFIER     = "Text";
+    public static final String    PROPERTIES_STROKE_IDENTIFIER         = "Str";
+    public static final String    PROPERTIES_STROKE_WIDTH_IDENTIFIER   = "SW";
     public static final String    PROPERTIES_HEXADECIMAL_IDENTIFIER    = "Hex";
+    public static final String    PROPERTIES_NAME_IDENTIFIER           = "Name";
 
     public static final Float   SELECTION_STROKE_WIDTH     = 1F;
     public static final Integer SELECTION_ALPHA            = 20;
     public static final Color   SELECTION_STROKE_COLOR     = new Color(9, 166, 243);
     public static final Color   SELECTION_BACKGROUND_COLOR = new Color((SELECTION_STROKE_COLOR.getRGB() & 0xFFFFFF) | (SELECTION_ALPHA % 0x100 << 0x18), true);
 
-    public static final Color  CONCEPT_BACKGROUND_COLOR = new Color(96, 98, 100);
-    public static final Color  CONCEPT_FOREGROUND_COLOR = new Color(200, 202, 204);
-    public static final Color  CONCEPT_STROKE_COLOR     = new Color(75, 77, 79);
-    public static final Float  CONCEPT_STROKE_WIDTH     = 3F;
-    public static final Font   CONCEPT_TEXT_FONT        = new JLabel().getFont();
-    public static final String CONCEPT_TEXT_CONTENT     = "";
+    public static final Color   CONCEPT_BACKGROUND_COLOR = new Color(96, 98, 100);
+    public static final Color   CONCEPT_FOREGROUND_COLOR = new Color(200, 202, 204);
+    public static final Color   CONCEPT_STROKE_COLOR     = new Color(75, 77, 79);
+    public static final Float   CONCEPT_STROKE_WIDTH     = 3F;
+    public static final Font    CONCEPT_TEXT_FONT        = new JLabel().getFont();
+    public static final String  CONCEPT_TEXT_CONTENT     = "";
+    public static final Integer CONCEPT_WIDTH            = 150;
+    public static final Integer CONCEPT_HEIGHT           = 50;
 
 }

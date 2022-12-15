@@ -14,4 +14,10 @@ public interface ISelectable {
      */
     boolean isSelected();
 
+    /**
+     * Returns the identification code of the class.
+     * @return code
+     */
+    int getCode();
+
 }

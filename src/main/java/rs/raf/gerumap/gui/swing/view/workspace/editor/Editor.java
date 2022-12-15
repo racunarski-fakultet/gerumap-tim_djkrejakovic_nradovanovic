@@ -10,6 +10,7 @@ import rs.raf.gerumap.gui.swing.view.workspace.editor.view.EditorProject;
 import rs.raf.gerumap.gui.swing.view.workspace.editor.view.EditorProperties;
 import rs.raf.gerumap.gui.swing.view.workspace.editor.view.EditorToolbar;
 import rs.raf.gerumap.gui.swing.view.workspace.editor.view.IEditorComponent;
+import rs.raf.gerumap.gui.swing.view.workspace.editor.view.properties.DiagramProperties;
 import rs.raf.gerumap.gui.swing.view.workspace.editor.view.properties.PropertiesBase;
 
 import javax.swing.BorderFactory;
@@ -60,7 +61,8 @@ public class Editor extends JPanel implements IEditor {
 
     @Override
     public void setProperties(PropertiesBase properties) {
-        //TODO
+        this.properties.setProperties(properties);
+        this.properties.getFocus();
     }
 
     @Override
@@ -219,7 +221,7 @@ public class Editor extends JPanel implements IEditor {
         validate();
         repaint();
 
-        properties.reset();
+        setProperties(new DiagramProperties());
     }
 
     /**

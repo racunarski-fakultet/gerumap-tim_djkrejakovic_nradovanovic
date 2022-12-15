@@ -73,4 +73,9 @@ public class GraphicSelection extends RectangularGraphicElement {
         return new Rectangle2D.Double(rectangleX, rectangleY, rectangleWidth, rectangleHeight);
     }
 
+    @Override
+    public int getCode() {
+        return 0x0;
+    }
+
 }

@@ -5,7 +5,7 @@ import java.awt.Dimension;
 import java.awt.geom.Dimension2D;
 import java.awt.geom.Point2D;
 
-public abstract class RectangularGraphicElement extends GraphicElement implements IRectangular {
+public abstract class RectangularGraphicElement extends GraphicElement implements IRectangular, IBackground, IStroke {
 
     protected double x;
     protected double y;
@@ -111,52 +111,38 @@ public abstract class RectangularGraphicElement extends GraphicElement implement
 
     //endregion
 
-    //region Setters and Getters
+    //region IBackground Methods
 
-    /**
-     * Sets the background color.
-     * @param color color
-     */
+    @Override
     public void setBackgroundColor(Color color) {
         backgroundColor = color;
     }
 
-    /**
-     * Sets the stroke color.
-     * @param color stroke color
-     */
-    public void setStrokeColor(Color color) {
-        this.strokeColor = color;
-    }
-
-    /**
-     * Sets the stroke width.
-     * @param width width
-     */
-    public void setStrokeWidth(float width) {
-        this.strokeWidth = width;
-    }
-
-    /**
-     * Returns the background color.
-     * @return background color
-     */
+    @Override
     public Color getBackgroundColor() {
         return backgroundColor;
     }
 
-    /**
-     * Returns the stroke color.
-     * @return stroke color
-     */
+    //endregion
+
+    //region IStroke Methods
+
+    @Override
+    public void setStrokeColor(Color color) {
+        this.strokeColor = color;
+    }
+
+    @Override
+    public void setStrokeWidth(float width) {
+        this.strokeWidth = width;
+    }
+
+    @Override
     public Color getStrokeColor() {
         return strokeColor;
     }
 
-    /**
-     * Returns the stroke width.
-     * @return stroke width
-     */
+    @Override
     public float getStrokeWidth() {
         return strokeWidth;
     }
