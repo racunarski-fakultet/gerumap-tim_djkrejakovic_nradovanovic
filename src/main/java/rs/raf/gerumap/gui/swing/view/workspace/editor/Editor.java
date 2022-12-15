@@ -3,6 +3,7 @@ package rs.raf.gerumap.gui.swing.view.workspace.editor;
 import rs.raf.gerumap.gui.swing.controller.StateManager;
 import rs.raf.gerumap.gui.swing.view.MainWindow;
 import rs.raf.gerumap.gui.swing.view.user.model.User;
+import rs.raf.gerumap.gui.swing.view.workspace.editor.controller.EditorFocusMouseListener;
 import rs.raf.gerumap.gui.swing.view.workspace.editor.view.EditorDiagram;
 import rs.raf.gerumap.gui.swing.view.workspace.editor.view.EditorPage;
 import rs.raf.gerumap.gui.swing.view.workspace.editor.view.EditorProject;
@@ -43,6 +44,8 @@ public class Editor extends JPanel implements IEditor {
      */
     private void setupComponents() {
         setBorder(BorderFactory.createMatteBorder(1, 1, 0, 0, new Color(52, 53, 54)));
+
+        toolbar.addMouseListener(new EditorFocusMouseListener());
     }
 
     @Override

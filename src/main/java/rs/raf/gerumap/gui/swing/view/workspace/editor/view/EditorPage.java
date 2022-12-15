@@ -3,6 +3,7 @@ package rs.raf.gerumap.gui.swing.view.workspace.editor.view;
 import rs.raf.gerumap.gui.swing.view.MainWindow;
 import rs.raf.gerumap.gui.swing.view.workspace.editor.EditorValues;
 import rs.raf.gerumap.gui.swing.view.workspace.editor.IEditor;
+import rs.raf.gerumap.gui.swing.view.workspace.editor.controller.EditorFocusMouseListener;
 import rs.raf.gerumap.gui.swing.view.workspace.explorer.model.tree.explorer.Element;
 import rs.raf.gerumap.gui.swing.view.workspace.explorer.model.tree.explorer.MindMap;
 
@@ -12,8 +13,6 @@ import javax.swing.JScrollPane;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridBagLayout;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -51,14 +50,9 @@ public class EditorPage extends JScrollPane implements IEditorComponent {
         container.setPreferredSize(new Dimension(EditorValues.DIAGRAM_WIDTH + 200, EditorValues.DIAGRAM_HEIGHT + 200));
         container.add(this.diagram);
 
-        setViewportView(container);
+        container.addMouseListener(new EditorFocusMouseListener());
 
-        this.diagram.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mousePressed(MouseEvent e) {
-                editor.getActiveProject().requestFocus();
-            }
-        });
+        setViewportView(container);
     }
 
     @Override

@@ -5,6 +5,7 @@ import rs.raf.gerumap.gui.swing.view.workspace.editor.EditorValues;
 import rs.raf.gerumap.gui.swing.view.workspace.editor.IEditor;
 import rs.raf.gerumap.gui.swing.view.workspace.editor.controller.EditorDiagramMouseListener;
 import rs.raf.gerumap.gui.swing.view.workspace.editor.controller.EditorDiagramMouseMotionListener;
+import rs.raf.gerumap.gui.swing.view.workspace.editor.controller.EditorFocusMouseListener;
 import rs.raf.gerumap.gui.swing.view.workspace.editor.graphics.GraphicElement;
 
 import javax.swing.JPanel;
@@ -24,6 +25,7 @@ public class EditorDiagram extends JPanel {
         setPreferredSize(EditorValues.DIAGRAM_DIMENSION);
         setBackground(EditorValues.DIAGRAM_BACKGROUND_COLOR);
 
+        addMouseListener(new EditorFocusMouseListener());
         addMouseListener(new EditorDiagramMouseListener());
         addMouseMotionListener(new EditorDiagramMouseMotionListener());
     }

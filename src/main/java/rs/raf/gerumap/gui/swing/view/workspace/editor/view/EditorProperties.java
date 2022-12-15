@@ -1,5 +1,6 @@
 package rs.raf.gerumap.gui.swing.view.workspace.editor.view;
 
+import rs.raf.gerumap.gui.swing.view.workspace.editor.controller.EditorFocusMouseListener;
 import rs.raf.gerumap.gui.swing.view.workspace.editor.view.properties.DiagramProperties;
 import rs.raf.gerumap.gui.swing.view.workspace.editor.view.properties.PropertiesBase;
 
@@ -24,6 +25,8 @@ public class EditorProperties extends JPanel {
         labelTitle.setHorizontalAlignment(SwingConstants.CENTER);
 
         add(labelTitle);
+
+        addMouseListener(new EditorFocusMouseListener());
     }
 
     /**
