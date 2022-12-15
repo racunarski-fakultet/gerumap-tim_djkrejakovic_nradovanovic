@@ -215,6 +215,8 @@ public class Editor extends JPanel implements IEditor {
 
         validate();
         repaint();
+
+        properties.reset();
     }
 
     /**

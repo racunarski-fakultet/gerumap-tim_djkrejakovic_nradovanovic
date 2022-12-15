@@ -23,7 +23,9 @@ public class EditorDiagram extends JPanel {
     }
 
     @Override
-    protected void paintComponent(Graphics graphics) { }
+    protected void paintComponent(Graphics graphics) {
+        super.paintComponent(graphics);
+    }
 
     /**
      * Sets the diagram width.
