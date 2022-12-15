@@ -5,6 +5,7 @@ import rs.raf.gerumap.gui.swing.view.MainWindow;
 import rs.raf.gerumap.gui.swing.view.user.model.User;
 import rs.raf.gerumap.gui.swing.view.workspace.editor.IEditor;
 import rs.raf.gerumap.gui.swing.view.workspace.editor.controller.EditorFocusMouseListener;
+import rs.raf.gerumap.gui.swing.view.workspace.editor.controller.EditorKeyListener;
 import rs.raf.gerumap.gui.swing.view.workspace.editor.controller.EditorTabChangeListener;
 import rs.raf.gerumap.gui.swing.view.workspace.editor.controller.EditorTabMouseListener;
 import rs.raf.gerumap.gui.swing.view.workspace.explorer.model.tree.explorer.Project;
@@ -49,6 +50,7 @@ public class EditorProject extends JTabbedPane implements IEditorComponent {
         addChangeListener(new EditorTabChangeListener());
         addMouseListener(new EditorTabMouseListener());
         addMouseListener(new EditorFocusMouseListener());
+        addKeyListener(new EditorKeyListener());
     }
 
     /**

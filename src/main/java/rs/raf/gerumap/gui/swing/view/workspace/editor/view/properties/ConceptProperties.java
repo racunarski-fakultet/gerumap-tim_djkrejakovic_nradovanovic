@@ -146,7 +146,8 @@ public class ConceptProperties extends PropertiesBase {
 
     @Override
     public void getFocus() {
-        textContent.requestFocus();
+        if (concepts.get(0).equals(editor.getDiagram().getGraphicElement()))
+            textContent.requestFocus();
     }
 
     //region Setup

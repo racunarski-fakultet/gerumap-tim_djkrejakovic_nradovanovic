@@ -98,6 +98,14 @@ public class EditorDiagram extends JPanel {
     }
 
     /**
+     * Returns the graphic element.
+     * @return graphic element
+     */
+    public GraphicElement getGraphicElement() {
+        return graphicElement;
+    }
+
+    /**
      * Removes the graphic element.
      */
     public void removeGraphicElement() {

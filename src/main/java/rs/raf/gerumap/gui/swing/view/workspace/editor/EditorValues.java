@@ -49,5 +49,5 @@ public class EditorValues {
     public static final Integer GRAPHIC_ELEMENT_WIDTH_MULTIPLIER  = 1;
     public static final Integer GRAPHIC_ELEMENT_HEIGHT_MULTIPLIER = 1;
     public static final Integer GRAPHIC_ELEMENT_STROKE_MULTIPLIER = 1;
-    
+
 }
