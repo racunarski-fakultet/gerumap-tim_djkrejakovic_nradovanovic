@@ -76,7 +76,8 @@ public class SelectionManager {
             value |= element.getCode();
 
         editor.setProperties(value == DIAGRAM ? new DiagramProperties() :
-                             value == CONCEPT ? new ConceptProperties() : null);
+                             value == CONCEPT ? new ConceptProperties() :
+                                                new DiagramProperties());
     }
 
 }

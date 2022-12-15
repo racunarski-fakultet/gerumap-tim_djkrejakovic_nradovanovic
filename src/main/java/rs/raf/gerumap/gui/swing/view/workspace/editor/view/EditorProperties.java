@@ -20,8 +20,9 @@ public class EditorProperties extends JPanel {
         setBorder(BorderFactory.createMatteBorder(0, 1, 0, 0, new Color(52, 53, 54)));
         setPreferredSize(new Dimension(240, 0));
 
-        labelTitle.setBorder(BorderFactory.createEmptyBorder());
-        labelTitle.setPreferredSize(new Dimension(240, 22));
+        labelTitle.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, new Color(52, 53, 54)),
+                                                                BorderFactory.createEmptyBorder(0, 0, 5, 0)));
+        labelTitle.setPreferredSize(new Dimension(240, 28));
         labelTitle.setHorizontalAlignment(SwingConstants.CENTER);
 
         add(labelTitle);
@@ -38,8 +39,6 @@ public class EditorProperties extends JPanel {
             remove(activeProperties);
 
         add(activeProperties = properties);
-
-        activeProperties.setBorder(BorderFactory.createMatteBorder(1, 0, 0, 0, new Color(52, 53, 54)));
 
         validate();
         repaint();

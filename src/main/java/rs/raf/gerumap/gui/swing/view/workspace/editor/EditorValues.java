@@ -38,4 +38,6 @@ public class EditorValues {
     public static final Integer CONCEPT_WIDTH            = 150;
     public static final Integer CONCEPT_HEIGHT           = 50;
 
+    public static final Float CONNECTION_STROKE_WIDTH = 3F;
+    public static final Color CONNECTION_STROKE_COLOR = new Color(75, 77, 79);
 }
