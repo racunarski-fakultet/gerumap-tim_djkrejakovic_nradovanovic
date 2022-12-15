@@ -3,7 +3,7 @@ package rs.raf.gerumap.gui.swing.controller;
 import rs.raf.gerumap.gui.swing.view.workspace.editor.state.ConceptState;
 import rs.raf.gerumap.gui.swing.view.workspace.editor.state.ConnectState;
 import rs.raf.gerumap.gui.swing.view.workspace.editor.state.MoveState;
-import rs.raf.gerumap.gui.swing.view.workspace.editor.state.RemoveState;
+import rs.raf.gerumap.gui.swing.view.workspace.editor.state.EraseState;
 import rs.raf.gerumap.gui.swing.view.workspace.editor.state.SelectState;
 import rs.raf.gerumap.gui.swing.view.workspace.editor.state.State;
 import rs.raf.gerumap.gui.swing.view.workspace.editor.state.ZoomState;
@@ -15,7 +15,7 @@ public class StateManager {
     private static final Map<String, State> states = Map.of(
             ConceptState.ID, new ConceptState(),
             ConnectState.ID, new ConnectState(),
-            RemoveState.ID , new RemoveState(),
+            EraseState.ID , new EraseState(),
             MoveState.ID   , new MoveState(),
             SelectState.ID , new SelectState(),
             ZoomState.ID   , new ZoomState()

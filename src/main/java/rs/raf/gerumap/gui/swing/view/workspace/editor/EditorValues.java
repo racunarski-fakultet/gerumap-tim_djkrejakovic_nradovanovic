@@ -29,6 +29,11 @@ public class EditorValues {
     public static final Color   SELECTION_STROKE_COLOR     = new Color(9, 166, 243);
     public static final Color   SELECTION_BACKGROUND_COLOR = new Color((SELECTION_STROKE_COLOR.getRGB() & 0xFFFFFF) | (SELECTION_ALPHA % 0x100 << 0x18), true);
 
+    public static final Float   ERASER_STROKE_WIDTH     = SELECTION_STROKE_WIDTH;
+    public static final Integer ERASER_ALPHA            = SELECTION_ALPHA;
+    public static final Color   ERASER_STROKE_COLOR     = new Color(227, 6, 19);
+    public static final Color   ERASER_BACKGROUND_COLOR = new Color((ERASER_STROKE_COLOR.getRGB() & 0xFFFFFF) | (ERASER_ALPHA % 0x100 << 0x18), true);
+
     public static final Color   CONCEPT_BACKGROUND_COLOR = new Color(96, 98, 100);
     public static final Color   CONCEPT_FOREGROUND_COLOR = new Color(200, 202, 204);
     public static final Color   CONCEPT_STROKE_COLOR     = new Color(75, 77, 79);
@@ -44,4 +49,5 @@ public class EditorValues {
     public static final Integer GRAPHIC_ELEMENT_WIDTH_MULTIPLIER  = 1;
     public static final Integer GRAPHIC_ELEMENT_HEIGHT_MULTIPLIER = 1;
     public static final Integer GRAPHIC_ELEMENT_STROKE_MULTIPLIER = 1;
+    
 }
