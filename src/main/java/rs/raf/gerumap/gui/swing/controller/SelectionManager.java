@@ -4,7 +4,9 @@ import rs.raf.gerumap.gui.swing.view.MainWindow;
 import rs.raf.gerumap.gui.swing.view.workspace.editor.IEditor;
 import rs.raf.gerumap.gui.swing.view.workspace.editor.graphics.GraphicConcept;
 import rs.raf.gerumap.gui.swing.view.workspace.editor.graphics.ISelectable;
+import rs.raf.gerumap.gui.swing.view.workspace.editor.graphics.IStroke;
 import rs.raf.gerumap.gui.swing.view.workspace.editor.view.properties.ConceptProperties;
+import rs.raf.gerumap.gui.swing.view.workspace.editor.view.properties.ConnectiveProperties;
 import rs.raf.gerumap.gui.swing.view.workspace.editor.view.properties.DiagramProperties;
 
 import java.util.ArrayList;
@@ -35,19 +37,6 @@ public class SelectionManager {
     }
 
     /**
-     * Removes all elements from the selection.
-     */
-    public static void clear() {
-        Iterator<ISelectable> iterator = selected.iterator();
-        while (iterator.hasNext()) {
-            iterator.next().setSelected(false);
-            iterator.remove();
-        }
-
-        updateProperties();
-    }
-
-    /**
      * Returns the selected graphic concepts.
      * @return graphic concepts
      */
@@ -62,6 +51,33 @@ public class SelectionManager {
     }
 
     /**
+     * Returns the selected graphic elements with a stroke.
+     * @return stroke elements
+     */
+    public static List<IStroke> getSelectedStrokes() {
+        List<IStroke> strokes = new ArrayList<>();
+
+        for (ISelectable element : selected)
+            if (element instanceof IStroke)
+                strokes.add((IStroke) element);
+
+        return strokes;
+    }
+
+    /**
+     * Removes all elements from the selection.
+     */
+    public static void clear() {
+        Iterator<ISelectable> iterator = selected.iterator();
+        while (iterator.hasNext()) {
+            iterator.next().setSelected(false);
+            iterator.remove();
+        }
+
+        updateProperties();
+    }
+
+    /**
      * Returns the number of selected elements.
      * @return size
      */
@@ -69,6 +85,9 @@ public class SelectionManager {
         return selected.size();
     }
 
+    /**
+     * Updates the properties tab based on the selected elements.
+     */
     private static void updateProperties() {
         int value = 0x1;
 
@@ -77,7 +96,7 @@ public class SelectionManager {
 
         editor.setProperties(value == DIAGRAM ? new DiagramProperties() :
                              value == CONCEPT ? new ConceptProperties() :
-                                                new DiagramProperties());
+                                                new ConnectiveProperties());
     }
 
 }

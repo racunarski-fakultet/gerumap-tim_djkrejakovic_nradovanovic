@@ -40,4 +40,8 @@ public class EditorValues {
 
     public static final Float CONNECTION_STROKE_WIDTH = 3F;
     public static final Color CONNECTION_STROKE_COLOR = new Color(75, 77, 79);
+
+    public static final Integer GRAPHIC_ELEMENT_WIDTH_MULTIPLIER  = 1;
+    public static final Integer GRAPHIC_ELEMENT_HEIGHT_MULTIPLIER = 1;
+    public static final Integer GRAPHIC_ELEMENT_STROKE_MULTIPLIER = 1;
 }

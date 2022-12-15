@@ -15,10 +15,6 @@ import java.util.List;
 
 public class GraphicSelection extends RectangularGraphicElement {
 
-    public GraphicSelection(double x, double y) {
-        this(new Point2D.Double(x, y));
-    }
-
     public GraphicSelection(Point2D location) {
         super("Selection");
 

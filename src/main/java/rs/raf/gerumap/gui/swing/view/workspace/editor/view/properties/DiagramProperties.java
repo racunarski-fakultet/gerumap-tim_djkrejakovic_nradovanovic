@@ -35,6 +35,7 @@ public class DiagramProperties extends PropertiesBase {
     public DiagramProperties() {
         initialize();
         setup();
+        addListeners();
 
         add(labelWidth,    new GridBagConstraints(0, 0, 1, 1, 0, 0, GridBagConstraints.CENTER, GridBagConstraints.NONE, new Insets(16, 12, 8,  4), 0, 0));
         add(spinnerWidth,  new GridBagConstraints(1, 0, 1, 1, 0, 0, GridBagConstraints.CENTER, GridBagConstraints.NONE, new Insets(16,  4, 8,  5), 0, 0));
@@ -68,7 +69,12 @@ public class DiagramProperties extends PropertiesBase {
 
         spinnerWidth .setPreferredSize(EditorValues.PROPERTIES_INPUT_COMPONENT_DIMENSION);
         spinnerHeight.setPreferredSize(EditorValues.PROPERTIES_INPUT_COMPONENT_DIMENSION);
+    }
 
+    /**
+     * Assigns listeners to components
+     */
+    private void addListeners() {
         paneBackground.addMouseListener(new BackgroundMouseListener());
 
         spinnerWidth .addChangeListener(new WidthChangeListener());
@@ -90,6 +96,8 @@ public class DiagramProperties extends PropertiesBase {
 
     @Override
     public void getFocus() { }
+
+    //region Listeners
 
     private class WidthChangeListener implements ChangeListener {
 
@@ -124,5 +132,7 @@ public class DiagramProperties extends PropertiesBase {
         }
 
     }
+
+    //endregion
 
 }

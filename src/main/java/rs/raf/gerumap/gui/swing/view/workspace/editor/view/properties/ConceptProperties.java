@@ -120,9 +120,9 @@ public class ConceptProperties extends PropertiesBase {
         paneBackground.setBorder(BorderFactory.createLineBorder(new Color(97, 99, 101)));
         paneStroke    .setBorder(BorderFactory.createLineBorder(new Color(97, 99, 101)));
 
-        spinnerWidth       = new GRMapSpinner(1);
-        spinnerHeight      = new GRMapSpinner(1);
-        spinnerStrokeWidth = new GRMapSpinner(1);
+        spinnerWidth       = new GRMapSpinner(EditorValues.GRAPHIC_ELEMENT_WIDTH_MULTIPLIER);
+        spinnerHeight      = new GRMapSpinner(EditorValues.GRAPHIC_ELEMENT_HEIGHT_MULTIPLIER);
+        spinnerStrokeWidth = new GRMapSpinner(EditorValues.GRAPHIC_ELEMENT_STROKE_MULTIPLIER);
 
         spinnerWidth      .setPreferredSize(EditorValues.PROPERTIES_INPUT_COMPONENT_DIMENSION);
         spinnerHeight     .setPreferredSize(EditorValues.PROPERTIES_INPUT_COMPONENT_DIMENSION);
@@ -341,7 +341,7 @@ public class ConceptProperties extends PropertiesBase {
     private class ContentCaretListener implements CaretListener {
 
         @Override
-        public void caretUpdate(CaretEvent e) {
+        public void caretUpdate(CaretEvent event) {
             String content = textContent.getText();
 
             for (GraphicConcept concept : concepts)
@@ -415,8 +415,8 @@ public class ConceptProperties extends PropertiesBase {
     private class StrokeWidthChangeListener implements ChangeListener {
 
         @Override
-        public void stateChanged(ChangeEvent e) {
-            Integer value = (int) spinnerStrokeWidth.getValue();
+        public void stateChanged(ChangeEvent event) {
+            int value = (int) spinnerStrokeWidth.getValue();
 
             for (GraphicConcept concept : concepts)
                 concept.setStrokeWidth(value);
