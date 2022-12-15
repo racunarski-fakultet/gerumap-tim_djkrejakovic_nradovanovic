@@ -1,7 +1,9 @@
 package rs.raf.gerumap.gui.swing.view.workspace.editor;
 
+import javax.swing.JLabel;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 
 public class EditorValues {
 
@@ -22,5 +24,12 @@ public class EditorValues {
     public static final Integer SELECTION_ALPHA            = 20;
     public static final Color   SELECTION_STROKE_COLOR     = new Color(9, 166, 243);
     public static final Color   SELECTION_BACKGROUND_COLOR = new Color((SELECTION_STROKE_COLOR.getRGB() & 0xFFFFFF) | (SELECTION_ALPHA % 0x100 << 0x18), true);
+
+    public static final Color  CONCEPT_BACKGROUND_COLOR = new Color(96, 98, 100);
+    public static final Color  CONCEPT_FOREGROUND_COLOR = new Color(200, 202, 204);
+    public static final Color  CONCEPT_STROKE_COLOR     = new Color(75, 77, 79);
+    public static final Float  CONCEPT_STROKE_WIDTH     = 3F;
+    public static final Font   CONCEPT_TEXT_FONT        = new JLabel().getFont();
+    public static final String CONCEPT_TEXT_CONTENT     = "";
 
 }

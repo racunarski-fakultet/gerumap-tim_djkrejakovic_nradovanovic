@@ -10,7 +10,7 @@ import java.awt.geom.Point2D;
 
 public abstract class GraphicElement extends Element implements ISelectable {
 
-    private Boolean selected = false;
+    protected boolean selected = false;
 
     public GraphicElement(String name) {
         super(name, MainWindow.window.getEditor().getActivePage().getMindMap());

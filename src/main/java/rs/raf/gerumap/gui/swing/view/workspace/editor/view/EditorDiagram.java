@@ -37,6 +37,9 @@ public class EditorDiagram extends JPanel {
         Graphics2D graphics2D = (Graphics2D) graphics;
         graphics2D.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
+        for (EditorElement element : editor.getActivePage().getEditorElements())
+            element.getGraphicElement().render(graphics2D);
+
         if (graphicElement != null)
             graphicElement.render(graphics2D);
     }
