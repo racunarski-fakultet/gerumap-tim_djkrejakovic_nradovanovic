@@ -19,7 +19,9 @@ public class ConceptState extends State {
     public void mousePressed(MouseEvent event) {
         super.mousePressed(event);
 
-        startLocation = event.getPoint();
+        startLocation = new Point2D.Double(event.getX() / editor.getGraphicConfigurations().getScaleFactor(),
+                                           event.getY() / editor.getGraphicConfigurations().getScaleFactor());
+
         graphicConcept = new GraphicConcept(startLocation);
 
         editor.getDiagram().setGraphicElement(graphicConcept);
@@ -27,7 +29,10 @@ public class ConceptState extends State {
 
     @Override
     public void mouseDragged(MouseEvent event) {
-        graphicConcept.update(startLocation, event.getPoint());
+        Point2D mouseLocation = new Point2D.Double(event.getX() / editor.getGraphicConfigurations().getScaleFactor(),
+                                                   event.getY() / editor.getGraphicConfigurations().getScaleFactor());
+
+        graphicConcept.update(startLocation, mouseLocation);
         editor.render();
     }
 

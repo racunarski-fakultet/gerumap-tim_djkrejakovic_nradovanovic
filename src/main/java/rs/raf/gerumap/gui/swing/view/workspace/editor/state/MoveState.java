@@ -20,7 +20,15 @@ public class MoveState extends State {
 
     @Override
     public void mousePressed(MouseEvent event) {
-        startLocation = event.getPoint();
+        Point2D mouseLocation = new Point2D.Double(event.getX() / editor.getGraphicConfigurations().getScaleFactor(),
+                                                   event.getY() / editor.getGraphicConfigurations().getScaleFactor());
+
+        GraphicElement graphicElement = editor.getDiagram().getGraphicElementAt(mouseLocation);
+
+        if (graphicElement == null || !SelectionManager.getSelectedElements().contains(graphicElement))
+            return;
+
+        startLocation = mouseLocation;
 
         for (IMovable movableElement : SelectionManager.getSelectedMovables())
             startLocations.add(movableElement.getLocation());
@@ -31,8 +39,8 @@ public class MoveState extends State {
         if (startLocation == null)
             return;
 
-        double moveX = event.getX() - startLocation.getX();
-        double moveY = event.getY() - startLocation.getY();
+        double moveX = event.getX() / editor.getGraphicConfigurations().getScaleFactor() - startLocation.getX();
+        double moveY = event.getY() / editor.getGraphicConfigurations().getScaleFactor() - startLocation.getY();
 
         List<IMovable> selected = SelectionManager.getSelectedMovables();
 
@@ -40,8 +48,6 @@ public class MoveState extends State {
             selected.get(i).setLocation(startLocations.get(i).getX() + moveX, startLocations.get(i).getY() + moveY);
 
         editor.getDiagram().reconnect();
-
-        editor.render();
     }
 
     @Override

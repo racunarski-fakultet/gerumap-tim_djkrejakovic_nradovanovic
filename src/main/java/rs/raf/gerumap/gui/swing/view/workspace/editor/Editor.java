@@ -4,6 +4,7 @@ import rs.raf.gerumap.gui.swing.controller.StateManager;
 import rs.raf.gerumap.gui.swing.view.MainWindow;
 import rs.raf.gerumap.gui.swing.view.user.model.User;
 import rs.raf.gerumap.gui.swing.view.workspace.editor.controller.EditorFocusMouseListener;
+import rs.raf.gerumap.gui.swing.view.workspace.editor.graphics.GraphicConfigurations;
 import rs.raf.gerumap.gui.swing.view.workspace.editor.view.EditorDiagram;
 import rs.raf.gerumap.gui.swing.view.workspace.editor.view.EditorPage;
 import rs.raf.gerumap.gui.swing.view.workspace.editor.view.EditorProject;
@@ -57,6 +58,7 @@ public class Editor extends JPanel implements IEditor {
 
     @Override
     public void render() {
+        getDiagram().setActualSize(getDiagram().getActualSize());
         getDiagram().repaint();
     }
 
@@ -104,11 +106,6 @@ public class Editor extends JPanel implements IEditor {
     }
 
     @Override
-    public void updatePageDimension() {
-        activePage.updateContainerDimensions();
-    }
-
-    @Override
     public EditorPage getActivePage() {
         return activePage;
     }
@@ -151,6 +148,11 @@ public class Editor extends JPanel implements IEditor {
     @Override
     public EditorStatusBar getStatusBar() {
         return activePage.getStatusBar();
+    }
+
+    @Override
+    public GraphicConfigurations getGraphicConfigurations() {
+        return activePage.getDiagram().getConfigurations();
     }
 
     @Override

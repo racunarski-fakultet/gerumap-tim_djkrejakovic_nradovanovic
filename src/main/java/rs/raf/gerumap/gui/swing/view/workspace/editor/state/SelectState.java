@@ -19,7 +19,9 @@ public class SelectState extends State {
     public void mousePressed(MouseEvent event) {
         super.mousePressed(event);
 
-        startLocation = event.getPoint();
+        startLocation = new Point2D.Double(event.getX() / editor.getGraphicConfigurations().getScaleFactor(),
+                                           event.getY() / editor.getGraphicConfigurations().getScaleFactor());
+
         graphicSelection = new GraphicSelection(startLocation);
 
         GraphicElement graphicElement = editor.getDiagram().getGraphicElementAt(startLocation);
@@ -36,20 +38,22 @@ public class SelectState extends State {
         if (graphicSelection == null)
             return;
 
-        graphicSelection.update(startLocation, event.getPoint());
+        Point2D mouseLocation = new Point2D.Double(event.getX() / editor.getGraphicConfigurations().getScaleFactor(),
+                                                   event.getY() / editor.getGraphicConfigurations().getScaleFactor());
+
+        graphicSelection.update(startLocation, mouseLocation);
         editor.render();
     }
 
     @Override
     public void mouseReleased(MouseEvent event) {
-        editor.getDiagram().removeGraphicElement();
-        editor.render();
-
         clear();
     }
 
     @Override
     public void clear() {
+        editor.getDiagram().removeGraphicElement();
+
         startLocation = null;
         graphicSelection = null;
     }

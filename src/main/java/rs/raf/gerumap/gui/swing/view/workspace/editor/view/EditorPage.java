@@ -63,8 +63,8 @@ public class EditorPage extends JPanel implements IEditorComponent {
         diagramContainer.setPreferredSize(new Dimension(EditorValues.DIAGRAM_WIDTH + 200, EditorValues.DIAGRAM_HEIGHT + 200));
         diagramContainer.add(this.diagram);
 
-        scrollPane.getVerticalScrollBar().setUnitIncrement(10);
-        scrollPane.getHorizontalScrollBar().setUnitIncrement(10);
+        scrollPane.getVerticalScrollBar().setUnitIncrement(12);
+        scrollPane.getHorizontalScrollBar().setUnitIncrement(12);
         scrollPane.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, new Color(52, 53, 54)));
         scrollPane.setViewportView(diagramContainer);
 
@@ -165,7 +165,7 @@ public class EditorPage extends JPanel implements IEditorComponent {
      * Updates the container dimensions.
      */
     public void updateContainerDimensions() {
-        diagramContainer.setPreferredSize(new Dimension(diagram.getWidth() + 200, diagram.getHeight() + 200));
+        diagramContainer.setPreferredSize(new Dimension((int) (diagram.getScaledWidth() + 200), (int) (diagram.getScaledHeight() + 200)));
     }
 
     /**

@@ -19,7 +19,9 @@ public class EraseState extends State {
     public void mousePressed(MouseEvent event) {
         super.mousePressed(event);
 
-        startLocation = event.getPoint();
+        startLocation = new Point2D.Double(event.getX() / editor.getGraphicConfigurations().getScaleFactor(),
+                                           event.getY() / editor.getGraphicConfigurations().getScaleFactor());
+
         graphicEraser = new GraphicEraser(startLocation);
 
         GraphicElement graphicElement = editor.getDiagram().getGraphicElementAt(startLocation);
@@ -28,7 +30,6 @@ public class EraseState extends State {
             SelectionManager.addSelection(graphicElement);
 
         editor.getDiagram().setGraphicElement(graphicEraser);
-        editor.render();
     }
 
     @Override
@@ -36,22 +37,26 @@ public class EraseState extends State {
         if (graphicEraser == null)
             return;
 
-        graphicEraser.update(startLocation, event.getPoint());
+        Point2D mouseLocation = new Point2D.Double(event.getX() / editor.getGraphicConfigurations().getScaleFactor(),
+                                                   event.getY() / editor.getGraphicConfigurations().getScaleFactor());
+
+        graphicEraser.update(startLocation, mouseLocation);
         editor.render();
     }
 
     @Override
     public void mouseReleased(MouseEvent event) {
+        if (startLocation == null)
+            return;
+
         SelectionManager.erase();
-
-        editor.getDiagram().removeGraphicElement();
-        editor.render();
-
         clear();
     }
 
     @Override
     public void clear() {
+        editor.getDiagram().removeGraphicElement();
+
         startLocation = null;
         graphicEraser = null;
     }

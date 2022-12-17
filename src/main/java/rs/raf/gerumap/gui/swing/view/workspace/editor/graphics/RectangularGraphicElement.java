@@ -35,8 +35,18 @@ public abstract class RectangularGraphicElement extends GraphicElement implement
     }
 
     @Override
+    public void setScaledX(double x) {
+        this.x = x / configurations.getScaleFactor();
+    }
+
+    @Override
     public void setY(double y) {
         this.y = y;
+    }
+
+    @Override
+    public void setScaledY(double y) {
+        this.y = y / configurations.getScaleFactor();
     }
 
     @Override
@@ -46,8 +56,19 @@ public abstract class RectangularGraphicElement extends GraphicElement implement
     }
 
     @Override
+    public void setScaledLocation(double x, double y) {
+        setScaledX(x);
+        setScaledY(y);
+    }
+
+    @Override
     public void setLocation(Point2D location) {
         setLocation(location.getX(), location.getY());
+    }
+
+    @Override
+    public void setScaledLocation(Point2D location) {
+        setScaledLocation(location.getX(), location.getY());
     }
 
     @Override
@@ -56,13 +77,28 @@ public abstract class RectangularGraphicElement extends GraphicElement implement
     }
 
     @Override
+    public double getScaledX() {
+        return x * configurations.getScaleFactor();
+    }
+
+    @Override
     public double getY() {
         return y;
     }
 
     @Override
+    public double getScaledY() {
+        return y * configurations.getScaleFactor();
+    }
+
+    @Override
     public Point2D getLocation() {
         return new Point2D.Double(getX(), getY());
+    }
+
+    @Override
+    public Point2D getScaledLocation() {
+        return new Point2D.Double(getScaledX(), getScaledY());
     }
 
     //endregion
@@ -75,8 +111,18 @@ public abstract class RectangularGraphicElement extends GraphicElement implement
     }
 
     @Override
+    public void setScaledWidth(double width) {
+        this.width = width / configurations.getScaleFactor();
+    }
+
+    @Override
     public void setHeight(double height) {
         this.height = height;
+    }
+
+    @Override
+    public void setScaledHeight(double height) {
+        this.height = height / configurations.getScaleFactor();
     }
 
     @Override
@@ -86,8 +132,19 @@ public abstract class RectangularGraphicElement extends GraphicElement implement
     }
 
     @Override
+    public void setScaledSize(double width, double height) {
+        setScaledWidth(width);
+        setScaledHeight(height);
+    }
+
+    @Override
     public void setSize(Dimension2D dimension) {
         setSize(dimension.getWidth(), dimension.getHeight());
+    }
+
+    @Override
+    public void setScaledSize(Dimension2D dimension) {
+        setScaledSize(dimension.getWidth(), dimension.getHeight());
     }
 
     @Override
@@ -96,13 +153,28 @@ public abstract class RectangularGraphicElement extends GraphicElement implement
     }
 
     @Override
+    public double getScaledWidth() {
+        return width * configurations.getScaleFactor();
+    }
+
+    @Override
     public double getHeight() {
         return height;
     }
 
     @Override
+    public double getScaledHeight() {
+        return height * configurations.getScaleFactor();
+    }
+
+    @Override
     public Dimension2D getSize() {
         return new Dimension((int) getWidth(), (int) getHeight());
+    }
+
+    @Override
+    public Dimension2D getScaledSize() {
+        return new Dimension((int) getScaledWidth(), (int) getScaledHeight());
     }
 
     //endregion
@@ -134,6 +206,11 @@ public abstract class RectangularGraphicElement extends GraphicElement implement
     }
 
     @Override
+    public void setScaledStrokeWidth(float width) {
+        this.strokeWidth = (float) (width / configurations.getScaleFactor());
+    }
+
+    @Override
     public Color getStrokeColor() {
         return strokeColor;
     }
@@ -141,6 +218,11 @@ public abstract class RectangularGraphicElement extends GraphicElement implement
     @Override
     public float getStrokeWidth() {
         return strokeWidth;
+    }
+
+    @Override
+    public float getScaledStrokeWidth() {
+        return (float) (strokeWidth * configurations.getScaleFactor());
     }
 
     //endregion

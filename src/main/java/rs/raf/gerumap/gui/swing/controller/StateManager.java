@@ -15,7 +15,7 @@ public class StateManager {
     private static final Map<String, State> states = Map.of(
             ConceptState.ID, new ConceptState(),
             ConnectState.ID, new ConnectState(),
-            EraseState.ID , new EraseState(),
+            EraseState.ID ,  new EraseState(),
             MoveState.ID   , new MoveState(),
             SelectState.ID , new SelectState(),
             ZoomState.ID   , new ZoomState()

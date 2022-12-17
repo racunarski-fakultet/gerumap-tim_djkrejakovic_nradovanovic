@@ -7,8 +7,11 @@ import rs.raf.gerumap.gui.swing.view.workspace.editor.controller.EditorDiagramSt
 import rs.raf.gerumap.gui.swing.view.workspace.editor.controller.EditorDiagramStateMouseMotionListener;
 import rs.raf.gerumap.gui.swing.view.workspace.editor.controller.EditorDiagramStatusMouseMotionListener;
 import rs.raf.gerumap.gui.swing.view.workspace.editor.controller.EditorFocusMouseListener;
+import rs.raf.gerumap.gui.swing.view.workspace.editor.graphics.GraphicConfigurations;
+import rs.raf.gerumap.gui.swing.view.workspace.editor.graphics.GraphicConnection;
 import rs.raf.gerumap.gui.swing.view.workspace.editor.graphics.GraphicElement;
 import rs.raf.gerumap.gui.swing.view.workspace.editor.graphics.IConnectable;
+import rs.raf.gerumap.gui.swing.view.workspace.explorer.IExplorer;
 
 import javax.swing.JPanel;
 import java.awt.Dimension;
@@ -16,16 +19,28 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 import java.awt.geom.Point2D;
+import java.util.Iterator;
 
 public class EditorDiagram extends JPanel {
 
     private static final IEditor editor = MainWindow.window.getEditor();
+
+    private static final IExplorer explorer = MainWindow.window.getExplorer();
+
+    private GraphicConfigurations configurations = new GraphicConfigurations();
+
+    private int width;
+
+    private int height;
 
     private GraphicElement graphicElement = null;
 
     public EditorDiagram() {
         setPreferredSize(EditorValues.DIAGRAM_DIMENSION);
         setBackground(EditorValues.DIAGRAM_BACKGROUND_COLOR);
+
+        width = EditorValues.DIAGRAM_DIMENSION.width;
+        height = EditorValues.DIAGRAM_DIMENSION.height;
 
         addMouseListener(new EditorFocusMouseListener());
         addMouseListener(new EditorDiagramStateMouseListener());
@@ -47,37 +62,6 @@ public class EditorDiagram extends JPanel {
             graphicElement.render(graphics2D);
     }
 
-    /**
-     * Sets the diagram width.
-     * @param width width
-     */
-    public void setWidth(int width) {
-        setPreferredSize(new Dimension(width, getHeight()));
-        editor.updatePageDimension();
-        revalidate();
-        repaint();
-    }
-
-    /**
-     * Sets the diagram height.
-     * @param height height
-     */
-    public void setHeight(int height) {
-        setPreferredSize(new Dimension(getWidth(), height));
-        editor.updatePageDimension();
-        revalidate();
-        repaint();
-    }
-
-    /**
-     * Sets the diagram dimension.
-     * @param width width
-     * @param height height
-     */
-    public void setDimension(int width, int height) {
-        setWidth(width);
-        setHeight(height);
-    }
 
     /**
      * Sets the graphic element. Is used to display the graphic element during its creation.
@@ -85,6 +69,7 @@ public class EditorDiagram extends JPanel {
      */
     public void setGraphicElement(GraphicElement graphicElement) {
         this.graphicElement = graphicElement;
+        repaint();
     }
 
     /**
@@ -109,12 +94,53 @@ public class EditorDiagram extends JPanel {
     }
 
     /**
+     * Returns the graphic configurations.
+     * @return graphic configurations
+     */
+    public GraphicConfigurations getConfigurations() {
+        return configurations;
+    }
+
+    /**
      * Reconnects all connectable elements.
      */
     public void reconnect() {
         for (EditorElement editorElement : editor.getActivePage().getEditorElements())
-            if (editorElement.getGraphicElement() instanceof IConnectable)
-                ((IConnectable) editorElement.getGraphicElement()).reconnect();
+            if (editorElement.getGraphicElement() instanceof IConnectable connection)
+                connection.reconnect();
+
+        repaint();
+    }
+
+    /**
+     * Removes all hanged connections.
+     */
+    public void removeHangedConnections() {
+        Iterator<EditorElement> iterator = editor.getActivePage().getEditorElements().iterator();
+
+        while (iterator.hasNext())
+            if (iterator.next().getGraphicElement() instanceof GraphicConnection connection &&
+                (!onDiagram(connection.getFirst()) || !onDiagram(connection.getSecond()))) {
+                iterator.remove();
+                explorer.remove(explorer.getItem(connection));
+            }
+
+        repaint();
+    }
+
+    /**
+     * Returns true if the graphic element is on the diagram, false otherwise.
+     * @param element element
+     * @return true if on diagram, false otherwise
+     */
+    public boolean onDiagram(GraphicElement element) {
+        boolean found = false;
+
+        for (EditorElement editorElement : editor.getActivePage().getEditorElements())
+            if (editorElement.getGraphicElement().equals(element))
+                found = true;
+
+        return found;
     }
 
     /**
@@ -124,5 +150,105 @@ public class EditorDiagram extends JPanel {
         graphicElement = null;
         repaint();
     }
+
+    //region Diagram Dimensions
+
+    /**
+     * Sets the actual width of the diagram (it is NOT affected by the scale factor).
+     * @param width width
+     */
+    public void setActualWidth(int width) {
+        this.width = width;
+        updateScaledSize();
+    }
+
+    /**
+     * Sets the actual height of the diagram (it is NOT affected by the scale factor).
+     * @param height height
+     */
+    public void setActualHeight(int height) {
+        this.height = height;
+        updateScaledSize();
+    }
+
+    /**
+     * Sets the size of the diagram in the editor based on the scale factor, then notifies the page about the change.
+     */
+    public void updateScaledSize() {
+        setPreferredSize(new Dimension(getScaledWidth(), getScaledHeight()));
+        editor.getActivePage().updateContainerDimensions();
+
+        revalidate();
+        repaint();
+    }
+
+    /**
+     * Sets the actual size of the diagram (it is NOT affected by the scale factor).
+     * @param width width
+     * @param height height
+     */
+    public void setActualSize(int width, int height) {
+        setActualWidth(width);
+        setActualHeight(height);
+    }
+
+    /**
+     * Sets the actual size of the diagram (it is NOT affected by the scale factor).
+     * @param size size
+     */
+    public void setActualSize(Dimension size) {
+        setActualSize(size.width, size.height);
+    }
+
+    /**
+     * Returns the actual width of the diagram (it is NOT affected by the scale factor).
+     * @return width
+     */
+    public int getActualWidth() {
+        return width;
+    }
+
+    /**
+     * Returns the actual height of the diagram (it is NOT affected by the scale factor).
+     * @return height
+     */
+    public int getActualHeight() {
+        return height;
+    }
+
+    /**
+     * Returns the width of the diagram based on the scale factor.
+     * @return scaled width
+     */
+    public int getScaledWidth() {
+        return (int) Math.round(getActualWidth() * configurations.getScaleFactor());
+    }
+
+    /**
+     * Returns the height of the diagram based on the scale factor.
+     * @return scaled height
+     */
+    public int getScaledHeight() {
+        return (int) Math.round(getActualHeight() * configurations.getScaleFactor());
+    }
+
+    /**
+     * Returns the actual size of the diagram (it is NOT affected by the scale factor).
+     * @return size
+     */
+    public Dimension getActualSize() {
+        return new Dimension(getActualWidth(), getActualHeight());
+    }
+
+    /**
+     * Returns the size of the diagram based on the scale factor.
+     * @return scaled size
+     */
+    public Dimension getScaledSize() {
+        return new Dimension(getScaledWidth(), getScaledHeight());
+    }
+
+    //endregion
+
 
 }

@@ -22,16 +22,17 @@ public class ConnectState extends State {
         SelectionManager.clear();
         editor.render();
 
-        GraphicElement graphicElement = editor.getDiagram().getGraphicElementAt(event.getPoint());
+        Point2D mouseLocation = new Point2D.Double(event.getX() / editor.getGraphicConfigurations().getScaleFactor(),
+                                                   event.getY() / editor.getGraphicConfigurations().getScaleFactor());
 
-        if (graphicElement == null || !(graphicElement instanceof GraphicConcept))
+        GraphicElement graphicElement = editor.getDiagram().getGraphicElementAt(mouseLocation);
+
+        if (!(graphicElement instanceof GraphicConcept concept))
             return;
-
-        GraphicConcept concept = (GraphicConcept) graphicElement;
 
         if (graphicConnection == null) {
             graphicConnection = new GraphicConnection(concept);
-            startLocation = event.getPoint();
+            startLocation = mouseLocation;
         }
         else if (!concept.equals(graphicConnection.getFirst())) {
             graphicConnection.setSecond(concept);
@@ -54,19 +55,22 @@ public class ConnectState extends State {
         if (graphicConnection == null)
             return;
 
-        if (graphicConnection.getFirst().contains(event.getPoint()))
+        Point2D mouseLocation = new Point2D.Double(event.getX() / editor.getGraphicConfigurations().getScaleFactor(),
+                                                   event.getY() / editor.getGraphicConfigurations().getScaleFactor());
+
+        if (graphicConnection.getFirst().contains(mouseLocation))
             editor.getDiagram().removeGraphicElement();
         else
             editor.getDiagram().setGraphicElement(graphicConnection);
 
-        GraphicElement graphicElement = editor.getDiagram().getGraphicElementAt(event.getPoint());
+        GraphicElement graphicElement = editor.getDiagram().getGraphicElementAt(mouseLocation);
 
-        if (graphicElement != null && graphicElement instanceof GraphicConcept && !graphicElement.equals(graphicConnection.getFirst())) {
+        if (graphicElement instanceof GraphicConcept && !graphicElement.equals(graphicConnection.getFirst())) {
             graphicConnection.setSecond((GraphicConcept) graphicElement);
         }
         else {
             graphicConnection.setSecond(null);
-            graphicConnection.update(startLocation, event.getPoint());
+            graphicConnection.update(startLocation, mouseLocation);
         }
 
         editor.render();

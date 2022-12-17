@@ -14,8 +14,11 @@ import rs.raf.gerumap.gui.swing.controller.action.NewProjectAction;
 import rs.raf.gerumap.gui.swing.controller.action.RemoveExplorerItemAction;
 import rs.raf.gerumap.gui.swing.controller.action.EraseStateAction;
 import rs.raf.gerumap.gui.swing.controller.action.RenameExplorerItemAction;
+import rs.raf.gerumap.gui.swing.controller.action.ResetZoomAction;
 import rs.raf.gerumap.gui.swing.controller.action.SelectStateAction;
 import rs.raf.gerumap.gui.swing.controller.action.UserAction;
+import rs.raf.gerumap.gui.swing.controller.action.ZoomInAction;
+import rs.raf.gerumap.gui.swing.controller.action.ZoomOutAction;
 import rs.raf.gerumap.gui.swing.controller.action.ZoomStateAction;
 
 import java.util.List;
@@ -35,8 +38,11 @@ public class ActionManager {
             new RemoveExplorerItemAction(),
             new EraseStateAction(),
             new RenameExplorerItemAction(),
+            new ResetZoomAction(),
             new SelectStateAction(),
             new UserAction(),
+            new ZoomInAction(),
+            new ZoomOutAction(),
             new ZoomStateAction()
     );
 

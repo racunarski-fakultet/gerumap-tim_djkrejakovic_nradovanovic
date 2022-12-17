@@ -26,13 +26,23 @@ public abstract class ConnectiveGraphicElement extends GraphicElement implements
     //region IConnectable Methods
 
     @Override
-    public void setFirstX(double firstX) {
-        this.firstX = firstX;
+    public void setFirstX(double x) {
+        this.firstX = x;
     }
 
     @Override
-    public void setFirstY(double firstY) {
-        this.firstY = firstY;
+    public void setScaledFirstX(double x) {
+        this.firstX = x / configurations.getScaleFactor();
+    }
+
+    @Override
+    public void setFirstY(double y) {
+        this.firstY = y;
+    }
+
+    @Override
+    public void setScaledFirstY(double y) {
+        this.firstY = y / configurations.getScaleFactor();
     }
 
     @Override
@@ -42,18 +52,39 @@ public abstract class ConnectiveGraphicElement extends GraphicElement implements
     }
 
     @Override
+    public void setScaledFirstLocation(double x, double y) {
+        setScaledFirstX(x);
+        setScaledFirstY(y);
+    }
+
+    @Override
     public void setFirstLocation(Point2D location) {
         setFirstLocation(location.getX(), location.getY());
     }
 
     @Override
-    public void setSecondX(double secondX) {
-        this.secondX = secondX;
+    public void setScaledFirstLocation(Point2D location) {
+        setScaledFirstLocation(location.getX(), location.getY());
     }
 
     @Override
-    public void setSecondY(double secondY) {
-        this.secondY = secondY;
+    public void setSecondX(double x) {
+        this.secondX = x;
+    }
+
+    @Override
+    public void setScaledSecondX(double x) {
+        this.secondX = x / configurations.getScaleFactor();
+    }
+
+    @Override
+    public void setSecondY(double y) {
+        this.secondY = y;
+    }
+
+    @Override
+    public void setScaledSecondY(double y) {
+        this.secondY = y / configurations.getScaleFactor();
     }
 
     @Override
@@ -63,8 +94,19 @@ public abstract class ConnectiveGraphicElement extends GraphicElement implements
     }
 
     @Override
+    public void setScaledSecondLocation(double x, double y) {
+        setScaledSecondX(x);
+        setScaledSecondY(y);
+    }
+
+    @Override
     public void setSecondLocation(Point2D location) {
         setSecondLocation(location.getX(), location.getY());
+    }
+
+    @Override
+    public void setScaledSecondLocation(Point2D location) {
+        setScaledSecondLocation(location.getX(), location.getY());
     }
 
     @Override
@@ -73,8 +115,18 @@ public abstract class ConnectiveGraphicElement extends GraphicElement implements
     }
 
     @Override
+    public double getScaledFirstX() {
+        return firstX * configurations.getScaleFactor();
+    }
+
+    @Override
     public double getFirstY() {
         return firstY;
+    }
+
+    @Override
+    public double getScaledFirstY() {
+        return firstY * configurations.getScaleFactor();
     }
 
     @Override
@@ -83,8 +135,18 @@ public abstract class ConnectiveGraphicElement extends GraphicElement implements
     }
 
     @Override
+    public Point2D getScaledFirstLocation() {
+        return new Point2D.Double(getScaledFirstX(), getScaledFirstY());
+    }
+
+    @Override
     public double getSecondX() {
         return secondX;
+    }
+
+    @Override
+    public double getScaledSecondX() {
+        return secondX * configurations.getScaleFactor();
     }
 
     @Override
@@ -93,8 +155,18 @@ public abstract class ConnectiveGraphicElement extends GraphicElement implements
     }
 
     @Override
+    public double getScaledSecondY() {
+        return secondY * configurations.getScaleFactor();
+    }
+
+    @Override
     public Point2D getSecondLocation() {
         return new Point2D.Double(getSecondX(), getSecondY());
+    }
+
+    @Override
+    public Point2D getScaledSecondLocation() {
+        return new Point2D.Double(getScaledSecondX(), getScaledSecondY());
     }
 
     //endregion
@@ -112,6 +184,11 @@ public abstract class ConnectiveGraphicElement extends GraphicElement implements
     }
 
     @Override
+    public void setScaledStrokeWidth(float width) {
+        this.strokeWidth = (float) (strokeWidth / configurations.getScaleFactor());
+    }
+
+    @Override
     public Color getStrokeColor() {
         return strokeColor;
     }
@@ -119,6 +196,11 @@ public abstract class ConnectiveGraphicElement extends GraphicElement implements
     @Override
     public float getStrokeWidth() {
         return strokeWidth;
+    }
+
+    @Override
+    public float getScaledStrokeWidth() {
+        return (float) (strokeWidth * configurations.getScaleFactor());
     }
 
     //endregion

@@ -27,13 +27,13 @@ public class GraphicSelection extends RectangularGraphicElement {
 
     @Override
     public void render(Graphics2D graphics) {
-        Rectangle2D conceptShape = new Rectangle2D.Double(x, y, width, height);
+        Rectangle2D conceptShape = new Rectangle2D.Double(getScaledX(), getScaledY(), getScaledWidth(), getScaledHeight());
 
-        graphics.setColor(backgroundColor);
+        graphics.setColor(getBackgroundColor());
         graphics.fill(conceptShape);
 
-        graphics.setColor(strokeColor);
-        graphics.setStroke(new BasicStroke(strokeWidth));
+        graphics.setColor(getStrokeColor());
+        graphics.setStroke(new BasicStroke(getStrokeWidth()));
 
         graphics.draw(conceptShape);
     }
@@ -60,11 +60,16 @@ public class GraphicSelection extends RectangularGraphicElement {
 
     @Override
     public Shape getShapeArea() {
-        double rectangleX = this.x - strokeWidth / 2;
-        double rectangleY = this.y - strokeWidth / 2;
+        configurations.saveConfigurations();
+        configurations.resetConfigurations();
 
-        double rectangleWidth  = width + strokeWidth;
-        double rectangleHeight = height + strokeWidth;
+        double rectangleX = getX() - getStrokeWidth() / 2;
+        double rectangleY = getY() - getStrokeWidth() / 2;
+
+        double rectangleWidth  = getWidth()  + getStrokeWidth();
+        double rectangleHeight = getHeight() + getStrokeWidth();
+
+        configurations.restoreConfigurations();
 
         return new Rectangle2D.Double(rectangleX, rectangleY, rectangleWidth, rectangleHeight);
     }

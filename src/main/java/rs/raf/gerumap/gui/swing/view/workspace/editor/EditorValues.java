@@ -37,7 +37,9 @@ public class EditorValues {
     public static final Color   CONCEPT_BACKGROUND_COLOR = new Color(96, 98, 100);
     public static final Color   CONCEPT_FOREGROUND_COLOR = new Color(200, 202, 204);
     public static final Color   CONCEPT_STROKE_COLOR     = new Color(75, 77, 79);
+    public static final Color   CONCEPT_SELECTION_COLOR  = SELECTION_STROKE_COLOR;
     public static final Float   CONCEPT_STROKE_WIDTH     = 3F;
+    public static final Float   CONCEPT_SELECTION_WIDTH  = SELECTION_STROKE_WIDTH;
     public static final Font    CONCEPT_TEXT_FONT        = new JLabel().getFont();
     public static final String  CONCEPT_TEXT_CONTENT     = "";
     public static final Integer CONCEPT_WIDTH            = 150;
@@ -45,6 +47,8 @@ public class EditorValues {
 
     public static final Float CONNECTION_STROKE_WIDTH = 3F;
     public static final Color CONNECTION_STROKE_COLOR = new Color(75, 77, 79);
+    public static final Float CONNECTION_SELECTION_WIDTH = SELECTION_STROKE_WIDTH;
+    public static final Color CONNECTION_SELECTION_COLOR = SELECTION_STROKE_COLOR;
 
     public static final Integer GRAPHIC_ELEMENT_WIDTH_MULTIPLIER  = 1;
     public static final Integer GRAPHIC_ELEMENT_HEIGHT_MULTIPLIER = 1;

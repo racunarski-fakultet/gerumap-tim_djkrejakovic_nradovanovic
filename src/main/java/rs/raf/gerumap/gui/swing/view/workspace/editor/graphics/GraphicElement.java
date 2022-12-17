@@ -10,7 +10,11 @@ import java.awt.geom.Point2D;
 
 public abstract class GraphicElement extends Element implements ISelectable {
 
+    protected final GraphicConfigurations configurations = MainWindow.window.getEditor().getGraphicConfigurations();
+
     protected boolean selected = false;
+
+    protected static double scale = 1;
 
     public GraphicElement(String name) {
         super(name, MainWindow.window.getEditor().getActivePage().getMindMap());
@@ -56,6 +60,9 @@ public abstract class GraphicElement extends Element implements ISelectable {
      * @return true if contains, false otherwise
      */
     public boolean contains(GraphicElement element) {
+        if (element == null)
+            return false;
+
         Area intersection = new Area(getShapeArea());
         intersection.intersect(new Area(element.getShapeArea()));
         return !intersection.isEmpty();

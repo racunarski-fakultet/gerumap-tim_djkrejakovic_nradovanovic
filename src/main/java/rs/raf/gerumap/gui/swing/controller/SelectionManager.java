@@ -3,6 +3,7 @@ package rs.raf.gerumap.gui.swing.controller;
 import rs.raf.gerumap.gui.swing.view.MainWindow;
 import rs.raf.gerumap.gui.swing.view.workspace.editor.IEditor;
 import rs.raf.gerumap.gui.swing.view.workspace.editor.graphics.GraphicConcept;
+import rs.raf.gerumap.gui.swing.view.workspace.editor.graphics.GraphicElement;
 import rs.raf.gerumap.gui.swing.view.workspace.editor.graphics.IMovable;
 import rs.raf.gerumap.gui.swing.view.workspace.editor.graphics.ISelectable;
 import rs.raf.gerumap.gui.swing.view.workspace.editor.graphics.IStroke;
@@ -42,6 +43,20 @@ public class SelectionManager {
     }
 
     /**
+     * Returns the selected graphic elements.
+     * @return graphic elements
+     */
+    public static List<GraphicElement> getSelectedElements() {
+        List<GraphicElement> elements = new ArrayList<>();
+
+        for (ISelectable element : selected)
+            if (element instanceof GraphicElement gElement)
+                elements.add(gElement);
+
+        return elements;
+    }
+
+    /**
      * Returns the selected graphic concepts.
      * @return graphic concepts
      */
@@ -49,8 +64,8 @@ public class SelectionManager {
         List<GraphicConcept> concepts = new ArrayList<>();
 
         for (ISelectable element : selected)
-            if (element instanceof GraphicConcept)
-                concepts.add((GraphicConcept) element);
+            if (element instanceof GraphicConcept concept)
+                concepts.add(concept);
 
         return concepts;
     }
@@ -63,8 +78,8 @@ public class SelectionManager {
         List<IStroke> strokes = new ArrayList<>();
 
         for (ISelectable element : selected)
-            if (element instanceof IStroke)
-                strokes.add((IStroke) element);
+            if (element instanceof IStroke stroke)
+                strokes.add((stroke));
 
         return strokes;
     }
@@ -77,8 +92,8 @@ public class SelectionManager {
         List<IMovable> movables = new ArrayList<>();
 
         for (ISelectable element : selected)
-            if (element instanceof IMovable)
-                movables.add((IMovable) element);
+            if (element instanceof IMovable movable)
+                movables.add(movable);
 
         return movables;
     }
@@ -94,6 +109,7 @@ public class SelectionManager {
             iterator.remove();
         }
 
+        editor.getDiagram().removeHangedConnections();
         updateProperties();
     }
 

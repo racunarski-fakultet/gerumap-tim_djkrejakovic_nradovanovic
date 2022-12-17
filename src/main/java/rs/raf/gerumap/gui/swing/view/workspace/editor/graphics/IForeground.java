@@ -24,6 +24,12 @@ public interface IForeground {
     void setFont(Font font);
 
     /**
+     * Sets the font based on the scale factor.
+     * @param font font
+     */
+    void setScaledFont(Font font);
+
+    /**
      * Returns the text color.
      * @return color
      */
@@ -40,5 +46,11 @@ public interface IForeground {
      * @return font
      */
     Font getFont();
+
+    /**
+     * Returns the font based on the scale factor.
+     * @return font
+     */
+    Font getScaledFont();
 
 }

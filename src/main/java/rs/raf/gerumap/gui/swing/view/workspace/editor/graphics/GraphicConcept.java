@@ -10,17 +10,23 @@ import java.awt.Font;
 import java.awt.FontMetrics;
 import java.awt.Graphics2D;
 import java.awt.Shape;
+import java.awt.font.TextAttribute;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
+import java.util.HashMap;
+import java.util.Map;
 
-public class GraphicConcept extends RectangularGraphicElement implements IForeground {
+public class GraphicConcept extends RectangularGraphicElement implements IForeground, ISelectionStroke {
 
     private static int counter = 0;
 
     private Color  foregroundColor;
     private String text;
     private Font   font;
+
+    private Color selectionStrokeColor;
+    private float selectionStrokeWidth;
 
     public GraphicConcept(Point2D location) {
         super("Concept " + ++counter);
@@ -30,7 +36,10 @@ public class GraphicConcept extends RectangularGraphicElement implements IForegr
         setBackgroundColor(EditorValues.CONCEPT_BACKGROUND_COLOR);
         setForegroundColor(EditorValues.CONCEPT_FOREGROUND_COLOR);
         setStrokeColor(EditorValues.CONCEPT_STROKE_COLOR);
+        setSelectionStrokeColor(EditorValues.CONCEPT_SELECTION_COLOR);
+
         setStrokeWidth(EditorValues.CONCEPT_STROKE_WIDTH);
+        setSelectionStrokeWidth(EditorValues.CONCEPT_SELECTION_WIDTH);
 
         setText(EditorValues.CONCEPT_TEXT_CONTENT);
         setFont(EditorValues.CONCEPT_TEXT_FONT);
@@ -50,13 +59,13 @@ public class GraphicConcept extends RectangularGraphicElement implements IForegr
      * @param graphics graphics
      */
     private void renderShape(Graphics2D graphics) {
-        Ellipse2D conceptShape = new Ellipse2D.Double(x, y, width, height);
+        Ellipse2D conceptShape = new Ellipse2D.Double(getScaledX(), getScaledY(), getScaledWidth(), getScaledHeight());
 
-        graphics.setColor(backgroundColor);
+        graphics.setColor(getBackgroundColor());
         graphics.fill(conceptShape);
 
-        graphics.setStroke(new BasicStroke(strokeWidth));
-        graphics.setColor(strokeColor);
+        graphics.setStroke(new BasicStroke(getScaledStrokeWidth()));
+        graphics.setColor(getStrokeColor());
 
         graphics.draw(conceptShape);
     }
@@ -66,18 +75,20 @@ public class GraphicConcept extends RectangularGraphicElement implements IForegr
      * @param graphics graphics
      */
     private void renderText(Graphics2D graphics) {
-        if (text.length() == 0)
+        if (getText().length() == 0)
             return;
 
-        FontMetrics fontMetrics = graphics.getFontMetrics(font);
+        Font scaledFont = getScaledFont();
 
-        float stringX = (float) (x + (width - fontMetrics.stringWidth(text)) / 2);
-        float stringY = (float) (y + ((height - fontMetrics.getHeight()) / 2) + fontMetrics.getAscent());
+        FontMetrics fontMetrics = graphics.getFontMetrics(scaledFont);
 
-        graphics.setFont(font);
-        graphics.setColor(foregroundColor);
+        float stringX = (float) (getScaledX() + (getScaledWidth() - fontMetrics.stringWidth(getText())) / 2);
+        float stringY = (float) (getScaledY() + ((getScaledHeight() - fontMetrics.getHeight()) / 2) + fontMetrics.getAscent());
 
-        graphics.drawString(text, stringX, stringY);
+        graphics.setFont(scaledFont);
+        graphics.setColor(getForegroundColor());
+
+        graphics.drawString(getText(), stringX, stringY);
     }
 
     /**
@@ -85,18 +96,16 @@ public class GraphicConcept extends RectangularGraphicElement implements IForegr
      * @param graphics graphics
      */
     private void renderSelection(Graphics2D graphics) {
-        double displacement = (strokeWidth + 1) % 2;
+        double rectangleX = getScaledX() - ((int) (getScaledStrokeWidth()) / 2) - 1;
+        double rectangleY = getScaledY() - ((int) (getScaledStrokeWidth()) / 2) - 1;
 
-        double rectangleX = this.x - strokeWidth / 2 - displacement;
-        double rectangleY = this.y - strokeWidth / 2 - displacement;
-
-        double rectangleWidth  = width + strokeWidth + 1 + displacement;
-        double rectangleHeight = height + strokeWidth + 1 + displacement;
+        double rectangleWidth  = getScaledWidth()  + getScaledStrokeWidth() + 2 - ((int) getScaledStrokeWidth()) % 2;
+        double rectangleHeight = getScaledHeight() + getScaledStrokeWidth() + 2 - ((int) getScaledStrokeWidth()) % 2;
 
         Rectangle2D selectionShape = new Rectangle2D.Double(rectangleX, rectangleY, rectangleWidth, rectangleHeight);
 
-        graphics.setStroke(new BasicStroke(EditorValues.SELECTION_STROKE_WIDTH));
-        graphics.setColor(EditorValues.SELECTION_STROKE_COLOR);
+        graphics.setStroke(new BasicStroke(getSelectionStrokeWidth()));
+        graphics.setColor(getSelectionStrokeColor());
 
         graphics.draw(selectionShape);
     }
@@ -111,11 +120,16 @@ public class GraphicConcept extends RectangularGraphicElement implements IForegr
 
     @Override
     public Shape getShapeArea() {
-        double ellipseX = this.x - strokeWidth / 2;
-        double ellipseY = this.y - strokeWidth / 2;
+        configurations.saveConfigurations();
+        configurations.resetConfigurations();
 
-        double ellipseWidth  = width + strokeWidth;
-        double ellipseHeight = height + strokeWidth;
+        double ellipseX = getX() - getStrokeWidth() / 2;
+        double ellipseY = getY() - getStrokeWidth() / 2;
+
+        double ellipseWidth  = getWidth()  + getStrokeWidth();
+        double ellipseHeight = getHeight() + getStrokeWidth();
+
+        configurations.restoreConfigurations();
 
         return new Ellipse2D.Double(ellipseX, ellipseY, ellipseWidth, ellipseHeight);
     }
@@ -154,6 +168,16 @@ public class GraphicConcept extends RectangularGraphicElement implements IForegr
     }
 
     @Override
+    public void setScaledFont(Font font) {
+        Map<TextAttribute, Object> attributes = new HashMap<>();
+
+        attributes.put(TextAttribute.WEIGHT, TextAttribute.WEIGHT_REGULAR);
+        attributes.put(TextAttribute.SIZE, font.getSize() / configurations.getScaleFactor());
+
+        this.font = font.deriveFont(attributes);
+    }
+
+    @Override
     public Color getForegroundColor() {
         return foregroundColor;
     }
@@ -168,9 +192,53 @@ public class GraphicConcept extends RectangularGraphicElement implements IForegr
         return font;
     }
 
+    @Override
+    public Font getScaledFont() {
+        Map<TextAttribute, Object> attributes = new HashMap<>();
+
+        attributes.put(TextAttribute.WEIGHT, TextAttribute.WEIGHT_REGULAR);
+        attributes.put(TextAttribute.SIZE, 14 * configurations.getScaleFactor());
+
+        return getFont().deriveFont(attributes);
+    }
+
     //endregion
 
-    //region ISelectable code
+    //region ISelectionStroke Methods
+
+    @Override
+    public void setSelectionStrokeColor(Color color) {
+        this.selectionStrokeColor = color;
+    }
+
+    @Override
+    public void setSelectionStrokeWidth(float width) {
+        this.selectionStrokeWidth = width;
+    }
+
+    @Override
+    public void setScaledSelectedStrokeWidth(float width) {
+        this.selectionStrokeWidth = (float) (width / configurations.getScaleFactor());
+    }
+
+    @Override
+    public Color getSelectionStrokeColor() {
+        return selectionStrokeColor;
+    }
+
+    @Override
+    public float getSelectionStrokeWidth() {
+        return selectionStrokeWidth;
+    }
+
+    @Override
+    public float getScaledSelectedStrokeWidth() {
+        return (float) (selectionStrokeWidth * configurations.getScaleFactor());
+    }
+
+    //endregion
+
+    //region ISelectable Code
 
     @Override
     public int getCode() {

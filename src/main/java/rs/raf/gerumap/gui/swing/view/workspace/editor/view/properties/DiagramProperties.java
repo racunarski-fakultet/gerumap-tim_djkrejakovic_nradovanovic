@@ -83,8 +83,8 @@ public class DiagramProperties extends PropertiesBase {
 
     @Override
     public void setup() {
-        int diagramWidth  = editor.getDiagram().getWidth();
-        int diagramHeight = editor.getDiagram().getHeight();
+        int diagramWidth  = editor.getDiagram().getActualWidth();
+        int diagramHeight = editor.getDiagram().getActualHeight();
 
         Color diagramBackground = editor.getDiagram().getBackground();
 
@@ -103,7 +103,7 @@ public class DiagramProperties extends PropertiesBase {
 
         @Override
         public void stateChanged(ChangeEvent event) {
-            editor.getDiagram().setWidth((Integer) spinnerWidth.getValue());
+            editor.getDiagram().setActualWidth((Integer) spinnerWidth.getValue());
         }
 
     }
@@ -112,7 +112,7 @@ public class DiagramProperties extends PropertiesBase {
 
         @Override
         public void stateChanged(ChangeEvent event) {
-            editor.getDiagram().setHeight((Integer) spinnerHeight.getValue());
+            editor.getDiagram().setActualHeight((Integer) spinnerHeight.getValue());
         }
 
     }

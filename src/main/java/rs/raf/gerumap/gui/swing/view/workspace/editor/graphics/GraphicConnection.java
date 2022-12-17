@@ -3,6 +3,7 @@ package rs.raf.gerumap.gui.swing.view.workspace.editor.graphics;
 import rs.raf.gerumap.gui.swing.view.workspace.editor.EditorValues;
 
 import java.awt.BasicStroke;
+import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Shape;
 import java.awt.geom.Line2D;
@@ -10,28 +11,37 @@ import java.awt.geom.Path2D;
 import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
 
-public class GraphicConnection extends ConnectiveGraphicElement {
+public class GraphicConnection extends ConnectiveGraphicElement implements ISelectionStroke {
 
     private static int counter = 0;
 
     public GraphicConcept graphicConceptFirst;
     public GraphicConcept graphicConceptSecond;
 
+    private Color selectionStrokeColor;
+    private float selectionStrokeWidth;
+
     public GraphicConnection(GraphicConcept first) {
         super("Connection " + ++counter);
 
         setFirst(first);
+
+        setSelectionStrokeColor(EditorValues.CONNECTION_SELECTION_COLOR);
+        setSelectionStrokeWidth(EditorValues.CONNECTION_SELECTION_WIDTH);
     }
 
     @Override
     public void render(Graphics2D graphics) {
+        if (getFirst().contains(getSecond()))
+            return;
+
         Point2D firstPoint = calculateFirstPoint();
         Point2D secondPoint = calculateSecondPoint();
 
         Line2D connectionShape = new Line2D.Double(firstPoint.getX(), firstPoint.getY(), secondPoint.getX(), secondPoint.getY());
 
-        graphics.setColor(strokeColor);
-        graphics.setStroke(new BasicStroke(strokeWidth));
+        graphics.setColor(getStrokeColor());
+        graphics.setStroke(new BasicStroke(getScaledStrokeWidth()));
 
         graphics.draw(connectionShape);
 
@@ -47,11 +57,11 @@ public class GraphicConnection extends ConnectiveGraphicElement {
     private Point2D calculateFirstPoint() {
         GraphicConcept concept = getFirst();
 
-        double ratio = (getSecondX() - getFirstX()) / (getSecondY() - getFirstY());
-        int sign = getSecondY() - getFirstY() > 0 ? 1 : - 1;
+        double ratio = (getScaledSecondX() - getScaledFirstX()) / (getScaledSecondY() - getScaledFirstY());
+        int sign = getScaledSecondY() - getScaledFirstY() > 0 ? 1 : - 1;
 
-        double conceptWidth  = concept.getWidth()  + concept.getStrokeWidth() / 2;
-        double conceptHeight = concept.getHeight() + concept.getStrokeWidth() / 2;
+        double conceptWidth  = concept.getScaledWidth()  + concept.getScaledStrokeWidth() / 2;
+        double conceptHeight = concept.getScaledHeight() + concept.getScaledStrokeWidth() / 2;
 
         double majorVertex = conceptWidth  / 2;
         double minorVertex = conceptHeight / 2;
@@ -59,8 +69,8 @@ public class GraphicConnection extends ConnectiveGraphicElement {
         double minorPoint = sign * majorVertex * minorVertex / (Math.sqrt(majorVertex * majorVertex + minorVertex * minorVertex * ratio * ratio));
         double majorPoint = ratio * minorPoint;
 
-        double conceptMajorPoint = getFirstX() + majorPoint;
-        double conceptMinorPoint = getFirstY() + minorPoint;
+        double conceptMajorPoint = getScaledFirstX() + majorPoint;
+        double conceptMinorPoint = getScaledFirstY() + minorPoint;
 
         return new Point2D.Double(conceptMajorPoint, conceptMinorPoint);
     }
@@ -73,13 +83,13 @@ public class GraphicConnection extends ConnectiveGraphicElement {
         GraphicConcept concept = getSecond();
 
         if (concept == null)
-            return new Point2D.Double(getSecondX(), getSecondY());
+            return new Point2D.Double(getScaledSecondX(), getScaledSecondY());
 
-        double ratio = (getSecondX() - getFirstX()) / (getSecondY() - getFirstY());
-        int sign = getFirstY() - getSecondY() > 0 ? 1 : - 1;
+        double ratio = (getScaledSecondX() - getScaledFirstX()) / (getScaledSecondY() - getScaledFirstY());
+        int sign = getScaledFirstY() - getScaledSecondY() > 0 ? 1 : - 1;
 
-        double conceptWidth  = concept.getWidth()  + concept.getStrokeWidth() / 2;
-        double conceptHeight = concept.getHeight() + concept.getStrokeWidth() / 2;
+        double conceptWidth  = concept.getScaledWidth()  + concept.getScaledStrokeWidth() / 2;
+        double conceptHeight = concept.getScaledHeight() + concept.getScaledStrokeWidth() / 2;
 
         double majorVertex = conceptWidth  / 2;
         double minorVertex = conceptHeight / 2;
@@ -87,8 +97,8 @@ public class GraphicConnection extends ConnectiveGraphicElement {
         double minorPoint = sign * majorVertex * minorVertex / (Math.sqrt(majorVertex * majorVertex + minorVertex * minorVertex * ratio * ratio));
         double majorPoint = ratio * minorPoint;
 
-        double conceptMajorPoint = getSecondX() + majorPoint;
-        double conceptMinorPoint = getSecondY() + minorPoint;
+        double conceptMajorPoint = getScaledSecondX() + majorPoint;
+        double conceptMinorPoint = getScaledSecondY() + minorPoint;
 
         return new Point2D.Double(conceptMajorPoint, conceptMinorPoint);
     }
@@ -106,8 +116,8 @@ public class GraphicConnection extends ConnectiveGraphicElement {
 
         double length = Math.sqrt(width * width + height * height);
 
-        double verticalX = height * (strokeWidth) / (2 * length);
-        double verticalY = width  * (strokeWidth) / (2 * length);
+        double verticalX = height * (getScaledStrokeWidth()) / (2 * length);
+        double verticalY = width  * (getScaledStrokeWidth()) / (2 * length);
 
         double rectangleX = Math.min(point1.getX(), point2.getX()) - verticalX;
         double rectangleY = Math.min(point1.getY(), point2.getY()) - verticalY;
@@ -117,8 +127,8 @@ public class GraphicConnection extends ConnectiveGraphicElement {
 
         Rectangle2D selectionShape = new Rectangle2D.Double(rectangleX, rectangleY, rectangleWidth, rectangleHeight);
 
-        graphics.setStroke(new BasicStroke(EditorValues.SELECTION_STROKE_WIDTH));
-        graphics.setColor(EditorValues.SELECTION_STROKE_COLOR);
+        graphics.setStroke(new BasicStroke(getSelectionStrokeWidth()));
+        graphics.setColor(getSelectionStrokeColor());
 
         graphics.draw(selectionShape);
     }
@@ -136,6 +146,9 @@ public class GraphicConnection extends ConnectiveGraphicElement {
 
     @Override
     public Shape getShapeArea() {
+        configurations.saveConfigurations();
+        configurations.resetConfigurations();
+
         Point2D startLocation = calculateFirstPoint();
         Point2D endLocation = calculateSecondPoint();
 
@@ -144,8 +157,8 @@ public class GraphicConnection extends ConnectiveGraphicElement {
 
         double length = Math.sqrt(width * width + height * height);
 
-        double verticalX = - height * (strokeWidth + 1) / (2 * length);
-        double verticalY =   width  * (strokeWidth + 1) / (2 * length);
+        double verticalX = - height * (getStrokeWidth() + 1) / (2 * length);
+        double verticalY =   width  * (getStrokeWidth() + 1) / (2 * length);
 
         Path2D path = new Path2D.Double();
 
@@ -154,6 +167,8 @@ public class GraphicConnection extends ConnectiveGraphicElement {
         path.lineTo(endLocation.getX()   - verticalX, endLocation.getY()   - verticalY);
         path.lineTo(startLocation.getX() - verticalX, startLocation.getY() - verticalY);
         path.closePath();
+
+        configurations.restoreConfigurations();
 
         return path;
     }
@@ -199,6 +214,40 @@ public class GraphicConnection extends ConnectiveGraphicElement {
     public GraphicConcept getSecond() {
         return graphicConceptSecond;
     }
+
+    //region ISelectionStroke Methods
+
+    @Override
+    public void setSelectionStrokeColor(Color color) {
+        this.selectionStrokeColor = color;
+    }
+
+    @Override
+    public void setSelectionStrokeWidth(float width) {
+        this.selectionStrokeWidth = width;
+    }
+
+    @Override
+    public void setScaledSelectedStrokeWidth(float width) {
+        this.selectionStrokeWidth = (float) (width / configurations.getScaleFactor());
+    }
+
+    @Override
+    public Color getSelectionStrokeColor() {
+        return selectionStrokeColor;
+    }
+
+    @Override
+    public float getSelectionStrokeWidth() {
+        return selectionStrokeWidth;
+    }
+
+    @Override
+    public float getScaledSelectedStrokeWidth() {
+        return (float) (selectionStrokeWidth * configurations.getScaleFactor());
+    }
+
+    //endregion
 
     //region ISelectable code
 
