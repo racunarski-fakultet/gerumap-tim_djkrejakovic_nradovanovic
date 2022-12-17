@@ -1,10 +1,11 @@
 package rs.raf.gerumap.gui.swing.view.workspace.editor;
 
+import rs.raf.gerumap.gui.swing.view.user.model.User;
 import rs.raf.gerumap.gui.swing.view.workspace.editor.view.EditorDiagram;
 import rs.raf.gerumap.gui.swing.view.workspace.editor.view.EditorPage;
 import rs.raf.gerumap.gui.swing.view.workspace.editor.view.EditorProject;
+import rs.raf.gerumap.gui.swing.view.workspace.editor.view.EditorStatusBar;
 import rs.raf.gerumap.gui.swing.view.workspace.editor.view.IEditorComponent;
-import rs.raf.gerumap.gui.swing.view.user.model.User;
 import rs.raf.gerumap.gui.swing.view.workspace.editor.view.properties.PropertiesBase;
 
 import java.awt.Point;
@@ -99,6 +100,12 @@ public interface IEditor {
      * @return diagram
      */
     EditorDiagram getDiagram();
+
+    /**
+     * Returns the status bar of the active page.
+     * @return status bar
+     */
+    EditorStatusBar getStatusBar();
 
     /**
      * Closes the open page at the index.

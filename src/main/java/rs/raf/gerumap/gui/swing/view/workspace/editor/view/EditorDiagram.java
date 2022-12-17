@@ -3,8 +3,9 @@ package rs.raf.gerumap.gui.swing.view.workspace.editor.view;
 import rs.raf.gerumap.gui.swing.view.MainWindow;
 import rs.raf.gerumap.gui.swing.view.workspace.editor.EditorValues;
 import rs.raf.gerumap.gui.swing.view.workspace.editor.IEditor;
-import rs.raf.gerumap.gui.swing.view.workspace.editor.controller.EditorDiagramMouseListener;
-import rs.raf.gerumap.gui.swing.view.workspace.editor.controller.EditorDiagramMouseMotionListener;
+import rs.raf.gerumap.gui.swing.view.workspace.editor.controller.EditorDiagramStateMouseListener;
+import rs.raf.gerumap.gui.swing.view.workspace.editor.controller.EditorDiagramStateMouseMotionListener;
+import rs.raf.gerumap.gui.swing.view.workspace.editor.controller.EditorDiagramStatusMouseMotionListener;
 import rs.raf.gerumap.gui.swing.view.workspace.editor.controller.EditorFocusMouseListener;
 import rs.raf.gerumap.gui.swing.view.workspace.editor.graphics.GraphicElement;
 import rs.raf.gerumap.gui.swing.view.workspace.editor.graphics.IConnectable;
@@ -27,8 +28,9 @@ public class EditorDiagram extends JPanel {
         setBackground(EditorValues.DIAGRAM_BACKGROUND_COLOR);
 
         addMouseListener(new EditorFocusMouseListener());
-        addMouseListener(new EditorDiagramMouseListener());
-        addMouseMotionListener(new EditorDiagramMouseMotionListener());
+        addMouseListener(new EditorDiagramStateMouseListener());
+        addMouseMotionListener(new EditorDiagramStateMouseMotionListener());
+        addMouseMotionListener(new EditorDiagramStatusMouseMotionListener());
     }
 
     @Override

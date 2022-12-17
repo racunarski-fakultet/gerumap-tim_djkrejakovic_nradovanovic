@@ -8,6 +8,7 @@ import rs.raf.gerumap.gui.swing.view.workspace.editor.view.EditorDiagram;
 import rs.raf.gerumap.gui.swing.view.workspace.editor.view.EditorPage;
 import rs.raf.gerumap.gui.swing.view.workspace.editor.view.EditorProject;
 import rs.raf.gerumap.gui.swing.view.workspace.editor.view.EditorProperties;
+import rs.raf.gerumap.gui.swing.view.workspace.editor.view.EditorStatusBar;
 import rs.raf.gerumap.gui.swing.view.workspace.editor.view.EditorToolbar;
 import rs.raf.gerumap.gui.swing.view.workspace.editor.view.IEditorComponent;
 import rs.raf.gerumap.gui.swing.view.workspace.editor.view.properties.DiagramProperties;
@@ -145,6 +146,11 @@ public class Editor extends JPanel implements IEditor {
     @Override
     public EditorDiagram getDiagram() {
         return activePage.getDiagram();
+    }
+
+    @Override
+    public EditorStatusBar getStatusBar() {
+        return activePage.getStatusBar();
     }
 
     @Override

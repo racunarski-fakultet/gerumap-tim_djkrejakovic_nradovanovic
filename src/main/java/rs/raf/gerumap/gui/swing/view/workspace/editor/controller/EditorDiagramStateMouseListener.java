@@ -5,7 +5,7 @@ import rs.raf.gerumap.gui.swing.controller.StateManager;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
-public class EditorDiagramMouseListener implements MouseListener {
+public class EditorDiagramStateMouseListener implements MouseListener {
 
     @Override
     public void mouseClicked(MouseEvent event) {

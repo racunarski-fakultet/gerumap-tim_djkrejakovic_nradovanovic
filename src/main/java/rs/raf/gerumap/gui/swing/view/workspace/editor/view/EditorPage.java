@@ -10,6 +10,7 @@ import rs.raf.gerumap.gui.swing.view.workspace.explorer.model.tree.explorer.Mind
 import javax.swing.BorderFactory;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridBagLayout;
@@ -17,7 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class EditorPage extends JScrollPane implements IEditorComponent {
+public class EditorPage extends JPanel implements IEditorComponent {
 
     private static final IEditor editor = MainWindow.window.getEditor();
 
@@ -25,7 +26,11 @@ public class EditorPage extends JScrollPane implements IEditorComponent {
 
     private final EditorDiagram diagram;
 
-    private final JPanel container = new JPanel(new GridBagLayout());
+    private final JPanel diagramContainer = new JPanel(new GridBagLayout());
+
+    private final JScrollPane scrollPane = new JScrollPane();
+
+    private final EditorStatusBar statusBar = new EditorStatusBar();
 
     private boolean isOpen = false;
 
@@ -41,18 +46,37 @@ public class EditorPage extends JScrollPane implements IEditorComponent {
      * @param diagram diagram
      */
     public EditorPage(MindMap mindMap, EditorDiagram diagram) {
+        super(new BorderLayout());
+
         this.mindMap = mindMap;
         this.diagram = diagram;
 
-        setBorder(BorderFactory.createEmptyBorder());
+        initialize();
+        addListeners();
+    }
 
-        container.setBackground(new Color(66, 69, 72));
-        container.setPreferredSize(new Dimension(EditorValues.DIAGRAM_WIDTH + 200, EditorValues.DIAGRAM_HEIGHT + 200));
-        container.add(this.diagram);
+    /**
+     * Initializes components.
+     */
+    private void initialize() {
+        diagramContainer.setBackground(new Color(66, 69, 72));
+        diagramContainer.setPreferredSize(new Dimension(EditorValues.DIAGRAM_WIDTH + 200, EditorValues.DIAGRAM_HEIGHT + 200));
+        diagramContainer.add(this.diagram);
 
-        container.addMouseListener(new EditorFocusMouseListener());
+        scrollPane.getVerticalScrollBar().setUnitIncrement(10);
+        scrollPane.getHorizontalScrollBar().setUnitIncrement(10);
+        scrollPane.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, new Color(52, 53, 54)));
+        scrollPane.setViewportView(diagramContainer);
 
-        setViewportView(container);
+        add(scrollPane, BorderLayout.CENTER);
+        add(statusBar, BorderLayout.SOUTH);
+    }
+
+    /**
+     * Assigns listeners to components.
+     */
+    private void addListeners() {
+        diagramContainer.addMouseListener(new EditorFocusMouseListener());
     }
 
     @Override
@@ -141,7 +165,7 @@ public class EditorPage extends JScrollPane implements IEditorComponent {
      * Updates the container dimensions.
      */
     public void updateContainerDimensions() {
-        container.setPreferredSize(new Dimension(diagram.getWidth() + 200, diagram.getHeight() + 200));
+        diagramContainer.setPreferredSize(new Dimension(diagram.getWidth() + 200, diagram.getHeight() + 200));
     }
 
     /**
@@ -158,6 +182,14 @@ public class EditorPage extends JScrollPane implements IEditorComponent {
      */
     public EditorDiagram getDiagram() {
         return diagram;
+    }
+
+    /**
+     * Returns the page status bar.
+     * @return status bar
+     */
+    public EditorStatusBar getStatusBar() {
+        return statusBar;
     }
 
     /**
