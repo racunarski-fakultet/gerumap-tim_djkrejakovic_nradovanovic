@@ -2,13 +2,14 @@ package rs.raf.gerumap.gui.swing.view.workspace.editor.view.properties;
 
 import rs.raf.gerumap.gui.swing.controller.SelectionManager;
 import rs.raf.gerumap.gui.swing.view.MainWindow;
+import rs.raf.gerumap.gui.swing.view.custom.GRMapColorButton;
 import rs.raf.gerumap.gui.swing.view.custom.GRMapSpinner;
 import rs.raf.gerumap.gui.swing.view.workspace.editor.EditorValues;
 import rs.raf.gerumap.gui.swing.view.workspace.editor.graphics.IStroke;
 
+import javax.swing.AbstractAction;
 import javax.swing.JColorChooser;
 import javax.swing.JLabel;
-import javax.swing.JPanel;
 import javax.swing.JSpinner;
 import javax.swing.JTextField;
 import javax.swing.event.ChangeEvent;
@@ -16,8 +17,7 @@ import javax.swing.event.ChangeListener;
 import java.awt.Color;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+import java.awt.event.ActionEvent;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,7 +29,7 @@ public class ConnectiveProperties extends PropertiesBase {
 
     private JTextField textStrokeHex;
 
-    private JPanel paneStrokeColor;
+    private GRMapColorButton paneStrokeColor;
 
     private JSpinner spinnerStrokeWidth;
 
@@ -60,7 +60,7 @@ public class ConnectiveProperties extends PropertiesBase {
         textStrokeHex = new JTextField();
         textStrokeHex.setPreferredSize(EditorValues.PROPERTIES_INPUT_COMPONENT_DIMENSION);
 
-        paneStrokeColor = new JPanel();
+        paneStrokeColor = new GRMapColorButton();
         paneStrokeColor.setPreferredSize(EditorValues.PROPERTIES_INPUT_COMPONENT_DIMENSION);
 
         spinnerStrokeWidth = new GRMapSpinner(EditorValues.GRAPHIC_ELEMENT_STROKE_MULTIPLIER);
@@ -71,7 +71,7 @@ public class ConnectiveProperties extends PropertiesBase {
      * Assigns listeners to components
      */
     private void addListeners() {
-        paneStrokeColor.addMouseListener(new StrokeColorMouseListener());
+        paneStrokeColor.addActionListener(new StrokeColorActionListener());
 
         spinnerStrokeWidth.addChangeListener(new StrokeWidthChangeListener());
     }
@@ -109,9 +109,7 @@ public class ConnectiveProperties extends PropertiesBase {
                 color = stroke;
         }
 
-        color = color != null ? color : EditorValues.CONCEPT_STROKE_COLOR;
-
-        paneStrokeColor.setBackground(color);
+        paneStrokeColor.setColor(color);
         textStrokeHex.setText(colorToHex(color));
     }
 
@@ -140,11 +138,11 @@ public class ConnectiveProperties extends PropertiesBase {
 
     //region Listeners
 
-    private class StrokeColorMouseListener extends MouseAdapter {
+    private class StrokeColorActionListener extends AbstractAction {
 
         @Override
-        public void mouseClicked(MouseEvent event) {
-            Color color = JColorChooser.showDialog(MainWindow.window, "Select a color", paneStrokeColor.getBackground());
+        public void actionPerformed(ActionEvent event) {
+            Color color = JColorChooser.showDialog(MainWindow.window, "Select a color", paneStrokeColor.getColor());
 
             if (color == null)
                 return;
@@ -152,7 +150,7 @@ public class ConnectiveProperties extends PropertiesBase {
             for (IStroke element : elements)
                 element.setStrokeColor(color);
 
-            paneStrokeColor.setBackground(color);
+            paneStrokeColor.setColor(color);
             textStrokeHex.setText(colorToHex(color));
 
             editor.render();

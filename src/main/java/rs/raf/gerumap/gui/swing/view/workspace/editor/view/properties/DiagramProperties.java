@@ -1,13 +1,13 @@
 package rs.raf.gerumap.gui.swing.view.workspace.editor.view.properties;
 
 import rs.raf.gerumap.gui.swing.view.MainWindow;
+import rs.raf.gerumap.gui.swing.view.custom.GRMapColorButton;
 import rs.raf.gerumap.gui.swing.view.custom.GRMapSpinner;
 import rs.raf.gerumap.gui.swing.view.workspace.editor.EditorValues;
 
-import javax.swing.BorderFactory;
+import javax.swing.AbstractAction;
 import javax.swing.JColorChooser;
 import javax.swing.JLabel;
-import javax.swing.JPanel;
 import javax.swing.JSpinner;
 import javax.swing.JTextField;
 import javax.swing.event.ChangeEvent;
@@ -15,8 +15,7 @@ import javax.swing.event.ChangeListener;
 import java.awt.Color;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+import java.awt.event.ActionEvent;
 
 public class DiagramProperties extends PropertiesBase {
 
@@ -27,7 +26,7 @@ public class DiagramProperties extends PropertiesBase {
 
     private JTextField textHex;
 
-    private JPanel paneBackground;
+    private GRMapColorButton paneBackground;
 
     private JSpinner spinnerWidth;
     private JSpinner spinnerHeight;
@@ -60,9 +59,8 @@ public class DiagramProperties extends PropertiesBase {
         textHex = new JTextField();
         textHex.setPreferredSize(EditorValues.PROPERTIES_INPUT_COMPONENT_DIMENSION);
 
-        paneBackground = new JPanel();
+        paneBackground = new GRMapColorButton();
         paneBackground.setPreferredSize(EditorValues.PROPERTIES_INPUT_COMPONENT_DIMENSION);
-        paneBackground.setBorder(BorderFactory.createLineBorder(new Color(97, 99, 101)));
 
         spinnerWidth  = new GRMapSpinner(EditorValues.PROPERTIES_DIAGRAM_WIDTH_MULTIPLIER);
         spinnerHeight = new GRMapSpinner(EditorValues.PROPERTIES_DIAGRAM_HEIGHT_MULTIPLIER);
@@ -75,7 +73,7 @@ public class DiagramProperties extends PropertiesBase {
      * Assigns listeners to components
      */
     private void addListeners() {
-        paneBackground.addMouseListener(new BackgroundMouseListener());
+        paneBackground.addActionListener(new BackgroundActionListener());
 
         spinnerWidth .addChangeListener(new WidthChangeListener());
         spinnerHeight.addChangeListener(new HeightChangeListener());
@@ -88,7 +86,7 @@ public class DiagramProperties extends PropertiesBase {
 
         Color diagramBackground = editor.getDiagram().getBackground();
 
-        paneBackground.setBackground(diagramBackground);
+        paneBackground.setColor(diagramBackground);
         textHex.setText(colorToHex(diagramBackground));
         spinnerWidth.setValue(diagramWidth);
         spinnerHeight.setValue(diagramHeight);
@@ -117,17 +115,17 @@ public class DiagramProperties extends PropertiesBase {
 
     }
 
-    private class BackgroundMouseListener extends MouseAdapter {
+    private class BackgroundActionListener extends AbstractAction {
 
         @Override
-        public void mouseClicked(MouseEvent event) {
-            Color color = JColorChooser.showDialog(MainWindow.window, "Select a color", paneBackground.getBackground());
+        public void actionPerformed(ActionEvent event) {
+            Color color = JColorChooser.showDialog(MainWindow.window, "Select a color", paneBackground.getColor());
 
             if (color == null)
                 return;
 
             editor.getDiagram().setBackground(color);
-            paneBackground.setBackground(color);
+            paneBackground.setColor(color);
             textHex.setText(colorToHex(color));
         }
 

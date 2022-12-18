@@ -2,14 +2,14 @@ package rs.raf.gerumap.gui.swing.view.workspace.editor.view.properties;
 
 import rs.raf.gerumap.gui.swing.controller.SelectionManager;
 import rs.raf.gerumap.gui.swing.view.MainWindow;
+import rs.raf.gerumap.gui.swing.view.custom.GRMapColorButton;
 import rs.raf.gerumap.gui.swing.view.custom.GRMapSpinner;
 import rs.raf.gerumap.gui.swing.view.workspace.editor.EditorValues;
 import rs.raf.gerumap.gui.swing.view.workspace.editor.graphics.GraphicConcept;
 
-import javax.swing.BorderFactory;
+import javax.swing.AbstractAction;
 import javax.swing.JColorChooser;
 import javax.swing.JLabel;
-import javax.swing.JPanel;
 import javax.swing.JSpinner;
 import javax.swing.JTextField;
 import javax.swing.event.CaretEvent;
@@ -19,8 +19,7 @@ import javax.swing.event.ChangeListener;
 import java.awt.Color;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+import java.awt.event.ActionEvent;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -42,9 +41,9 @@ public class ConceptProperties extends PropertiesBase {
     private JTextField textBackgroundHex;
     private JTextField textStrokeHex;
 
-    private JPanel paneForeground;
-    private JPanel paneBackground;
-    private JPanel paneStroke;
+    private GRMapColorButton paneForeground;
+    private GRMapColorButton paneBackground;
+    private GRMapColorButton paneStroke;
 
     private JSpinner spinnerWidth;
     private JSpinner spinnerHeight;
@@ -108,17 +107,13 @@ public class ConceptProperties extends PropertiesBase {
         textBackgroundHex.setPreferredSize(EditorValues.PROPERTIES_INPUT_COMPONENT_DIMENSION);
         textStrokeHex    .setPreferredSize(EditorValues.PROPERTIES_INPUT_COMPONENT_DIMENSION);
 
-        paneForeground = new JPanel();
-        paneBackground = new JPanel();
-        paneStroke     = new JPanel();
+        paneForeground = new GRMapColorButton();
+        paneBackground = new GRMapColorButton();
+        paneStroke     = new GRMapColorButton();
 
         paneForeground.setPreferredSize(EditorValues.PROPERTIES_INPUT_COMPONENT_DIMENSION);
         paneBackground.setPreferredSize(EditorValues.PROPERTIES_INPUT_COMPONENT_DIMENSION);
         paneStroke    .setPreferredSize(EditorValues.PROPERTIES_INPUT_COMPONENT_DIMENSION);
-
-        paneForeground.setBorder(BorderFactory.createLineBorder(new Color(97, 99, 101)));
-        paneBackground.setBorder(BorderFactory.createLineBorder(new Color(97, 99, 101)));
-        paneStroke    .setBorder(BorderFactory.createLineBorder(new Color(97, 99, 101)));
 
         spinnerWidth       = new GRMapSpinner(EditorValues.GRAPHIC_ELEMENT_WIDTH_MULTIPLIER);
         spinnerHeight      = new GRMapSpinner(EditorValues.GRAPHIC_ELEMENT_HEIGHT_MULTIPLIER);
@@ -135,9 +130,9 @@ public class ConceptProperties extends PropertiesBase {
     private void addListeners() {
         textContent.addCaretListener(new ContentCaretListener());
 
-        paneForeground.addMouseListener(new ForegroundMouseListener());
-        paneBackground.addMouseListener(new BackgroundMouseListener());
-        paneStroke    .addMouseListener(new StrokeColorMouseListener());
+        paneForeground.addActionListener(new ForegroundActionListener());
+        paneBackground.addActionListener(new BackgroundActionListener());
+        paneStroke    .addActionListener(new StrokeColorActionListener());
 
         spinnerWidth      .addChangeListener(new WidthChangeListener());
         spinnerHeight     .addChangeListener(new HeightChangeListener());
@@ -242,9 +237,7 @@ public class ConceptProperties extends PropertiesBase {
                 color = foreground;
         }
 
-        color = color != null ? color : EditorValues.CONCEPT_FOREGROUND_COLOR;
-
-        paneForeground.setBackground(color);
+        paneForeground.setColor(color);
         textForegroundHex.setText(colorToHex(color));
     }
 
@@ -263,9 +256,7 @@ public class ConceptProperties extends PropertiesBase {
                 color = background;
         }
 
-        color = color != null ? color : EditorValues.CONCEPT_BACKGROUND_COLOR;
-
-        paneBackground.setBackground(color);
+        paneBackground.setColor(color);
         textBackgroundHex.setText(colorToHex(color));
     }
 
@@ -284,9 +275,7 @@ public class ConceptProperties extends PropertiesBase {
                 color = stroke;
         }
 
-        color = color != null ? color : EditorValues.CONCEPT_STROKE_COLOR;
-
-        paneStroke.setBackground(color);
+        paneStroke.setColor(color);
         textStrokeHex.setText(colorToHex(color));
     }
 
@@ -355,11 +344,11 @@ public class ConceptProperties extends PropertiesBase {
 
     }
 
-    private class ForegroundMouseListener extends MouseAdapter {
+    private class ForegroundActionListener extends AbstractAction {
 
         @Override
-        public void mouseClicked(MouseEvent event) {
-            Color color = JColorChooser.showDialog(MainWindow.window, "Select a color", paneForeground.getBackground());
+        public void actionPerformed(ActionEvent event) {
+            Color color = JColorChooser.showDialog(MainWindow.window, "Select a color", paneForeground.getColor());
 
             if (color == null)
                 return;
@@ -367,7 +356,7 @@ public class ConceptProperties extends PropertiesBase {
             for (GraphicConcept concept : concepts)
                 concept.setForegroundColor(color);
 
-            paneForeground.setBackground(color);
+            paneForeground.setColor(color);
             textForegroundHex.setText(colorToHex(color));
 
             editor.render();
@@ -375,11 +364,11 @@ public class ConceptProperties extends PropertiesBase {
 
     }
 
-    private class BackgroundMouseListener extends MouseAdapter {
+    private class BackgroundActionListener extends AbstractAction {
 
         @Override
-        public void mouseClicked(MouseEvent event) {
-            Color color = JColorChooser.showDialog(MainWindow.window, "Select a color", paneBackground.getBackground());
+        public void actionPerformed(ActionEvent event) {
+            Color color = JColorChooser.showDialog(MainWindow.window, "Select a color", paneBackground.getColor());
 
             if (color == null)
                 return;
@@ -387,7 +376,7 @@ public class ConceptProperties extends PropertiesBase {
             for (GraphicConcept concept : concepts)
                 concept.setBackgroundColor(color);
 
-            paneBackground.setBackground(color);
+            paneBackground.setColor(color);
             textBackgroundHex.setText(colorToHex(color));
 
             editor.render();
@@ -395,11 +384,11 @@ public class ConceptProperties extends PropertiesBase {
 
     }
 
-    private class StrokeColorMouseListener extends MouseAdapter {
+    private class StrokeColorActionListener extends AbstractAction {
 
         @Override
-        public void mouseClicked(MouseEvent event) {
-            Color color = JColorChooser.showDialog(MainWindow.window, "Select a color", paneStroke.getBackground());
+        public void actionPerformed(ActionEvent event) {
+            Color color = JColorChooser.showDialog(MainWindow.window, "Select a color", paneStroke.getColor());
 
             if (color == null)
                 return;
@@ -407,7 +396,7 @@ public class ConceptProperties extends PropertiesBase {
             for (GraphicConcept concept : concepts)
                 concept.setStrokeColor(color);
 
-            paneStroke.setBackground(color);
+            paneStroke.setColor(color);
             textStrokeHex.setText(colorToHex(color));
 
             editor.render();
