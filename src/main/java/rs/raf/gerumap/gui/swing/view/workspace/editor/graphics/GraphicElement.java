@@ -14,8 +14,6 @@ public abstract class GraphicElement extends Element implements ISelectable {
 
     protected boolean selected = false;
 
-    protected static double scale = 1;
-
     public GraphicElement(String name) {
         super(name, MainWindow.window.getEditor().getActivePage().getMindMap());
     }

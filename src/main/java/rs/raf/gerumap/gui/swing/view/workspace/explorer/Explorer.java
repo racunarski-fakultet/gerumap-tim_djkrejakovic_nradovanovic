@@ -20,7 +20,7 @@ import java.util.Queue;
 
 public class Explorer extends JScrollPane implements IExplorer {
 
-    private ExplorerTree explorerTree;
+    private final ExplorerTree explorerTree;
 
     private Queue<TreePath> expandedStates;
 
@@ -50,9 +50,8 @@ public class Explorer extends JScrollPane implements IExplorer {
     }
 
     @Override
-    public boolean setSelectedItem(ExplorerItem item) {
+    public void setSelectedItem(ExplorerItem item) {
         explorerTree.setSelectionPath(item.getTreePath());
-        return true;
     }
 
     @Override

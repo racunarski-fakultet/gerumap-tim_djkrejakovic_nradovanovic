@@ -7,13 +7,16 @@ import java.awt.Font;
 
 public class EditorValues {
 
-    public static final Integer   DIAGRAM_WIDTH            = 1200;
+    public static final Integer   DIAGRAM_WIDTH            = 1400;
     public static final Integer   DIAGRAM_HEIGHT           = 1000;
     public static final Dimension DIAGRAM_DIMENSION        = new Dimension(DIAGRAM_WIDTH, DIAGRAM_HEIGHT);
     public static final Color     DIAGRAM_BACKGROUND_COLOR = new Color(255, 255, 255);
 
     public static final Integer   PROPERTIES_DIAGRAM_WIDTH_MULTIPLIER  = 10;
     public static final Integer   PROPERTIES_DIAGRAM_HEIGHT_MULTIPLIER = 10;
+    public static final Integer   PROPERTIES_ELEMENT_WIDTH_MULTIPLIER  = 1;
+    public static final Integer   PROPERTIES_ELEMENT_HEIGHT_MULTIPLIER = 1;
+    public static final Integer   PROPERTIES_ELEMENT_STROKE_MULTIPLIER = 1;
     public static final Dimension PROPERTIES_INPUT_COMPONENT_DIMENSION = new Dimension(68, 22);
     public static final String    PROPERTIES_WIDTH_IDENTIFIER          = "W";
     public static final String    PROPERTIES_HEIGHT_IDENTIFIER         = "H";
@@ -49,9 +52,5 @@ public class EditorValues {
     public static final Color CONNECTION_STROKE_COLOR = new Color(75, 77, 79);
     public static final Float CONNECTION_SELECTION_WIDTH = SELECTION_STROKE_WIDTH;
     public static final Color CONNECTION_SELECTION_COLOR = SELECTION_STROKE_COLOR;
-
-    public static final Integer GRAPHIC_ELEMENT_WIDTH_MULTIPLIER  = 1;
-    public static final Integer GRAPHIC_ELEMENT_HEIGHT_MULTIPLIER = 1;
-    public static final Integer GRAPHIC_ELEMENT_STROKE_MULTIPLIER = 1;
 
 }

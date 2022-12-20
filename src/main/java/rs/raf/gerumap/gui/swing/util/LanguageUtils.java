@@ -13,7 +13,7 @@ public class LanguageUtils {
     private static final String DISPLAY_NAME  = ".name";
     private static final String TOOLTIP       = ".tooltip";
 
-    private static Properties properties = new Properties();
+    private static final Properties properties = new Properties();
 
     /**
      * Loads language from the resource directory.

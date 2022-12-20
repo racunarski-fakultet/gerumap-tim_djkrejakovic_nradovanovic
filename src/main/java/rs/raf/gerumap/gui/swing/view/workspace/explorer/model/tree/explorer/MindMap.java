@@ -18,7 +18,7 @@ public class MindMap extends Node {
 
     @Override
     public void addChild(BaseNode child) {
-        if (child == null || !(child instanceof Element))
+        if (!(child instanceof Element))
             return;
 
         if (getChildren().contains(child))

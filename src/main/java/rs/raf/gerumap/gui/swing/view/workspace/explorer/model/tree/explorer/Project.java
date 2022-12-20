@@ -18,7 +18,7 @@ public class Project extends Node {
 
     @Override
     public void addChild(BaseNode child) {
-        if (child == null || !(child instanceof MindMap))
+        if (!(child instanceof MindMap))
             return;
 
         if (getChildren().contains(child))

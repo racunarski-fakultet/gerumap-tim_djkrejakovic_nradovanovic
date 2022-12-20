@@ -27,9 +27,7 @@ public class ResourceUtils {
      * @return resource URL
      */
     private static URL getResource(String resource) {
-        URL url = ResourceUtils.class.getResource(resource);
-
-        return url;
+        return ResourceUtils.class.getResource(resource);
     }
 
     /**
@@ -38,9 +36,7 @@ public class ResourceUtils {
      * @return resource stream
      */
     private static InputStream getStream(String resource) {
-        InputStream inputStream = ResourceUtils.class.getResourceAsStream(resource);
-
-        return inputStream;
+        return ResourceUtils.class.getResourceAsStream(resource);
     }
 
     /**

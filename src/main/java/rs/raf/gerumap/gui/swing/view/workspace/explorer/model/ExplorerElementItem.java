@@ -19,7 +19,7 @@ public class ExplorerElementItem extends ExplorerItem {
 
     private static final JPopupMenu menu = new ExplorerElementMenu();
 
-    private EditorElement editorElement;
+    private final EditorElement editorElement;
 
     public ExplorerElementItem(Element node) {
         super(node);

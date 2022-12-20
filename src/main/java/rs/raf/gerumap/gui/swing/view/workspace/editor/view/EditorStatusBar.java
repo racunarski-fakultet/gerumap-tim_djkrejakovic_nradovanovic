@@ -15,14 +15,14 @@ import java.text.MessageFormat;
 
 public class EditorStatusBar extends JToolBar {
 
-    private JLabel labelCursorIcon  = new JLabel(ImageUtils.loadIcon("StatusBarCursor"));
-    private JLabel labelCoordinates = new JLabel(" 0, 0");
-    private JLabel labelZoom = new JLabel();
+    private final JLabel labelCursorIcon  = new JLabel(ImageUtils.loadIcon("StatusBarCursor"));
+    private final JLabel labelCoordinates = new JLabel(" 0, 0");
+    private final JLabel labelZoom = new JLabel();
 
-    private GRMapZoomSlider sliderZoom = new GRMapZoomSlider();
+    private final GRMapZoomSlider sliderZoom = new GRMapZoomSlider();
 
-    private FlatButton buttonZoomIn  = new FlatButton();
-    private FlatButton buttonZoomOut = new FlatButton();
+    private final FlatButton buttonZoomIn  = new FlatButton();
+    private final FlatButton buttonZoomOut = new FlatButton();
 
     public EditorStatusBar() {
         buttonZoomIn.setAction(ActionManager.getAction(ZoomInAction.class));

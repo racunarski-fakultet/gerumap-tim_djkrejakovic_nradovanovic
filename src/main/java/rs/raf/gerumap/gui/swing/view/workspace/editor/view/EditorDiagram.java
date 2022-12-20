@@ -27,7 +27,7 @@ public class EditorDiagram extends JPanel {
 
     private static final IExplorer explorer = MainWindow.window.getExplorer();
 
-    private GraphicConfigurations configurations = new GraphicConfigurations();
+    private final GraphicConfigurations configurations = new GraphicConfigurations();
 
     private int width;
 
@@ -120,7 +120,7 @@ public class EditorDiagram extends JPanel {
 
         while (iterator.hasNext())
             if (iterator.next().getGraphicElement() instanceof GraphicConnection connection &&
-                (!onDiagram(connection.getFirst()) || !onDiagram(connection.getSecond()))) {
+                (onDiagram(connection.getFirst()) || onDiagram(connection.getSecond()))) {
                 iterator.remove();
                 explorer.remove(explorer.getItem(connection));
             }
@@ -134,13 +134,11 @@ public class EditorDiagram extends JPanel {
      * @return true if on diagram, false otherwise
      */
     public boolean onDiagram(GraphicElement element) {
-        boolean found = false;
-
         for (EditorElement editorElement : editor.getActivePage().getEditorElements())
             if (editorElement.getGraphicElement().equals(element))
-                found = true;
+                return true;
 
-        return found;
+        return false;
     }
 
     /**

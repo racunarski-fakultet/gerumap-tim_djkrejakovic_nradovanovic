@@ -82,8 +82,8 @@ public enum Message {
      */
     EXPLORER_INCORRECT_TREE_NODE(Severity.ERROR, "The explorer tree has item that is not of type ExplorerItem.");
 
-    private Severity severity;
-    private String message;
+    private final Severity severity;
+    private final String message;
 
     Message(Severity severity, String message) {
         this.severity = severity;

@@ -18,7 +18,7 @@ public enum Severity {
      */
     INFORMATION("Info");
 
-    private String type;
+    private final String type;
 
     Severity(String type) {
         this.type = type;

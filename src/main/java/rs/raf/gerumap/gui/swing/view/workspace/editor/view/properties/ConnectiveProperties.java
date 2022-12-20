@@ -63,7 +63,7 @@ public class ConnectiveProperties extends PropertiesBase {
         paneStrokeColor = new GRMapColorButton();
         paneStrokeColor.setPreferredSize(EditorValues.PROPERTIES_INPUT_COMPONENT_DIMENSION);
 
-        spinnerStrokeWidth = new GRMapSpinner(EditorValues.GRAPHIC_ELEMENT_STROKE_MULTIPLIER);
+        spinnerStrokeWidth = new GRMapSpinner(EditorValues.PROPERTIES_ELEMENT_STROKE_MULTIPLIER);
         spinnerStrokeWidth.setPreferredSize(EditorValues.PROPERTIES_INPUT_COMPONENT_DIMENSION);
     }
 

@@ -165,7 +165,7 @@ public class EditorPage extends JPanel implements IEditorComponent {
      * Updates the container dimensions.
      */
     public void updateContainerDimensions() {
-        diagramContainer.setPreferredSize(new Dimension((int) (diagram.getScaledWidth() + 200), (int) (diagram.getScaledHeight() + 200)));
+        diagramContainer.setPreferredSize(new Dimension(diagram.getScaledWidth() + 200, diagram.getScaledHeight() + 200));
     }
 
     /**

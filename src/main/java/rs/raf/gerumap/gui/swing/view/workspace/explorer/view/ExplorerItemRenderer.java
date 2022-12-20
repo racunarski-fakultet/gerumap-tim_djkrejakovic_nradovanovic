@@ -16,12 +16,10 @@ public class ExplorerItemRenderer extends DefaultTreeCellRenderer {
 
         super.getTreeCellRendererComponent(tree, value, sel, expanded, leaf, row, hasFocus);
 
-        if (!(value instanceof ExplorerItem)) {
+        if (!(value instanceof ExplorerItem item)) {
             Logger.log(Message.EXPLORER_INCORRECT_TREE_NODE);
             return this;
         }
-
-        ExplorerItem item = (ExplorerItem)value;
 
         setIcon(item.getIcon());
 

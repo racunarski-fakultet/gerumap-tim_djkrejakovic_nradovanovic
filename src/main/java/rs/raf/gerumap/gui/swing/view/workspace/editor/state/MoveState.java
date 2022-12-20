@@ -16,7 +16,7 @@ public class MoveState extends State {
 
     private Point2D startLocation = null;
 
-    private List<Point2D> startLocations = new ArrayList<>();
+    private final List<Point2D> startLocations = new ArrayList<>();
 
     @Override
     public void mousePressed(MouseEvent event) {

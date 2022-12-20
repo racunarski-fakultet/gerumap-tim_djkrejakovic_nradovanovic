@@ -25,7 +25,7 @@ public class ProjectRoot extends Node {
 
     @Override
     public void addChild(BaseNode child) {
-        if (child == null || !(child instanceof Project))
+        if (!(child instanceof Project))
             return;
 
         if (getChildren().contains(child))

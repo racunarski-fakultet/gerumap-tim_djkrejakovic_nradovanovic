@@ -21,7 +21,7 @@ public class ExplorerMindMapItem extends ExplorerItem {
 
     private static final JPopupMenu menu = new ExplorerMindMapMenu();
 
-    private EditorPage editorPage;
+    private final EditorPage editorPage;
 
     public ExplorerMindMapItem(MindMap node) {
         super(node);

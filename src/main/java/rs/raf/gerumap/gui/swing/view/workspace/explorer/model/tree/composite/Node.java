@@ -8,7 +8,7 @@ import java.util.List;
  */
 public abstract class Node extends BaseNode {
 
-    private List<BaseNode> children = new ArrayList<>();
+    private final List<BaseNode> children = new ArrayList<>();
 
     /**
      * Create a node.

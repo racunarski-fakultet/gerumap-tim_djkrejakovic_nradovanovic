@@ -115,9 +115,9 @@ public class ConceptProperties extends PropertiesBase {
         paneBackground.setPreferredSize(EditorValues.PROPERTIES_INPUT_COMPONENT_DIMENSION);
         paneStroke    .setPreferredSize(EditorValues.PROPERTIES_INPUT_COMPONENT_DIMENSION);
 
-        spinnerWidth       = new GRMapSpinner(EditorValues.GRAPHIC_ELEMENT_WIDTH_MULTIPLIER);
-        spinnerHeight      = new GRMapSpinner(EditorValues.GRAPHIC_ELEMENT_HEIGHT_MULTIPLIER);
-        spinnerStrokeWidth = new GRMapSpinner(EditorValues.GRAPHIC_ELEMENT_STROKE_MULTIPLIER);
+        spinnerWidth       = new GRMapSpinner(EditorValues.PROPERTIES_ELEMENT_WIDTH_MULTIPLIER);
+        spinnerHeight      = new GRMapSpinner(EditorValues.PROPERTIES_ELEMENT_HEIGHT_MULTIPLIER);
+        spinnerStrokeWidth = new GRMapSpinner(EditorValues.PROPERTIES_ELEMENT_STROKE_MULTIPLIER);
 
         spinnerWidth      .setPreferredSize(EditorValues.PROPERTIES_INPUT_COMPONENT_DIMENSION);
         spinnerHeight     .setPreferredSize(EditorValues.PROPERTIES_INPUT_COMPONENT_DIMENSION);

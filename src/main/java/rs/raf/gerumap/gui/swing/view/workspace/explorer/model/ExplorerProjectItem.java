@@ -21,9 +21,9 @@ public class ExplorerProjectItem extends ExplorerItem {
 
     private static Icon icon = ImageUtils.loadIcon(StringUtils.removeTrailing(ExplorerProjectItem.class.getSimpleName(), "Item"));
 
-    private JPopupMenu menu = new ExplorerProjectMenu();
+    private final JPopupMenu menu = new ExplorerProjectMenu();
 
-    private EditorProject editorProject;
+    private final EditorProject editorProject;
 
     public ExplorerProjectItem(Project node) {
         super(node);

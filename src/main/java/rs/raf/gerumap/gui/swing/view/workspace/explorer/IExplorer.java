@@ -30,9 +30,8 @@ public interface IExplorer {
 
     /**
      * Sets the selected explorer item.
-     * @return true
      */
-    boolean setSelectedItem(ExplorerItem item);
+    void setSelectedItem(ExplorerItem item);
 
     /**
      * Returns the selected explorer item.

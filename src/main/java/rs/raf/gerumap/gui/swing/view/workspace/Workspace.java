@@ -9,9 +9,9 @@ import javax.swing.JSplitPane;
 
 public class Workspace extends JSplitPane implements IWorkspace {
 
-    private Editor editor;
+    private final Editor editor;
 
-    private Explorer explorer;
+    private final Explorer explorer;
 
     /**
      * Creates a workspace.

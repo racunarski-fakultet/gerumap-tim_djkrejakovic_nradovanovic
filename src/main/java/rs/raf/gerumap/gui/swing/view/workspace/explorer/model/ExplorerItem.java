@@ -162,10 +162,9 @@ public abstract class ExplorerItem extends DefaultMutableTreeNode {
 
     @Override
     public boolean equals(Object obj) {
-        if (obj == null || !(obj instanceof ExplorerItem))
+        if (!(obj instanceof ExplorerItem item))
             return false;
 
-        ExplorerItem item = (ExplorerItem) obj;
         return Objects.equals(node, item.node);
     }
 

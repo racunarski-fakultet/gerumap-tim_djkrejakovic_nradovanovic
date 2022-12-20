@@ -6,9 +6,9 @@ import java.util.Objects;
 
 public abstract class BaseNode {
 
-    String name;
+    protected String name;
 
-    BaseNode parent;
+    protected BaseNode parent;
 
     /**
      * Creates a base node.
@@ -70,10 +70,9 @@ public abstract class BaseNode {
 
     @Override
     public boolean equals(Object obj) {
-        if (obj == null || !(obj instanceof BaseNode))
+        if (!(obj instanceof BaseNode node))
             return false;
 
-        BaseNode node = (BaseNode) obj;
         return Objects.equals(node.getName(), this.getName()) && Objects.equals(getTree(), node.getTree());
     }
 

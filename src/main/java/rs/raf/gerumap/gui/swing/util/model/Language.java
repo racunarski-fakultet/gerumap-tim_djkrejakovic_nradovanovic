@@ -15,8 +15,8 @@ public enum Language {
      */
     SERBIAN_LATIN   ("Serbian (Latin)"        , "sr-Latn-RS");
 
-    String name;
-    String id;
+    private final String name;
+    private final String id;
 
     Language(String name, String id) {
         this.name = name;

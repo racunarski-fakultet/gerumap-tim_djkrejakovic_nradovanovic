@@ -13,7 +13,7 @@ import java.awt.Dimension;
 
 public class EditorProperties extends JPanel {
 
-    private JLabel labelTitle = new JLabel("Properties");
+    private final JLabel labelTitle = new JLabel("Properties");
     private PropertiesBase activeProperties;
 
     public EditorProperties() {
