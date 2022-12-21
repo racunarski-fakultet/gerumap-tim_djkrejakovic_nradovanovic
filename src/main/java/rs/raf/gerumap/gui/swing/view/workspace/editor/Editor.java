@@ -1,5 +1,6 @@
 package rs.raf.gerumap.gui.swing.view.workspace.editor;
 
+import rs.raf.gerumap.gui.swing.controller.SelectionManager;
 import rs.raf.gerumap.gui.swing.controller.StateManager;
 import rs.raf.gerumap.gui.swing.view.MainWindow;
 import rs.raf.gerumap.gui.swing.view.user.model.User;
@@ -103,6 +104,8 @@ public class Editor extends JPanel implements IEditor {
 
         if (activePage != null)
             properties.reset();
+
+        SelectionManager.clear();
     }
 
     @Override

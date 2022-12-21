@@ -139,6 +139,9 @@ public class SelectionManager {
      * Updates the properties tab based on the selected elements.
      */
     private static void updateProperties() {
+        if (editor.getActivePage() == null)
+            return;
+
         int value = 0x1;
 
         for (ISelectable element : selected)
