@@ -1,5 +1,6 @@
 package rs.raf.gerumap.gui.swing.view.workspace.editor;
 
+import rs.raf.gerumap.gui.swing.controller.CommandManager;
 import rs.raf.gerumap.gui.swing.view.user.model.User;
 import rs.raf.gerumap.gui.swing.view.workspace.editor.graphics.GraphicConfigurations;
 import rs.raf.gerumap.gui.swing.view.workspace.editor.view.EditorDiagram;
@@ -54,6 +55,11 @@ public interface IEditor {
     void updateActivePage();
 
     /**
+     * Updates the properties tab.
+     */
+    void updateProperties();
+
+    /**
      * Returns the active page.
      * @return page
      */
@@ -102,6 +108,13 @@ public interface IEditor {
      * @return status bar
      */
     EditorStatusBar getStatusBar();
+
+
+    /**
+     * Returns the command manager of the active page.
+     * @return command manager
+     */
+    CommandManager getCommandManager();
 
     /**
      * Returns the graphic configurations of active page.

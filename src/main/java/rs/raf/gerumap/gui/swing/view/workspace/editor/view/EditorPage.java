@@ -1,5 +1,6 @@
 package rs.raf.gerumap.gui.swing.view.workspace.editor.view;
 
+import rs.raf.gerumap.gui.swing.controller.CommandManager;
 import rs.raf.gerumap.gui.swing.view.MainWindow;
 import rs.raf.gerumap.gui.swing.view.workspace.editor.EditorValues;
 import rs.raf.gerumap.gui.swing.view.workspace.editor.IEditor;
@@ -21,6 +22,8 @@ import java.util.Objects;
 public class EditorPage extends JPanel implements IEditorComponent {
 
     private static final IEditor editor = MainWindow.window.getEditor();
+
+    private final CommandManager commandManager = new CommandManager();
 
     private final MindMap mindMap;
 
@@ -190,6 +193,14 @@ public class EditorPage extends JPanel implements IEditorComponent {
      */
     public EditorStatusBar getStatusBar() {
         return statusBar;
+    }
+
+    /**
+     * Returns the page command manager.
+     * @return command manager
+     */
+    public CommandManager getCommandManager() {
+        return commandManager;
     }
 
     /**

@@ -120,6 +120,18 @@ public class MainWindow extends JFrame {
 
     //endregion
 
+    //region Command Buttons - Undo/Redo
+
+    public void setRedoEnabled(boolean newValue) {
+        menuBar.setRedoEnabled(newValue);
+    }
+
+    public void setUndoEnabled(boolean newValue) {
+        menuBar.setUndoEnabled(newValue);
+    }
+
+    //endregion
+
     //region Get Components
 
     /**

@@ -1,11 +1,21 @@
 package rs.raf.gerumap.gui.swing.view.workspace.editor.view.properties;
 
 import rs.raf.gerumap.gui.swing.controller.SelectionManager;
+import rs.raf.gerumap.gui.swing.controller.comands.ChangeElementsBackgroundCommand;
+import rs.raf.gerumap.gui.swing.controller.comands.ChangeElementsForegroundCommand;
+import rs.raf.gerumap.gui.swing.controller.comands.ChangeElementsHeightCommand;
+import rs.raf.gerumap.gui.swing.controller.comands.ChangeElementsStrokeColorCommand;
+import rs.raf.gerumap.gui.swing.controller.comands.ChangeElementsStrokeWidthCommand;
+import rs.raf.gerumap.gui.swing.controller.comands.ChangeElementsWidthCommand;
 import rs.raf.gerumap.gui.swing.view.MainWindow;
 import rs.raf.gerumap.gui.swing.view.custom.GRMapColorButton;
 import rs.raf.gerumap.gui.swing.view.custom.GRMapSpinner;
 import rs.raf.gerumap.gui.swing.view.workspace.editor.EditorValues;
 import rs.raf.gerumap.gui.swing.view.workspace.editor.graphics.GraphicConcept;
+import rs.raf.gerumap.gui.swing.view.workspace.editor.graphics.IBackground;
+import rs.raf.gerumap.gui.swing.view.workspace.editor.graphics.IForeground;
+import rs.raf.gerumap.gui.swing.view.workspace.editor.graphics.IResizable;
+import rs.raf.gerumap.gui.swing.view.workspace.editor.graphics.IStroke;
 
 import javax.swing.AbstractAction;
 import javax.swing.JColorChooser;
@@ -49,7 +59,11 @@ public class ConceptProperties extends PropertiesBase {
     private JSpinner spinnerHeight;
     private JSpinner spinnerStrokeWidth;
 
-    private final List<GraphicConcept> concepts = new ArrayList<>();
+    private final List<GraphicConcept> concepts           = new ArrayList<>();
+    private final List<IResizable>     resizableElements  = new ArrayList<>();
+    private final List<IBackground>    backgroundElements = new ArrayList<>();
+    private final List<IForeground>    foregroundElements = new ArrayList<>();
+    private final List<IStroke>        strokeElements     = new ArrayList<>();
 
     public ConceptProperties() {
         initialize();
@@ -165,7 +179,20 @@ public class ConceptProperties extends PropertiesBase {
 
     private void setupSelectedElements() {
         concepts.clear();
+        resizableElements.clear();
+        backgroundElements.clear();
+        foregroundElements.clear();
+        strokeElements.clear();
+
         concepts.addAll(SelectionManager.getSelectedConcepts());
+
+        for (GraphicConcept concept : concepts) {
+            resizableElements.add(concept);
+            backgroundElements.add(concept);
+            foregroundElements.add(concept);
+            strokeElements.add(concept);
+        }
+
     }
 
     private void setupWidth() {
@@ -305,13 +332,7 @@ public class ConceptProperties extends PropertiesBase {
 
         @Override
         public void stateChanged(ChangeEvent event) {
-            Integer value = (Integer) spinnerWidth.getValue();
-
-            for (GraphicConcept concept : concepts)
-                concept.setWidth(value);
-
-            editor.getDiagram().reconnect();
-            editor.render();
+            editor.getCommandManager().addCommand(new ChangeElementsWidthCommand(resizableElements, (Integer) spinnerWidth.getValue()));
         }
     }
 
@@ -319,13 +340,7 @@ public class ConceptProperties extends PropertiesBase {
 
         @Override
         public void stateChanged(ChangeEvent event) {
-            Integer value = (Integer) spinnerHeight.getValue();
-
-            for (GraphicConcept concept : concepts)
-                concept.setHeight(value);
-
-            editor.getDiagram().reconnect();
-            editor.render();
+            editor.getCommandManager().addCommand(new ChangeElementsHeightCommand(resizableElements, (Integer) spinnerHeight.getValue()));
         }
 
     }
@@ -336,8 +351,8 @@ public class ConceptProperties extends PropertiesBase {
         public void caretUpdate(CaretEvent event) {
             String content = textContent.getText();
 
-            for (GraphicConcept concept : concepts)
-                concept.setText(content);
+            for (IForeground element : concepts)
+                element.setText(content);
 
             editor.render();
         }
@@ -353,13 +368,10 @@ public class ConceptProperties extends PropertiesBase {
             if (color == null)
                 return;
 
-            for (GraphicConcept concept : concepts)
-                concept.setForegroundColor(color);
+            editor.getCommandManager().addCommand(new ChangeElementsForegroundCommand(foregroundElements, color));
 
             paneForeground.setColor(color);
             textForegroundHex.setText(colorToHex(color));
-
-            editor.render();
         }
 
     }
@@ -373,13 +385,10 @@ public class ConceptProperties extends PropertiesBase {
             if (color == null)
                 return;
 
-            for (GraphicConcept concept : concepts)
-                concept.setBackgroundColor(color);
+            editor.getCommandManager().addCommand(new ChangeElementsBackgroundCommand(backgroundElements, color));
 
             paneBackground.setColor(color);
             textBackgroundHex.setText(colorToHex(color));
-
-            editor.render();
         }
 
     }
@@ -393,13 +402,10 @@ public class ConceptProperties extends PropertiesBase {
             if (color == null)
                 return;
 
-            for (GraphicConcept concept : concepts)
-                concept.setStrokeColor(color);
+            editor.getCommandManager().addCommand(new ChangeElementsStrokeColorCommand(strokeElements, color));
 
             paneStroke.setColor(color);
             textStrokeHex.setText(colorToHex(color));
-
-            editor.render();
         }
 
     }
@@ -408,12 +414,7 @@ public class ConceptProperties extends PropertiesBase {
 
         @Override
         public void stateChanged(ChangeEvent event) {
-            int value = (int) spinnerStrokeWidth.getValue();
-
-            for (GraphicConcept concept : concepts)
-                concept.setStrokeWidth(value);
-
-            editor.render();
+            editor.getCommandManager().addCommand(new ChangeElementsStrokeWidthCommand(strokeElements, (Integer) spinnerStrokeWidth.getValue()));
         }
 
     }

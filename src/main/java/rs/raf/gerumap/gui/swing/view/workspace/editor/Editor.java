@@ -1,5 +1,6 @@
 package rs.raf.gerumap.gui.swing.view.workspace.editor;
 
+import rs.raf.gerumap.gui.swing.controller.CommandManager;
 import rs.raf.gerumap.gui.swing.controller.SelectionManager;
 import rs.raf.gerumap.gui.swing.controller.StateManager;
 import rs.raf.gerumap.gui.swing.view.MainWindow;
@@ -65,6 +66,9 @@ public class Editor extends JPanel implements IEditor {
 
     @Override
     public void setProperties(PropertiesBase properties) {
+        if (activePage == null)
+            return;
+
         this.properties.setProperties(properties);
         this.properties.getFocus();
     }
@@ -102,10 +106,18 @@ public class Editor extends JPanel implements IEditor {
     public void updateActivePage() {
         activePage = activeProject.getSelectedIndex() >= 0 ? getOpenPage(activeProject.getSelectedIndex()) : null;
 
-        if (activePage != null)
+        if (activePage != null) {
+            activePage.getCommandManager().updateButtons();
             properties.reset();
+        }
 
         SelectionManager.clear();
+
+    }
+
+    @Override
+    public void updateProperties() {
+        properties.reload();
     }
 
     @Override
@@ -151,6 +163,11 @@ public class Editor extends JPanel implements IEditor {
     @Override
     public EditorStatusBar getStatusBar() {
         return activePage.getStatusBar();
+    }
+
+    @Override
+    public CommandManager getCommandManager() {
+        return activePage.getCommandManager();
     }
 
     @Override

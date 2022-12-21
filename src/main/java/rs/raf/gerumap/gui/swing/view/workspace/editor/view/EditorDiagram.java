@@ -11,7 +11,6 @@ import rs.raf.gerumap.gui.swing.view.workspace.editor.graphics.GraphicConfigurat
 import rs.raf.gerumap.gui.swing.view.workspace.editor.graphics.GraphicConnection;
 import rs.raf.gerumap.gui.swing.view.workspace.editor.graphics.GraphicElement;
 import rs.raf.gerumap.gui.swing.view.workspace.editor.graphics.IConnectable;
-import rs.raf.gerumap.gui.swing.view.workspace.explorer.IExplorer;
 
 import javax.swing.JPanel;
 import java.awt.Dimension;
@@ -19,13 +18,12 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 import java.awt.geom.Point2D;
-import java.util.Iterator;
+import java.util.ArrayList;
+import java.util.List;
 
 public class EditorDiagram extends JPanel {
 
     private static final IEditor editor = MainWindow.window.getEditor();
-
-    private static final IExplorer explorer = MainWindow.window.getExplorer();
 
     private final GraphicConfigurations configurations = new GraphicConfigurations();
 
@@ -113,19 +111,18 @@ public class EditorDiagram extends JPanel {
     }
 
     /**
-     * Removes all hanged connections.
+     * Returns the list of hanging connections.
+     * @return hanging connections
      */
-    public void removeHangedConnections() {
-        Iterator<EditorElement> iterator = editor.getActivePage().getEditorElements().iterator();
+    public List<GraphicElement> getHangingConnections() {
+        List<GraphicElement> elements = new ArrayList<>();
 
-        while (iterator.hasNext())
-            if (iterator.next().getGraphicElement() instanceof GraphicConnection connection &&
-                (onDiagram(connection.getFirst()) || onDiagram(connection.getSecond()))) {
-                iterator.remove();
-                explorer.remove(explorer.getItem(connection));
-            }
+        for (EditorElement editorElement : editor.getActivePage().getEditorElements())
+            if (editorElement.getGraphicElement() instanceof GraphicConnection connection &&
+                (onDiagram(connection.getFirst()) || onDiagram(connection.getSecond())))
+                elements.add(connection);
 
-        repaint();
+        return elements;
     }
 
     /**

@@ -1,5 +1,8 @@
 package rs.raf.gerumap.gui.swing.view.workspace.editor.view.properties;
 
+import rs.raf.gerumap.gui.swing.controller.comands.ChangeDiagramBackgroundCommand;
+import rs.raf.gerumap.gui.swing.controller.comands.ChangeDiagramHeightCommand;
+import rs.raf.gerumap.gui.swing.controller.comands.ChangeDiagramWidthCommand;
 import rs.raf.gerumap.gui.swing.view.MainWindow;
 import rs.raf.gerumap.gui.swing.view.custom.GRMapColorButton;
 import rs.raf.gerumap.gui.swing.view.custom.GRMapSpinner;
@@ -101,7 +104,7 @@ public class DiagramProperties extends PropertiesBase {
 
         @Override
         public void stateChanged(ChangeEvent event) {
-            editor.getDiagram().setActualWidth((Integer) spinnerWidth.getValue());
+            editor.getCommandManager().addCommand(new ChangeDiagramWidthCommand((Integer) spinnerWidth.getValue()));
         }
 
     }
@@ -110,7 +113,7 @@ public class DiagramProperties extends PropertiesBase {
 
         @Override
         public void stateChanged(ChangeEvent event) {
-            editor.getDiagram().setActualHeight((Integer) spinnerHeight.getValue());
+            editor.getCommandManager().addCommand(new ChangeDiagramHeightCommand((Integer) spinnerHeight.getValue()));
         }
 
     }
@@ -124,7 +127,8 @@ public class DiagramProperties extends PropertiesBase {
             if (color == null)
                 return;
 
-            editor.getDiagram().setBackground(color);
+            editor.getCommandManager().addCommand(new ChangeDiagramBackgroundCommand(color));
+
             paneBackground.setColor(color);
             textHex.setText(colorToHex(color));
         }

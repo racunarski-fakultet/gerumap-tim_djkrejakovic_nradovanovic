@@ -1,6 +1,7 @@
 package rs.raf.gerumap.gui.swing.view.workspace.editor.state;
 
 import rs.raf.gerumap.gui.swing.controller.SelectionManager;
+import rs.raf.gerumap.gui.swing.controller.comands.MoveElementsCommand;
 import rs.raf.gerumap.gui.swing.view.workspace.editor.graphics.GraphicElement;
 import rs.raf.gerumap.gui.swing.view.workspace.editor.graphics.IMovable;
 import rs.raf.gerumap.gui.swing.view.workspace.editor.view.EditorElement;
@@ -52,12 +53,22 @@ public class MoveState extends State {
 
     @Override
     public void mouseReleased(MouseEvent event) {
+        if (startLocation == null)
+            return;
+
+        if (elementsIntersect())
+            restoreLocations();
+        else
+            editor.getCommandManager().addCommand(new MoveElementsCommand(SelectionManager.getSelectedMovables(), startLocations));
+
+        startLocation = null;
+
         clear();
     }
 
     @Override
     public void clear() {
-        if (elementsIntersect())
+        if (startLocation != null)
             restoreLocations();
 
         startLocation = null;

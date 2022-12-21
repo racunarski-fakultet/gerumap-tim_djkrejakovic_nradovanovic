@@ -6,8 +6,8 @@ import java.awt.Dimension;
 
 public class GRMapMenuItem extends JMenuItem {
 
-    public GRMapMenuItem(Action a) {
-        super(a);
+    public GRMapMenuItem(Action action) {
+        super(action);
     }
 
     public GRMapMenuItem(String text) {

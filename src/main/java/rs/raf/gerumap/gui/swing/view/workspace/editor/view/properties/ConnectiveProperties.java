@@ -1,6 +1,8 @@
 package rs.raf.gerumap.gui.swing.view.workspace.editor.view.properties;
 
 import rs.raf.gerumap.gui.swing.controller.SelectionManager;
+import rs.raf.gerumap.gui.swing.controller.comands.ChangeElementsStrokeColorCommand;
+import rs.raf.gerumap.gui.swing.controller.comands.ChangeElementsStrokeWidthCommand;
 import rs.raf.gerumap.gui.swing.view.MainWindow;
 import rs.raf.gerumap.gui.swing.view.custom.GRMapColorButton;
 import rs.raf.gerumap.gui.swing.view.custom.GRMapSpinner;
@@ -147,13 +149,10 @@ public class ConnectiveProperties extends PropertiesBase {
             if (color == null)
                 return;
 
-            for (IStroke element : elements)
-                element.setStrokeColor(color);
+            editor.getCommandManager().addCommand(new ChangeElementsStrokeColorCommand(elements, color));
 
             paneStrokeColor.setColor(color);
             textStrokeHex.setText(colorToHex(color));
-
-            editor.render();
         }
 
     }
@@ -162,12 +161,7 @@ public class ConnectiveProperties extends PropertiesBase {
 
         @Override
         public void stateChanged(ChangeEvent event) {
-            int value = (int) spinnerStrokeWidth.getValue();
-
-            for (IStroke element : elements)
-                element.setStrokeWidth(value);
-
-            editor.render();
+            editor.getCommandManager().addCommand(new ChangeElementsStrokeWidthCommand(elements, (Integer) spinnerStrokeWidth.getValue()));
         }
 
     }

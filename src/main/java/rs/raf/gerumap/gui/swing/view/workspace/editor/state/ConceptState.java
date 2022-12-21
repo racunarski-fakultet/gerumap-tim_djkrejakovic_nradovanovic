@@ -1,8 +1,7 @@
 package rs.raf.gerumap.gui.swing.view.workspace.editor.state;
 
-import rs.raf.gerumap.gui.swing.controller.SelectionManager;
+import rs.raf.gerumap.gui.swing.controller.comands.AddGraphicElementCommand;
 import rs.raf.gerumap.gui.swing.view.workspace.editor.graphics.GraphicConcept;
-import rs.raf.gerumap.gui.swing.view.workspace.editor.view.EditorElement;
 
 import java.awt.event.MouseEvent;
 import java.awt.geom.Point2D;
@@ -38,12 +37,8 @@ public class ConceptState extends State {
 
     @Override
     public void mouseReleased(MouseEvent event) {
-        if (!graphicConcept.isDiscarded()) {
-            editor.getActivePage().addElement(new EditorElement(graphicConcept));
-            explorer.addChild(explorer.getItem(editor.getActivePage().getMindMap()));
-
-            SelectionManager.addSelection(graphicConcept);
-        }
+        if (!graphicConcept.isDiscarded())
+            editor.getCommandManager().addCommand(new AddGraphicElementCommand(graphicConcept));
 
         clear();
     }
@@ -51,7 +46,6 @@ public class ConceptState extends State {
     @Override
     public void clear() {
         editor.getDiagram().removeGraphicElement();
-        editor.render();
 
         startLocation = null;
         graphicConcept = null;

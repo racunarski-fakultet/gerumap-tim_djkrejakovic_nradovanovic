@@ -1,11 +1,13 @@
 package rs.raf.gerumap.gui.swing.view.workspace.editor.state;
 
 import rs.raf.gerumap.gui.swing.controller.SelectionManager;
+import rs.raf.gerumap.gui.swing.controller.comands.EraseGraphicElementsCommand;
 import rs.raf.gerumap.gui.swing.view.workspace.editor.graphics.GraphicElement;
 import rs.raf.gerumap.gui.swing.view.workspace.editor.graphics.GraphicEraser;
 
 import java.awt.event.MouseEvent;
 import java.awt.geom.Point2D;
+import java.util.List;
 
 public class EraseState extends State {
 
@@ -49,7 +51,11 @@ public class EraseState extends State {
         if (startLocation == null)
             return;
 
-        SelectionManager.erase();
+        List<GraphicElement> elementsToErase = SelectionManager.getElementsToErase();
+
+        if (elementsToErase.size() != 0)
+            editor.getCommandManager().addCommand(new EraseGraphicElementsCommand(elementsToErase));
+
         clear();
     }
 

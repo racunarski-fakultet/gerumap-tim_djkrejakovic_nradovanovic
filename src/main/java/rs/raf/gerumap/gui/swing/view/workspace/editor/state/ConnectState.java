@@ -1,10 +1,10 @@
 package rs.raf.gerumap.gui.swing.view.workspace.editor.state;
 
 import rs.raf.gerumap.gui.swing.controller.SelectionManager;
+import rs.raf.gerumap.gui.swing.controller.comands.AddGraphicElementCommand;
 import rs.raf.gerumap.gui.swing.view.workspace.editor.graphics.GraphicConcept;
 import rs.raf.gerumap.gui.swing.view.workspace.editor.graphics.GraphicConnection;
 import rs.raf.gerumap.gui.swing.view.workspace.editor.graphics.GraphicElement;
-import rs.raf.gerumap.gui.swing.view.workspace.editor.view.EditorElement;
 
 import java.awt.event.MouseEvent;
 import java.awt.geom.Point2D;
@@ -33,21 +33,15 @@ public class ConnectState extends State {
         if (graphicConnection == null) {
             graphicConnection = new GraphicConnection(concept);
             startLocation = mouseLocation;
-        }
-        else if (!concept.equals(graphicConnection.getFirst())) {
-            graphicConnection.setSecond(concept);
-
-            editor.getActivePage().addElement(new EditorElement(graphicConnection));
-            explorer.addChild(explorer.getItem(editor.getActivePage().getMindMap()));
-
-            SelectionManager.addSelection(graphicConnection);
-
-            editor.getDiagram().removeGraphicElement();
-            editor.render();
-
-            clear();
+            return;
         }
 
+        if (concept.equals(graphicConnection.getFirst()))
+            return;
+
+        graphicConnection.setSecond(concept);
+        editor.getCommandManager().addCommand(new AddGraphicElementCommand(graphicConnection));
+        clear();
     }
 
     @Override
@@ -84,7 +78,6 @@ public class ConnectState extends State {
     @Override
     public void clear() {
         editor.getDiagram().removeGraphicElement();
-        editor.render();
 
         graphicConnection = null;
         startLocation = null;

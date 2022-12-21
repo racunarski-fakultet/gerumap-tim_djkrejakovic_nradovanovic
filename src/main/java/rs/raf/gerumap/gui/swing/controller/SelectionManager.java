@@ -10,16 +10,12 @@ import rs.raf.gerumap.gui.swing.view.workspace.editor.graphics.IStroke;
 import rs.raf.gerumap.gui.swing.view.workspace.editor.view.properties.ConceptProperties;
 import rs.raf.gerumap.gui.swing.view.workspace.editor.view.properties.ConnectiveProperties;
 import rs.raf.gerumap.gui.swing.view.workspace.editor.view.properties.DiagramProperties;
-import rs.raf.gerumap.gui.swing.view.workspace.explorer.IExplorer;
-import rs.raf.gerumap.gui.swing.view.workspace.explorer.model.tree.composite.BaseNode;
 
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
 public class SelectionManager {
-
-    private static final IExplorer explorer = MainWindow.window.getExplorer();
 
     private static final IEditor editor = MainWindow.window.getEditor();
 
@@ -99,18 +95,24 @@ public class SelectionManager {
     }
 
     /**
-     * Erases all the elements from the selection.
+     * Returns a list of elements to erase.
+     * @return elements to erase
      */
-    public static void erase() {
-        Iterator<ISelectable> iterator = selected.iterator();
+    public static List<GraphicElement> getElementsToErase() {
+        deselect();
 
-        while (iterator.hasNext()) {
-            explorer.remove(explorer.getItem((BaseNode) iterator.next()));
-            iterator.remove();
-        }
+        List<GraphicElement> elements = getSelectedElements();
+        elements.addAll(editor.getDiagram().getHangingConnections());
 
-        editor.getDiagram().removeHangedConnections();
-        updateProperties();
+        return elements;
+    }
+
+    /**
+     * Deselects all selected elements.
+     */
+    private static void deselect() {
+        for (ISelectable element : selected)
+            element.setSelected(false);
     }
 
     /**
