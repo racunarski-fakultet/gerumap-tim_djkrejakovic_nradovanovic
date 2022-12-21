@@ -13,6 +13,9 @@ public class ResetZoomAction extends GRMapAction {
 
     @Override
     public void actionPerformed(ActionEvent e) {
+        if (MainWindow.window.getEditor().getActivePage() == null)
+            return;
+
         MainWindow.window.getEditor().getGraphicConfigurations().setScaleFactor(GraphicConfigurations.DEFAULT_SCALE_FACTOR);
     }
 
