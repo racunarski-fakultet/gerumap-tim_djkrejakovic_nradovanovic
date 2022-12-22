@@ -30,6 +30,9 @@ public class GraphicConfigurations {
      * @param scale scale factor
      */
     public void setScaleFactor(double scale) {
+        if (scale == scaleFactor)
+            return;
+
         scale = Math.min(scale, MAX_SCALE_FACTOR);
         scale = Math.max(scale, MIN_SCALE_FACTOR);
 
@@ -60,14 +63,14 @@ public class GraphicConfigurations {
     public void saveConfigurations() {
         savedConfigurations = new GraphicConfigurations();
 
-        savedConfigurations.setScaleFactor(getScaleFactor());
+        savedConfigurations.scaleFactor = scaleFactor;
     }
 
     /**
      * Restores the saved graphic configurations.
      */
     public void restoreConfigurations() {
-        setScaleFactor(savedConfigurations.getScaleFactor());
+        scaleFactor =  savedConfigurations.scaleFactor;
 
         savedConfigurations = null;
     }
