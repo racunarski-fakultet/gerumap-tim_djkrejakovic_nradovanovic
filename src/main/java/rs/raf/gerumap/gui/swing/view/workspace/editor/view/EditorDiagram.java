@@ -119,7 +119,7 @@ public class EditorDiagram extends JPanel {
 
         for (EditorElement editorElement : editor.getActivePage().getEditorElements())
             if (editorElement.getGraphicElement() instanceof GraphicConnection connection &&
-                (onDiagram(connection.getFirst()) || onDiagram(connection.getSecond())))
+                (!onDiagram(connection.getFirst()) || !onDiagram(connection.getSecond())))
                 elements.add(connection);
 
         return elements;
