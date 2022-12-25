@@ -170,6 +170,9 @@ public class EditorDiagram extends JPanel {
      * Sets the size of the diagram in the editor based on the scale factor, then notifies the page about the change.
      */
     public void updateScaledSize() {
+        if (editor.getActivePage() == null)
+            return;
+
         setPreferredSize(new Dimension(getScaledWidth(), getScaledHeight()));
         editor.getActivePage().updateContainerDimensions();
 

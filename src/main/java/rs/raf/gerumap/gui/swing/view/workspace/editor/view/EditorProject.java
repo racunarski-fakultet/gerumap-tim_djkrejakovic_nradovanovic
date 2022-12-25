@@ -8,6 +8,7 @@ import rs.raf.gerumap.gui.swing.view.workspace.editor.controller.EditorFocusMous
 import rs.raf.gerumap.gui.swing.view.workspace.editor.controller.EditorKeyListener;
 import rs.raf.gerumap.gui.swing.view.workspace.editor.controller.EditorTabChangeListener;
 import rs.raf.gerumap.gui.swing.view.workspace.editor.controller.EditorTabMouseListener;
+import rs.raf.gerumap.gui.swing.view.workspace.explorer.model.tree.composite.BaseNode;
 import rs.raf.gerumap.gui.swing.view.workspace.explorer.model.tree.explorer.Project;
 
 import javax.swing.BorderFactory;
@@ -96,7 +97,7 @@ public class EditorProject extends JTabbedPane implements IEditorComponent {
             editor.closePages();
 
         if (!unchanged)
-            editor.setActiveProject(this);
+            editor.setActiveProject(editor.getProject(getProject()));
 
         EditorPage activePage = editor.getActivePage();
 
@@ -120,7 +121,9 @@ public class EditorProject extends JTabbedPane implements IEditorComponent {
      * @param page page
      */
     public void addPage(EditorPage page) {
-        pages.add(page);
+        if (!pages.contains(page))
+            pages.add(page);
+
         page.load();
     }
 
@@ -149,12 +152,43 @@ public class EditorProject extends JTabbedPane implements IEditorComponent {
     }
 
     /**
+     * Returns the editor page associated with the node.
+     * @param node node
+     * @return page
+     */
+    public EditorPage getPage(BaseNode node) {
+        for (EditorPage page : pages)
+            if (page.getMindMap().equals(node))
+                return page;
+
+        return null;
+    }
+
+    /**
+     * Returns the pages of this project.
+     * @return pages
+     */
+    public List<EditorPage> getPages() {
+        return pages;
+    }
+
+    /**
      * Returns true if the project contains a page, otherwise false.
      * @param page page
      * @return true if contains, otherwise false
      */
     public boolean contains(EditorPage page) {
         return getPage(page.getTitle()) != null;
+    }
+
+    /**
+     * Generates new identifiers for this component and all descendants.
+     */
+    public void generateNewIdentifiers() {
+        project.generateNewIdentifier();
+
+        for (EditorPage page : pages)
+            page.generateNewIdentifiers();
     }
 
     /**

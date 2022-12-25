@@ -12,42 +12,38 @@ import javax.swing.KeyStroke;
 
 public abstract class GRMapAction extends AbstractAction {
 
-    private String id;
+    private final String id;
 
-    public GRMapAction(Class actionClass) {
+    public GRMapAction(Class<? extends GRMapAction> actionClass) {
         id = StringUtils.removeTrailing(actionClass.getSimpleName(), "Action");
     }
 
     /**
      * Sets the keyboard shortcut for the component
      */
-    public GRMapAction setAcceleratorKey() {
+    public void setAcceleratorKey() {
         putValue(Action.ACCELERATOR_KEY, KeyStrokesUtils.getProperty(id));
-        return this;
     }
 
     /**
      * Sets a small icon for the component
      */
-    public GRMapAction setIcon() {
+    public void setIcon() {
         putValue(Action.SMALL_ICON, ImageUtils.loadIcon(id));
-        return this;
     }
 
     /**
      * Sets the text contained in the component
      */
-    public GRMapAction setName() {
+    public void setName() {
         putValue(Action.NAME, LanguageUtils.getNameProperty(id));
-        return this;
     }
 
     /**
      * Sets the short description of the component
      */
-    public GRMapAction setTooltip() {
+    public void setTooltip() {
         putValue(Action.SHORT_DESCRIPTION, LanguageUtils.getTooltipProperty(id));
-        return this;
     }
 
     /**

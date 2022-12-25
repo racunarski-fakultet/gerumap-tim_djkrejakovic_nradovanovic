@@ -17,7 +17,7 @@ public class EditorValues {
     public static final Integer   PROPERTIES_ELEMENT_WIDTH_MULTIPLIER  = 1;
     public static final Integer   PROPERTIES_ELEMENT_HEIGHT_MULTIPLIER = 1;
     public static final Integer   PROPERTIES_ELEMENT_STROKE_MULTIPLIER = 1;
-    public static final Dimension PROPERTIES_INPUT_COMPONENT_DIMENSION = new Dimension(68, 22);
+    public static final Dimension PROPERTIES_INPUT_COMPONENT_DIMENSION = new Dimension(70, 22);
     public static final String    PROPERTIES_WIDTH_IDENTIFIER          = "W";
     public static final String    PROPERTIES_HEIGHT_IDENTIFIER         = "H";
     public static final String    PROPERTIES_BACKGROUND_IDENTIFIER     = "Fill";

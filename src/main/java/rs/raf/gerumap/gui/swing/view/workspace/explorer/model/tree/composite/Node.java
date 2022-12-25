@@ -2,21 +2,14 @@ package rs.raf.gerumap.gui.swing.view.workspace.explorer.model.tree.composite;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
-/**
- * A tree-like structure that represents a tree node that has a parent and is composed of other nodes.
- */
 public abstract class Node extends BaseNode {
 
     private final List<BaseNode> children = new ArrayList<>();
 
-    /**
-     * Create a node.
-     * @param name name
-     * @param parent parent
-     */
-    public Node(String name, BaseNode parent) {
-        super(name, parent);
+    public Node(String name, BaseNode parent, UUID identifier) {
+        super(name, parent, identifier);
     }
 
     /**

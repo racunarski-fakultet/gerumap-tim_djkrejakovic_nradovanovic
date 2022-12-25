@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.geom.Dimension2D;
 import java.awt.geom.Point2D;
+import java.util.UUID;
 
 public abstract class RectangularGraphicElement extends GraphicElement implements IMovable, IResizable, IBackground, IStroke {
 
@@ -17,8 +18,8 @@ public abstract class RectangularGraphicElement extends GraphicElement implement
     protected Color strokeColor;
     protected float strokeWidth;
 
-    protected RectangularGraphicElement(String name) {
-        super(name);
+    protected RectangularGraphicElement(String name, UUID identifier) {
+        super(name, identifier);
     }
 
     @Override

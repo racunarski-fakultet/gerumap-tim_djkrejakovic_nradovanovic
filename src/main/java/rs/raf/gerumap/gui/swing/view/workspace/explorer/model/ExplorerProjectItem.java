@@ -9,10 +9,10 @@ import rs.raf.gerumap.gui.swing.view.workspace.editor.view.IEditorComponent;
 import rs.raf.gerumap.gui.swing.view.workspace.explorer.dialog.ExplorerDialogBase;
 import rs.raf.gerumap.gui.swing.view.workspace.explorer.dialog.NewMindMapDialog;
 import rs.raf.gerumap.gui.swing.view.workspace.explorer.menu.ExplorerProjectMenu;
-import rs.raf.gerumap.log.Logger;
-import rs.raf.gerumap.log.model.Message;
 import rs.raf.gerumap.gui.swing.view.workspace.explorer.model.tree.explorer.MindMap;
 import rs.raf.gerumap.gui.swing.view.workspace.explorer.model.tree.explorer.Project;
+import rs.raf.gerumap.log.Logger;
+import rs.raf.gerumap.log.model.Message;
 
 import javax.swing.Icon;
 import javax.swing.JPopupMenu;
@@ -47,10 +47,12 @@ public class ExplorerProjectItem extends ExplorerItem {
         MindMap mindMap = new MindMap(name, project);
         project.addChild(mindMap);
 
-        ExplorerMindMapItem mindMapItem = new ExplorerMindMapItem(mindMap);
-        editorProject.addPage((EditorPage) mindMapItem.getComponent());
+        return new ExplorerMindMapItem(mindMap);
+    }
 
-        return mindMapItem;
+    @Override
+    protected void createComponent(ExplorerItem explorerItem) {
+        editorProject.addPage((EditorPage) explorerItem.getComponent());
     }
 
     @Override

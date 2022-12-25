@@ -3,10 +3,10 @@ package rs.raf.gerumap.gui.swing.view.workspace.editor.view;
 import rs.raf.gerumap.gui.swing.controller.ActionManager;
 import rs.raf.gerumap.gui.swing.controller.action.ConceptStateAction;
 import rs.raf.gerumap.gui.swing.controller.action.ConnectStateAction;
-import rs.raf.gerumap.gui.swing.controller.action.MoveStateAction;
 import rs.raf.gerumap.gui.swing.controller.action.EraseStateAction;
+import rs.raf.gerumap.gui.swing.controller.action.MoveStateAction;
+import rs.raf.gerumap.gui.swing.controller.action.SelectStateAction;
 import rs.raf.gerumap.gui.swing.controller.action.ZoomStateAction;
-import rs.raf.gerumap.gui.swing.view.workspace.editor.state.SelectState;
 
 import javax.swing.AbstractButton;
 import javax.swing.BorderFactory;
@@ -23,7 +23,7 @@ public class EditorToolbar extends JToolBar {
 
         setBorder(BorderFactory.createEmptyBorder(36, 0, 0, 0));
 
-        group.add((AbstractButton) add(new JToggleButton(ActionManager.getAction(SelectState.class))));
+        group.add((AbstractButton) add(new JToggleButton(ActionManager.getAction(SelectStateAction.class))));
         group.add((AbstractButton) add(new JToggleButton(ActionManager.getAction(ConceptStateAction.class))));
         group.add((AbstractButton) add(new JToggleButton(ActionManager.getAction(ConnectStateAction.class))));
         group.add((AbstractButton) add(new JToggleButton(ActionManager.getAction(EraseStateAction.class))));

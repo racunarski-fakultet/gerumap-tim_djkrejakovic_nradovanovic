@@ -16,10 +16,9 @@ import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 public class GraphicConcept extends RectangularGraphicElement implements IForeground, ISelectionStroke {
-
-    private static int counter = 0;
 
     private Color  foregroundColor;
     private String text;
@@ -29,7 +28,11 @@ public class GraphicConcept extends RectangularGraphicElement implements IForegr
     private float selectionStrokeWidth;
 
     public GraphicConcept(Point2D location) {
-        super("Concept " + ++counter);
+        this(location, UUID.randomUUID());
+    }
+
+    public GraphicConcept(Point2D location, UUID identifier) {
+        super("Concept", identifier);
 
         setLocation(location);
 
@@ -134,6 +137,11 @@ public class GraphicConcept extends RectangularGraphicElement implements IForegr
         return new Ellipse2D.Double(ellipseX, ellipseY, ellipseWidth, ellipseHeight);
     }
 
+    @Override
+    public int getType() {
+        return 1;
+    }
+
     /**
      * Returns whether the creation of the concept is discarded.
      * @return true if discarded, false otherwise
@@ -196,8 +204,8 @@ public class GraphicConcept extends RectangularGraphicElement implements IForegr
     public Font getScaledFont() {
         Map<TextAttribute, Object> attributes = new HashMap<>();
 
-        attributes.put(TextAttribute.WEIGHT, TextAttribute.WEIGHT_REGULAR);
-        attributes.put(TextAttribute.SIZE, 14 * configurations.getScaleFactor());
+        attributes.put(TextAttribute.WEIGHT, TextAttribute.WEIGHT_BOLD);
+        attributes.put(TextAttribute.SIZE, 16 * configurations.getScaleFactor());
 
         return getFont().deriveFont(attributes);
     }

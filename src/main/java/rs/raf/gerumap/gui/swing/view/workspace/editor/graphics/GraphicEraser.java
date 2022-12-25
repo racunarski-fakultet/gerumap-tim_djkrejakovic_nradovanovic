@@ -14,4 +14,9 @@ public class GraphicEraser extends GraphicSelection {
         setStrokeWidth(EditorValues.ERASER_STROKE_WIDTH);
     }
 
+    @Override
+    public int getType() {
+        return 0;
+    }
+
 }

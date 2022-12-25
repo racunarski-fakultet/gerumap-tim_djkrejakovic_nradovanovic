@@ -4,7 +4,9 @@ import rs.raf.gerumap.gui.swing.view.workspace.editor.Editor;
 import rs.raf.gerumap.gui.swing.view.workspace.editor.view.IEditorComponent;
 import rs.raf.gerumap.gui.swing.view.workspace.explorer.model.ExplorerItem;
 import rs.raf.gerumap.gui.swing.view.workspace.explorer.model.ExplorerModel;
+import rs.raf.gerumap.gui.swing.view.workspace.explorer.model.ExplorerProjectRootItem;
 import rs.raf.gerumap.gui.swing.view.workspace.explorer.model.tree.composite.BaseNode;
+import rs.raf.gerumap.gui.swing.view.workspace.explorer.model.tree.composite.Node;
 import rs.raf.gerumap.gui.swing.view.workspace.explorer.view.ExplorerTree;
 
 import javax.swing.BorderFactory;
@@ -37,6 +39,20 @@ public class Explorer extends JScrollPane implements IExplorer {
     @Override
     public void addChild(ExplorerItem item) {
         item.addChild();
+    }
+
+    @Override
+    public boolean addItem(ExplorerItem item) {
+        if (item instanceof ExplorerProjectRootItem)
+            return false; //TODO Error - Project Root item cannot be added (Project Root has no parent)
+
+        BaseNode node = item.getNode();
+        Node parentNode = (Node) node.getParent();
+
+        if (!parentNode.getChildren().contains(node))
+            parentNode.addChild(node);
+
+        return getItem(parentNode).addItem(item);
     }
 
     @Override

@@ -3,17 +3,30 @@ package rs.raf.gerumap.gui.swing.view.workspace.explorer.model.tree.explorer;
 import rs.raf.gerumap.gui.swing.view.workspace.explorer.model.tree.composite.BaseNode;
 import rs.raf.gerumap.gui.swing.view.workspace.explorer.model.tree.composite.Node;
 
+import java.util.UUID;
+
 public class MindMap extends Node {
 
     private static final String id = MindMap.class.getSimpleName();
 
-    /**
-     * Creates a mindmap node.
-     * @param name name
-     * @param parent parent
-     */
+    private String fileLocation;
+
     public MindMap(String name, BaseNode parent) {
-        super(name, parent);
+        this(name, parent, UUID.randomUUID());
+    }
+
+    public MindMap(String name, BaseNode parent, UUID identifier) {
+        this(name, parent, identifier, null);
+    }
+
+    public MindMap(String name, BaseNode parent, String fileLocation) {
+        this(name, parent, UUID.randomUUID(), fileLocation);
+    }
+
+    public MindMap(String name, BaseNode parent, UUID identifier, String fileLocation) {
+        super(name, parent, identifier);
+
+        this.fileLocation = fileLocation;
     }
 
     @Override
@@ -25,6 +38,14 @@ public class MindMap extends Node {
             return;
 
         getChildren().add(child);
+    }
+
+    public void setFileLocation(String fileLocation) {
+        this.fileLocation = fileLocation;
+    }
+
+    public String getFileLocation() {
+        return fileLocation;
     }
 
     /**

@@ -4,6 +4,7 @@ import rs.raf.gerumap.gui.swing.view.workspace.editor.EditorValues;
 
 import java.awt.Color;
 import java.awt.geom.Point2D;
+import java.util.UUID;
 
 public abstract class ConnectiveGraphicElement extends GraphicElement implements IConnectable, IStroke {
 
@@ -16,8 +17,8 @@ public abstract class ConnectiveGraphicElement extends GraphicElement implements
     protected Color strokeColor;
     protected float strokeWidth;
 
-    public ConnectiveGraphicElement(String name) {
-        super(name);
+    protected ConnectiveGraphicElement(String name, UUID identifier) {
+        super(name, identifier);
 
         setStrokeColor(EditorValues.CONNECTION_STROKE_COLOR);
         setStrokeWidth(EditorValues.CONNECTION_STROKE_WIDTH);

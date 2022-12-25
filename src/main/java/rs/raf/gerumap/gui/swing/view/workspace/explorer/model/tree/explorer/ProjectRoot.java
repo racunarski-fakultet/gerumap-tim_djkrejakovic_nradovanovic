@@ -4,23 +4,22 @@ import rs.raf.gerumap.gui.swing.util.LanguageUtils;
 import rs.raf.gerumap.gui.swing.view.workspace.explorer.model.tree.composite.BaseNode;
 import rs.raf.gerumap.gui.swing.view.workspace.explorer.model.tree.composite.Node;
 
+import java.util.UUID;
+
 public class ProjectRoot extends Node {
 
     private static final String id = ProjectRoot.class.getSimpleName();
 
-    /**
-     * Creates a project root.
-     */
     public ProjectRoot() {
         this(LanguageUtils.getNameProperty(ProjectRoot.getId()));
     }
 
-    /**
-     * Creates a project root.
-     * @param name name
-     */
     public ProjectRoot(String name) {
-        super(name, null);
+        this(name, UUID.randomUUID());
+    }
+
+    public ProjectRoot(String name, UUID identifier) {
+        super(name, null, identifier);
     }
 
     @Override

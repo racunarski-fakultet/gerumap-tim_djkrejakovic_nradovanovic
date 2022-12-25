@@ -37,20 +37,40 @@ public abstract class ExplorerItem extends DefaultMutableTreeNode {
      * Adds a child.
      */
     public void addChild() {
-        ExplorerItem child = createChild();
+        addItem(createChild());
+    }
 
-        if (child == null)
-            return;
+    /**
+     * Adds an explorer item as a child.
+     * @param item item
+     * @return true if item was added, false otherwise
+     */
+    public boolean addItem(ExplorerItem item) {
+        if (item == null)
+            return false;
+
+        boolean hasNode = contains(item.getNode());
+        boolean hasName = hasChild(item.getNode().getName());
+
+        if (hasName && !hasNode && !(item instanceof ExplorerElementItem))
+            return false;
+
+        createComponent(item);
+
+        if (hasNode)
+            return true;
 
         IExplorer explorer = MainWindow.window.getExplorer();
 
         explorer.saveExpandedStatesInclude(getTreePath());
 
-        add(child);
+        add(item);
         explorer.reload(this);
-        explorer.setSelectedItem(child);
+        explorer.setSelectedItem(item);
 
         explorer.applyExpandedStates();
+
+        return true;
     }
 
     /**
@@ -58,6 +78,12 @@ public abstract class ExplorerItem extends DefaultMutableTreeNode {
      * @return child
      */
     protected abstract ExplorerItem createChild();
+
+    /**
+     * Creates the editor component if it does not exist and loads it.
+     * @param explorerItem item
+     */
+    protected abstract void createComponent(ExplorerItem explorerItem);
 
     /**
      * Removes the child.
@@ -117,6 +143,32 @@ public abstract class ExplorerItem extends DefaultMutableTreeNode {
             nodes.add(0, current);
 
         return new TreePath(nodes.toArray());
+    }
+
+    /**
+     * Returns true if the item has node as a child.
+     * @param node node
+     * @return true if it has node, false otherwise
+     */
+    protected boolean contains(BaseNode node) {
+        for (int i = 0; i < getChildCount(); ++i)
+            if (((ExplorerItem) getChildAt(i)).getNode().equals(node))
+                return true;
+
+        return false;
+    }
+
+    /**
+     * Returns true if the item nas child with name.
+     * @param name name
+     * @return true if it has child, false otherwise
+     */
+    protected boolean hasChild(String name) {
+        for (int i = 0; i < getChildCount(); ++i)
+            if (((ExplorerItem) getChildAt(i)).getNode().getName().equals(name))
+                return true;
+
+        return false;
     }
 
     /**

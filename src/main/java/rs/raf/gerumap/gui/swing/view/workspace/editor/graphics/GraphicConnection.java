@@ -10,10 +10,9 @@ import java.awt.geom.Line2D;
 import java.awt.geom.Path2D;
 import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
+import java.util.UUID;
 
 public class GraphicConnection extends ConnectiveGraphicElement implements ISelectionStroke {
-
-    private static int counter = 0;
 
     public GraphicConcept graphicConceptFirst;
     public GraphicConcept graphicConceptSecond;
@@ -22,7 +21,11 @@ public class GraphicConnection extends ConnectiveGraphicElement implements ISele
     private float selectionStrokeWidth;
 
     public GraphicConnection(GraphicConcept first) {
-        super("Connection " + ++counter);
+        this(first, UUID.randomUUID());
+    }
+
+    public GraphicConnection(GraphicConcept first, UUID identifier) {
+        super("Connection", identifier);
 
         setFirst(first);
 
@@ -135,7 +138,10 @@ public class GraphicConnection extends ConnectiveGraphicElement implements ISele
 
     @Override
     public boolean contains(GraphicElement element) {
-        return super.contains(element) && !(getFirst().equals(element) || getSecond().equals(element));
+        boolean isFirst  = getFirst().getIdentifier().equals(element.getIdentifier());
+        boolean isSecond = getSecond().getIdentifier().equals(element.getIdentifier());
+
+        return super.contains(element) && !(isFirst || isSecond);
     }
 
     @Override
@@ -171,6 +177,11 @@ public class GraphicConnection extends ConnectiveGraphicElement implements ISele
         configurations.restoreConfigurations();
 
         return path;
+    }
+
+    @Override
+    public int getType() {
+        return 2;
     }
 
     /**

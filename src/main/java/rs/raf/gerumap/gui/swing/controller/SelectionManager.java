@@ -26,14 +26,24 @@ public class SelectionManager {
 
     /**
      * Adds an element to the selection.
-     * @param select element
+     * @param element element
      */
-    public static void addSelection(ISelectable select) {
-        if (selected.contains(select))
+    public static void addSelection(ISelectable element) {
+        if (selected.contains(element))
             return;
 
-        selected.add(select);
-        select.setSelected(true);
+        selected.add(element);
+        element.setSelected(true);
+
+        updateProperties();
+    }
+
+    public static void removeSelection(ISelectable element) {
+        if (!selected.contains(element))
+            return;
+
+        selected.remove(element);
+        element.setSelected(false);
 
         updateProperties();
     }

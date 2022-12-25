@@ -5,6 +5,7 @@ import rs.raf.gerumap.gui.swing.controller.ActionManager;
 import rs.raf.gerumap.gui.swing.controller.action.ZoomInAction;
 import rs.raf.gerumap.gui.swing.controller.action.ZoomOutAction;
 import rs.raf.gerumap.gui.swing.util.ImageUtils;
+import rs.raf.gerumap.gui.swing.view.MainWindow;
 import rs.raf.gerumap.gui.swing.view.custom.GRMapZoomSlider;
 
 import javax.swing.Box;
@@ -48,7 +49,8 @@ public class EditorStatusBar extends JToolBar {
      * @param coordinates coordinates
      */
     public void setCoordinates(Point coordinates) {
-        labelCoordinates.setText(MessageFormat.format(" {0}, {1}", coordinates.getX(), coordinates.getY()));
+        double scale = MainWindow.window.getEditor().getGraphicConfigurations().getScaleFactor();
+        labelCoordinates.setText(MessageFormat.format(" {0}, {1}", Math.round(coordinates.getX() / scale), Math.round(coordinates.getY() / scale)));
     }
 
     /**

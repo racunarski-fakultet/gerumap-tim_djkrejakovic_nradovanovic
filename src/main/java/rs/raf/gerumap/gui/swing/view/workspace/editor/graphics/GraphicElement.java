@@ -7,6 +7,7 @@ import java.awt.Graphics2D;
 import java.awt.Shape;
 import java.awt.geom.Area;
 import java.awt.geom.Point2D;
+import java.util.UUID;
 
 public abstract class GraphicElement extends Element implements ISelectable {
 
@@ -14,8 +15,8 @@ public abstract class GraphicElement extends Element implements ISelectable {
 
     protected boolean selected = false;
 
-    public GraphicElement(String name) {
-        super(name, MainWindow.window.getEditor().getActivePage().getMindMap());
+    protected GraphicElement(String name, UUID identifier) {
+        super(name, MainWindow.window.getEditor().getActivePage().getMindMap(), identifier);
     }
 
     //region ISelectable Methods
@@ -86,5 +87,11 @@ public abstract class GraphicElement extends Element implements ISelectable {
      * @return shape
      */
     protected abstract Shape getShapeArea();
+
+    /**
+     * Returns the identification type of the graphic element.
+     * @return type
+     */
+    public abstract int getType();
 
 }

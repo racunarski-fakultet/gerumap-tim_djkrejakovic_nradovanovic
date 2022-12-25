@@ -3,8 +3,8 @@ package rs.raf.gerumap.gui.swing.view.workspace.explorer;
 import rs.raf.gerumap.gui.swing.view.workspace.editor.view.IEditorComponent;
 import rs.raf.gerumap.gui.swing.view.workspace.explorer.model.ExplorerItem;
 import rs.raf.gerumap.gui.swing.view.workspace.explorer.model.ExplorerModel;
-import rs.raf.gerumap.gui.swing.view.workspace.explorer.view.ExplorerTree;
 import rs.raf.gerumap.gui.swing.view.workspace.explorer.model.tree.composite.BaseNode;
+import rs.raf.gerumap.gui.swing.view.workspace.explorer.view.ExplorerTree;
 
 import javax.swing.tree.TreePath;
 
@@ -15,6 +15,14 @@ public interface IExplorer {
      * @param item item
      */
     void addChild(ExplorerItem item);
+
+    /**
+     * Adds a new explorer item.
+     *
+     * @param item item
+     * @return
+     */
+    boolean addItem(ExplorerItem item);
 
     /**
      * Removes the explorer item.

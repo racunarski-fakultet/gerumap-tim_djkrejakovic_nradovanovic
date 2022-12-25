@@ -12,11 +12,12 @@ import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.UUID;
 
 public class GraphicSelection extends RectangularGraphicElement {
 
     public GraphicSelection(Point2D location) {
-        super("Selection");
+        super("Selection", UUID.randomUUID());
 
         setLocation(location);
 
@@ -72,6 +73,11 @@ public class GraphicSelection extends RectangularGraphicElement {
         configurations.restoreConfigurations();
 
         return new Rectangle2D.Double(rectangleX, rectangleY, rectangleWidth, rectangleHeight);
+    }
+
+    @Override
+    public int getType() {
+        return 0;
     }
 
     @Override

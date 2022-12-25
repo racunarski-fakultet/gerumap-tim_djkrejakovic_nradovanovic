@@ -16,6 +16,7 @@ import rs.raf.gerumap.gui.swing.view.workspace.editor.view.EditorToolbar;
 import rs.raf.gerumap.gui.swing.view.workspace.editor.view.IEditorComponent;
 import rs.raf.gerumap.gui.swing.view.workspace.editor.view.properties.DiagramProperties;
 import rs.raf.gerumap.gui.swing.view.workspace.editor.view.properties.PropertiesBase;
+import rs.raf.gerumap.gui.swing.view.workspace.explorer.model.tree.composite.BaseNode;
 
 import javax.swing.BorderFactory;
 import javax.swing.JPanel;
@@ -131,6 +132,15 @@ public class Editor extends JPanel implements IEditor {
     }
 
     @Override
+    public EditorProject getProject(BaseNode node) {
+        for (EditorProject project : projects)
+            if (project.getProject().equals(node))
+                return project;
+
+        return null;
+    }
+
+    @Override
     public User getAuthor() {
         return author;
     }
@@ -221,7 +231,9 @@ public class Editor extends JPanel implements IEditor {
      * @param project project
      */
     public void addProject(EditorProject project) {
-        projects.add(project);
+        if (!projects.contains(project))
+            projects.add(project);
+
         project.load();
     }
 

@@ -6,9 +6,9 @@ import rs.raf.gerumap.gui.swing.view.MainWindow;
 import rs.raf.gerumap.gui.swing.view.workspace.editor.view.EditorElement;
 import rs.raf.gerumap.gui.swing.view.workspace.editor.view.IEditorComponent;
 import rs.raf.gerumap.gui.swing.view.workspace.explorer.menu.ExplorerElementMenu;
+import rs.raf.gerumap.gui.swing.view.workspace.explorer.model.tree.composite.BaseNode;
 import rs.raf.gerumap.log.Logger;
 import rs.raf.gerumap.log.model.Message;
-import rs.raf.gerumap.gui.swing.view.workspace.explorer.model.tree.explorer.Element;
 
 import javax.swing.Icon;
 import javax.swing.JPopupMenu;
@@ -21,10 +21,10 @@ public class ExplorerElementItem extends ExplorerItem {
 
     private final EditorElement editorElement;
 
-    public ExplorerElementItem(Element node) {
+    public ExplorerElementItem(BaseNode node, EditorElement editorElement) {
         super(node);
 
-        editorElement = MainWindow.window.getEditor().getActivePage().getEditorElement(node);
+        this.editorElement = editorElement;
     }
 
     @Override
@@ -32,6 +32,9 @@ public class ExplorerElementItem extends ExplorerItem {
         Logger.log(Message.EXPLORER_CANNOT_HAVE_CHILD);
         return null;
     }
+
+    @Override
+    protected void createComponent(ExplorerItem explorerItem) { }
 
     @Override
     public void removeChild(ExplorerItem child) {

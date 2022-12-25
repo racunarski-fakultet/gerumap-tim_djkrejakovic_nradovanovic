@@ -4,8 +4,12 @@ import com.formdev.flatlaf.extras.components.FlatButton;
 import rs.raf.gerumap.gui.swing.controller.ActionManager;
 import rs.raf.gerumap.gui.swing.controller.action.ExitAction;
 import rs.raf.gerumap.gui.swing.controller.action.NewProjectAction;
+import rs.raf.gerumap.gui.swing.controller.action.OpenProjectAction;
 import rs.raf.gerumap.gui.swing.controller.action.RedoAction;
 import rs.raf.gerumap.gui.swing.controller.action.RedoMenuAction;
+import rs.raf.gerumap.gui.swing.controller.action.SaveProjectAction;
+import rs.raf.gerumap.gui.swing.controller.action.SaveProjectAsAction;
+import rs.raf.gerumap.gui.swing.controller.action.SaveProjectMenuAction;
 import rs.raf.gerumap.gui.swing.controller.action.UndoAction;
 import rs.raf.gerumap.gui.swing.controller.action.UndoMenuAction;
 import rs.raf.gerumap.gui.swing.controller.action.UserAction;
@@ -19,12 +23,6 @@ import javax.swing.JMenuItem;
 
 public class MenuBar extends JMenuBar {
 
-    private final JMenuItem newProjectItem = new GRMapMenuItem(ActionManager.getAction(NewProjectAction.class));
-    private final JMenuItem exitItem       = new GRMapMenuItem(ActionManager.getAction(ExitAction.class));
-
-    private final JMenuItem undoItem = new GRMapMenuItem(ActionManager.getAction(UndoMenuAction.class));
-    private final JMenuItem redoItem = new GRMapMenuItem(ActionManager.getAction(RedoMenuAction.class));
-
     private final FlatButton undoButton = new FlatButton();
     private final FlatButton redoButton = new FlatButton();
 
@@ -35,6 +33,16 @@ public class MenuBar extends JMenuBar {
 
         JMenuItem aboutItem = new GRMapMenuItem("About");
 
+        FlatButton saveButton = new FlatButton();
+        saveButton.setButtonType(FlatButton.ButtonType.toolBarButton);
+        saveButton.setAction(ActionManager.getAction(SaveProjectAction.class));
+        saveButton.setFocusable(false);
+
+        FlatButton userButton = new FlatButton();
+        userButton.setButtonType(FlatButton.ButtonType.toolBarButton);
+        userButton.setAction(ActionManager.getAction(UserAction.class));
+        userButton.setFocusable(false);
+
         undoButton.setButtonType(FlatButton.ButtonType.toolBarButton);
         undoButton.setAction(ActionManager.getAction(UndoAction.class));
         undoButton.setFocusable(false);
@@ -43,25 +51,24 @@ public class MenuBar extends JMenuBar {
         redoButton.setAction(ActionManager.getAction(RedoAction.class));
         redoButton.setFocusable(false);
 
-        FlatButton userButton = new FlatButton();
-        userButton.setButtonType(FlatButton.ButtonType.toolBarButton);
-        userButton.setAction(ActionManager.getAction(UserAction.class));
-        userButton.setFocusable(false);
-
         setUndoEnabled(false);
         setRedoEnabled(false);
 
-        fileMenu.add(newProjectItem);
-        fileMenu.add(exitItem);
+        fileMenu.add(new GRMapMenuItem(ActionManager.getAction(NewProjectAction.class)));
+        fileMenu.add(new GRMapMenuItem(ActionManager.getAction(OpenProjectAction.class)));
+        fileMenu.add(new GRMapMenuItem(ActionManager.getAction(SaveProjectMenuAction.class)));
+        fileMenu.add(new GRMapMenuItem(ActionManager.getAction(SaveProjectAsAction.class)));
+        fileMenu.add(new GRMapMenuItem(ActionManager.getAction(ExitAction.class)));
 
-        editMenu.add(undoItem);
-        editMenu.add(redoItem);
+        editMenu.add(new GRMapMenuItem(ActionManager.getAction(UndoMenuAction.class)));
+        editMenu.add(new GRMapMenuItem(ActionManager.getAction(RedoMenuAction.class)));
 
         helpMenu.add(aboutItem);
 
         add(fileMenu);
         add(editMenu);
         add(helpMenu);
+        add(saveButton);
         add(undoButton);
         add(redoButton);
         add(Box.createHorizontalGlue());

@@ -12,7 +12,7 @@ public class ResetZoomAction extends GRMapAction {
     }
 
     @Override
-    public void actionPerformed(ActionEvent e) {
+    public void actionPerformed(ActionEvent event) {
         if (MainWindow.window.getEditor().getActivePage() == null)
             return;
 

@@ -2,9 +2,9 @@ package rs.raf.gerumap.gui.swing.view.workspace.editor.view;
 
 import rs.raf.gerumap.gui.swing.controller.CommandManager;
 import rs.raf.gerumap.gui.swing.view.MainWindow;
-import rs.raf.gerumap.gui.swing.view.workspace.editor.EditorValues;
 import rs.raf.gerumap.gui.swing.view.workspace.editor.IEditor;
 import rs.raf.gerumap.gui.swing.view.workspace.editor.controller.EditorFocusMouseListener;
+import rs.raf.gerumap.gui.swing.view.workspace.editor.graphics.GraphicElement;
 import rs.raf.gerumap.gui.swing.view.workspace.explorer.model.tree.explorer.Element;
 import rs.raf.gerumap.gui.swing.view.workspace.explorer.model.tree.explorer.MindMap;
 
@@ -18,6 +18,7 @@ import java.awt.GridBagLayout;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.UUID;
 
 public class EditorPage extends JPanel implements IEditorComponent {
 
@@ -63,7 +64,7 @@ public class EditorPage extends JPanel implements IEditorComponent {
      */
     private void initialize() {
         diagramContainer.setBackground(new Color(66, 69, 72));
-        diagramContainer.setPreferredSize(new Dimension(EditorValues.DIAGRAM_WIDTH + 200, EditorValues.DIAGRAM_HEIGHT + 200));
+        diagramContainer.setPreferredSize(new Dimension(diagram.getScaledWidth() + 200, diagram.getScaledHeight() + 200));
         diagramContainer.add(this.diagram);
 
         scrollPane.getVerticalScrollBar().setUnitIncrement(12);
@@ -87,7 +88,7 @@ public class EditorPage extends JPanel implements IEditorComponent {
         if (!editor.getActiveProject().contains(this))
             editor.setActiveProject((EditorProject) MainWindow.window.getExplorer().getComponent(mindMap.getParent()));
 
-        editor.setActivePage(this);
+        editor.setActivePage(editor.getActiveProject().getPage(this.getMindMap()));
     }
 
     @Override
@@ -103,7 +104,9 @@ public class EditorPage extends JPanel implements IEditorComponent {
      * @param element element
      */
     public void addElement(EditorElement element) {
-        elements.add(element);
+        if (!elements.contains(element))
+            elements.add(element);
+
         element.load();
     }
 
@@ -148,6 +151,14 @@ public class EditorPage extends JPanel implements IEditorComponent {
         return null;
     }
 
+    public GraphicElement getGraphicElement(UUID identifier) {
+        for (EditorElement editorElement : elements)
+            if (editorElement.getGraphicElement().getIdentifier().equals(identifier))
+                return editorElement.getGraphicElement();
+
+        return null;
+    }
+
     /**
      * Returns the last added editor element.
      * @return editor element
@@ -162,6 +173,16 @@ public class EditorPage extends JPanel implements IEditorComponent {
      */
     public List<EditorElement> getEditorElements() {
         return elements;
+    }
+
+    /**
+     * Generates new identifiers for this component and all descendants.
+     */
+    public void generateNewIdentifiers() {
+        mindMap.generateNewIdentifier();
+
+        for (EditorElement element : elements)
+            element.generateNewIdentifiers();
     }
 
     /**

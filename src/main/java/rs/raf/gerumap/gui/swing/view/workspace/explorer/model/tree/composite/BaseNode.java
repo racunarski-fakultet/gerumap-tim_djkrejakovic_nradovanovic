@@ -1,39 +1,39 @@
 package rs.raf.gerumap.gui.swing.view.workspace.explorer.model.tree.composite;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
+import java.util.UUID;
 
 public abstract class BaseNode {
+
+    private UUID identifier;
 
     protected String name;
 
     protected BaseNode parent;
 
     /**
-     * Creates a base node.
+     * Creates a base node with the given identifier.
+     * <ul>
+     *     <li>The <code><b>name</b></code> is displayed in the project explorer.</li>
+     *     <li>The <code><b>parent</b></code> is the node with which it is connected and whose rank is one higher.</li>
+     *     <li><code><b>Identifier</b></code> is used to compare nodes for equality. Two different elements should not have the same identifier.</li>
+     * </ul>
      * @param name name
      * @param parent parent
+     * @param identifier identifier
      */
-    public BaseNode(String name, BaseNode parent) {
-        this.name   = name;
+    public BaseNode(String name, BaseNode parent, UUID identifier) {
+        this.identifier = identifier;
+        this.name = name;
         this.parent = parent;
     }
 
     /**
-     * Sets the name for the node.
+     * Sets the name for the node. It is displayed as an item name in the project explorer.
      * @param name name
      */
     public void setName(String name) {
         this.name = name;
-    }
-
-    /**
-     * Sets the parent for the node.
-     * @param parent parent
-     */
-    public void setParent(BaseNode parent) {
-        this.parent = parent;
     }
 
     /**
@@ -53,19 +53,18 @@ public abstract class BaseNode {
     }
 
     /**
-     * Returns the predecessor tree.
-     * @return tree
+     * Returns a unique node identifier. It is used to compare nodes for equality.
+     * @return identifier
      */
-    public List<BaseNode> getTree() {
-        List<BaseNode> nodes = new ArrayList<>();
-        BaseNode current = this;
+    public UUID getIdentifier() {
+        return identifier;
+    }
 
-        nodes.add(this);
-
-        while ((current = current.parent) != null)
-            nodes.add(0, current);
-
-        return nodes;
+    /**
+     * Generates a new unique identifier. It is used to compare nodes for equality.
+     */
+    public void generateNewIdentifier() {
+        identifier = UUID.randomUUID();
     }
 
     @Override
@@ -73,7 +72,7 @@ public abstract class BaseNode {
         if (!(obj instanceof BaseNode node))
             return false;
 
-        return Objects.equals(node.getName(), this.getName()) && Objects.equals(getTree(), node.getTree());
+        return getIdentifier().equals(node.getIdentifier());
     }
 
     @Override
@@ -85,5 +84,6 @@ public abstract class BaseNode {
     public String toString() {
         return getName();
     }
+
 
 }

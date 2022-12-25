@@ -14,6 +14,10 @@ public class CommandManager {
 
     public CommandManager() { }
 
+    /**
+     * Adds a command to the command manager.
+     * @param command command
+     */
     public void addCommand(BaseCommand command) {
         while(currentCommand < commands.size())
             commands.remove(currentCommand);
@@ -22,12 +26,18 @@ public class CommandManager {
         performCommand();
     }
 
+    /**
+     * Performs the command.
+     */
     private void performCommand() {
         commands.get(currentCommand++).perform();
 
         updateButtons();
     }
 
+    /**
+     * Handles the redo command.
+     */
     public void redoCommand() {
         if (currentCommand == commands.size())
             return; //TODO Error - The Redo command should not be available to call
@@ -37,6 +47,9 @@ public class CommandManager {
         updateButtons();
     }
 
+    /**
+     * Handles the undo command.
+     */
     public void undoCommand() {
         if (currentCommand == 0)
             return; //TODO Error - The Undo command should not be available to call
@@ -46,6 +59,9 @@ public class CommandManager {
         updateButtons();
     }
 
+    /**
+     * Updates whether buttons are enabled or not.
+     */
     public void updateButtons() {
         MainWindow.window.setUndoEnabled(currentCommand != 0);
         MainWindow.window.setRedoEnabled(currentCommand != commands.size());

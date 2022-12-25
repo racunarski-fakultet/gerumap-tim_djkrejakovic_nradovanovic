@@ -9,6 +9,7 @@ import rs.raf.gerumap.gui.swing.view.workspace.editor.view.EditorProject;
 import rs.raf.gerumap.gui.swing.view.workspace.editor.view.EditorStatusBar;
 import rs.raf.gerumap.gui.swing.view.workspace.editor.view.IEditorComponent;
 import rs.raf.gerumap.gui.swing.view.workspace.editor.view.properties.PropertiesBase;
+import rs.raf.gerumap.gui.swing.view.workspace.explorer.model.tree.composite.BaseNode;
 
 import java.awt.Point;
 
@@ -70,6 +71,13 @@ public interface IEditor {
      * @return project
      */
     EditorProject getActiveProject();
+
+    /**
+     * Returns the editor project associated with the node.
+     * @param node node
+     * @return project
+     */
+    EditorProject getProject(BaseNode node);
 
     /**
      * Returns the author of the project

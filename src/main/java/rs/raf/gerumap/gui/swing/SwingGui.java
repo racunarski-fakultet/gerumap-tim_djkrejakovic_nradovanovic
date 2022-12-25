@@ -13,7 +13,6 @@ public class SwingGui implements Gui {
         PreferenceUtils.clear(); //TODO Remove on release
 
         UIManager.setup();
-        ActionManager.setup();
 
         MainWindow.window.setVisible(true);
     }

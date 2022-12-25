@@ -9,10 +9,10 @@ import rs.raf.gerumap.gui.swing.view.workspace.editor.view.IEditorComponent;
 import rs.raf.gerumap.gui.swing.view.workspace.explorer.dialog.ExplorerDialogBase;
 import rs.raf.gerumap.gui.swing.view.workspace.explorer.dialog.NewProjectDialog;
 import rs.raf.gerumap.gui.swing.view.workspace.explorer.menu.ExplorerProjectRootMenu;
-import rs.raf.gerumap.log.Logger;
-import rs.raf.gerumap.log.model.Message;
 import rs.raf.gerumap.gui.swing.view.workspace.explorer.model.tree.explorer.Project;
 import rs.raf.gerumap.gui.swing.view.workspace.explorer.model.tree.explorer.ProjectRoot;
+import rs.raf.gerumap.log.Logger;
+import rs.raf.gerumap.log.model.Message;
 
 import javax.swing.Icon;
 import javax.swing.JPopupMenu;
@@ -46,10 +46,12 @@ public class ExplorerProjectRootItem extends ExplorerItem {
         Project project  = new Project(name, projectRoot);
         projectRoot.addChild(project);
 
-        ExplorerProjectItem projectItem = new ExplorerProjectItem(project);
-        editor.addProject((EditorProject) projectItem.getComponent());
+        return new ExplorerProjectItem(project);
+    }
 
-        return projectItem;
+    @Override
+    protected void createComponent(ExplorerItem explorerItem) {
+        editor.addProject((EditorProject) explorerItem.getComponent());
     }
 
     @Override
@@ -70,7 +72,7 @@ public class ExplorerProjectRootItem extends ExplorerItem {
 
     @Override
     public IEditorComponent getComponent() {
-        return null; //TODO warning - project root is not an editor component
+        return null; //TODO warning - project root does not contain an editor component
     }
 
 }

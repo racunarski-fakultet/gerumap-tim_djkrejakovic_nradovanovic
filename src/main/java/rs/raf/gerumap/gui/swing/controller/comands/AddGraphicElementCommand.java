@@ -3,6 +3,7 @@ package rs.raf.gerumap.gui.swing.controller.comands;
 import rs.raf.gerumap.gui.swing.controller.SelectionManager;
 import rs.raf.gerumap.gui.swing.view.workspace.editor.graphics.GraphicElement;
 import rs.raf.gerumap.gui.swing.view.workspace.editor.view.EditorElement;
+import rs.raf.gerumap.gui.swing.view.workspace.explorer.model.ExplorerElementItem;
 
 public class AddGraphicElementCommand extends BaseCommand {
 
@@ -23,8 +24,7 @@ public class AddGraphicElementCommand extends BaseCommand {
 
     @Override
     public void redoCommand() {
-        editor.getActivePage().addElement(new EditorElement(addedElement));
-        explorer.addChild(explorer.getItem(editor.getActivePage().getMindMap()));
+        explorer.addItem(new ExplorerElementItem(addedElement, new EditorElement(addedElement)));
 
         editor.render();
     }
@@ -32,6 +32,8 @@ public class AddGraphicElementCommand extends BaseCommand {
     @Override
     public void undoCommand() {
         explorer.remove(explorer.getItem(addedElement));
+
+        SelectionManager.removeSelection(addedElement);
 
         editor.render();
     }

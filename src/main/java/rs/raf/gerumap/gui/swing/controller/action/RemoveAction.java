@@ -4,10 +4,10 @@ import rs.raf.gerumap.gui.swing.view.MainWindow;
 
 import java.awt.event.ActionEvent;
 
-public class RemoveExplorerItemAction extends GRMapAction {
+public class RemoveAction extends GRMapAction {
 
-    public RemoveExplorerItemAction() {
-        super(RemoveExplorerItemAction.class);
+    public RemoveAction() {
+        super(RemoveAction.class);
     }
 
     @Override

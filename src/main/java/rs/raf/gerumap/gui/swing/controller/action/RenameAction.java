@@ -4,10 +4,10 @@ import rs.raf.gerumap.gui.swing.view.MainWindow;
 
 import java.awt.event.ActionEvent;
 
-public class RenameExplorerItemAction extends GRMapAction {
+public class RenameAction extends GRMapAction {
 
-    public RenameExplorerItemAction() {
-        super(RenameExplorerItemAction.class);
+    public RenameAction() {
+        super(RenameAction.class);
     }
 
     @Override

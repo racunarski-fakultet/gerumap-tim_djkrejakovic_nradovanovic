@@ -10,10 +10,19 @@ public abstract class BaseCommand {
 
     protected IEditor editor = MainWindow.window.getEditor();
 
+    /**
+     * Performs the initial command.
+     */
     public abstract void perform();
 
+    /**
+     * Implementation of the redo command.
+     */
     public abstract void redoCommand();
 
+    /**
+     * Implementation of  the undo command.
+     */
     public abstract void undoCommand();
 
 }
