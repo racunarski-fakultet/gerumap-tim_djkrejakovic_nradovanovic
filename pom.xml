@@ -6,7 +6,7 @@
 
     <groupId>rs.raf.gerumap</groupId>
     <artifactId>GeRuMap</artifactId>
-    <version>0.0.3-2</version>
+    <version>0.0.4-6</version>
 
     <!-- Libraries -->
     <dependencies>
