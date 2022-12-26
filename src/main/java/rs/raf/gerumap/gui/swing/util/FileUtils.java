@@ -1,10 +1,18 @@
 package rs.raf.gerumap.gui.swing.util;
 
 import com.google.gson.GsonBuilder;
+import rs.raf.gerumap.gui.swing.controller.SelectionManager;
 import rs.raf.gerumap.gui.swing.controller.adapters.ProjectAdapterFactory;
+import rs.raf.gerumap.gui.swing.view.workspace.editor.view.EditorDiagram;
+import rs.raf.gerumap.gui.swing.view.workspace.editor.view.EditorElement;
 import rs.raf.gerumap.gui.swing.view.workspace.editor.view.EditorPage;
 import rs.raf.gerumap.gui.swing.view.workspace.editor.view.EditorProject;
 
+import javax.imageio.ImageIO;
+import java.awt.Graphics2D;
+import java.awt.RenderingHints;
+import java.awt.geom.Rectangle2D;
+import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -120,6 +128,45 @@ public class FileUtils {
 
             writer.close();
             fileWriter.close();
+        }
+        catch (IOException exception) {
+            exception.printStackTrace();
+        }
+    }
+
+    /**
+     * Exports the mind map to a PNG file.
+     * @param editorPage
+     * @param file
+     */
+    public static void saveMindMapToPNGFile(EditorPage editorPage, File file) {
+        if (file == null)
+            return;
+
+        editorPage.load();
+
+        EditorDiagram diagram = editorPage.getDiagram();
+
+        BufferedImage image = new BufferedImage(diagram.getActualWidth(), diagram.getActualHeight(), BufferedImage.TYPE_INT_ARGB);
+
+        diagram.getConfigurations().saveConfigurations();
+        diagram.getConfigurations().resetConfigurations();
+
+        Graphics2D imageGraphics = image.createGraphics();
+        imageGraphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+
+        SelectionManager.clear();
+
+        imageGraphics.setColor(diagram.getBackground());
+        imageGraphics.fill(new Rectangle2D.Double(0, 0, diagram.getActualWidth(), diagram.getActualHeight()));
+
+        for (EditorElement element : editorPage.getEditorElements())
+            element.getGraphicElement().render(imageGraphics);
+
+        diagram.getConfigurations().restoreConfigurations();
+
+        try {
+            ImageIO.write(image, "png", file);
         }
         catch (IOException exception) {
             exception.printStackTrace();

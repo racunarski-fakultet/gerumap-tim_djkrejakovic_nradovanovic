@@ -2,6 +2,9 @@ package rs.raf.gerumap.gui.swing.view.workspace.editor.graphics;
 
 import rs.raf.gerumap.gui.swing.view.MainWindow;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class GraphicConfigurations {
 
     public static final int DEFAULT_ZOOM_PERCENT = 100;
@@ -12,7 +15,7 @@ public class GraphicConfigurations {
     public static final double MAX_SCALE_FACTOR     = MAX_ZOOM_PERCENT     / 100.0;
     public static final double MIN_SCALE_FACTOR     = MIN_ZOOM_PERCENT     / 100.0;
 
-    private GraphicConfigurations savedConfigurations = null;
+    private List<GraphicConfigurations> savedConfigurations = new ArrayList<>();
 
     private double scaleFactor;
 
@@ -61,18 +64,21 @@ public class GraphicConfigurations {
      * Saves the current graphic configurations.
      */
     public void saveConfigurations() {
-        savedConfigurations = new GraphicConfigurations();
+        savedConfigurations.add(new GraphicConfigurations());
 
-        savedConfigurations.scaleFactor = scaleFactor;
+        savedConfigurations.get(savedConfigurations.size() - 1).scaleFactor = scaleFactor;
     }
 
     /**
      * Restores the saved graphic configurations.
      */
     public void restoreConfigurations() {
-        scaleFactor = savedConfigurations.scaleFactor;
+        if (savedConfigurations.size() == 0)
+            return;
 
-        savedConfigurations = null;
+        scaleFactor = savedConfigurations.get(savedConfigurations.size() - 1).scaleFactor;
+
+        savedConfigurations.remove(savedConfigurations.size() - 1);
     }
 
     /**
