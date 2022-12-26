@@ -27,12 +27,16 @@ public class GraphicConcept extends RectangularGraphicElement implements IForegr
     private Color selectionStrokeColor;
     private float selectionStrokeWidth;
 
+    private boolean isCentral;
+
     public GraphicConcept(Point2D location) {
         this(location, UUID.randomUUID());
     }
 
     public GraphicConcept(Point2D location, UUID identifier) {
         super("Concept", identifier);
+
+        isCentral = false;
 
         setLocation(location);
 
@@ -158,6 +162,22 @@ public class GraphicConcept extends RectangularGraphicElement implements IForegr
         return false;
     }
 
+    /**
+     * Sets a value representing whether the concept is central or not.
+     * @param central is central
+     */
+    public void setCentral(boolean central) {
+        isCentral = central;
+    }
+
+    /**
+     * Returns a value representing whether the concept is central or not.
+     * @return true if it is central, false otherwise
+     */
+    public boolean isCentral() {
+        return isCentral;
+    }
+
     //region IForeground Methods
 
     @Override
@@ -204,8 +224,8 @@ public class GraphicConcept extends RectangularGraphicElement implements IForegr
     public Font getScaledFont() {
         Map<TextAttribute, Object> attributes = new HashMap<>();
 
-        attributes.put(TextAttribute.WEIGHT, TextAttribute.WEIGHT_BOLD);
-        attributes.put(TextAttribute.SIZE, 16 * configurations.getScaleFactor());
+        attributes.put(TextAttribute.WEIGHT, isCentral ? TextAttribute.WEIGHT_ULTRABOLD : TextAttribute.WEIGHT_BOLD);
+        attributes.put(TextAttribute.SIZE, (isCentral ? 17 : 14) * configurations.getScaleFactor());
 
         return getFont().deriveFont(attributes);
     }

@@ -4,6 +4,7 @@ import rs.raf.gerumap.gui.swing.controller.CommandManager;
 import rs.raf.gerumap.gui.swing.view.MainWindow;
 import rs.raf.gerumap.gui.swing.view.workspace.editor.IEditor;
 import rs.raf.gerumap.gui.swing.view.workspace.editor.controller.EditorFocusMouseListener;
+import rs.raf.gerumap.gui.swing.view.workspace.editor.graphics.GraphicConcept;
 import rs.raf.gerumap.gui.swing.view.workspace.editor.graphics.GraphicElement;
 import rs.raf.gerumap.gui.swing.view.workspace.explorer.model.tree.explorer.Element;
 import rs.raf.gerumap.gui.swing.view.workspace.explorer.model.tree.explorer.MindMap;
@@ -173,6 +174,28 @@ public class EditorPage extends JPanel implements IEditorComponent {
      */
     public List<EditorElement> getEditorElements() {
         return elements;
+    }
+
+    /**
+     * Cleans central concept if there is one.
+     */
+    public void clearCentralConcept() {
+        GraphicConcept graphicConcept = getCentralConcept();
+
+        if (graphicConcept != null)
+            graphicConcept.setCentral(false);
+    }
+
+    /**
+     * Returns the central graphic concept if it exists, null otherwise.
+     * @return graphic concept
+     */
+    public GraphicConcept getCentralConcept() {
+        for (EditorElement editorElement : elements)
+            if (editorElement.getGraphicElement() instanceof GraphicConcept graphicConcept && graphicConcept.isCentral())
+                return graphicConcept;
+
+        return null;
     }
 
     /**

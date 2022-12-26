@@ -9,6 +9,7 @@ import rs.raf.gerumap.gui.swing.controller.action.ExportMindMapAction;
 import rs.raf.gerumap.gui.swing.controller.action.GRMapAction;
 import rs.raf.gerumap.gui.swing.controller.action.LoadMindMapAction;
 import rs.raf.gerumap.gui.swing.controller.action.LoadProjectAction;
+import rs.raf.gerumap.gui.swing.controller.action.MindMapRootAction;
 import rs.raf.gerumap.gui.swing.controller.action.MoveStateAction;
 import rs.raf.gerumap.gui.swing.controller.action.NewMindMapAction;
 import rs.raf.gerumap.gui.swing.controller.action.NewProjectAction;
@@ -43,6 +44,7 @@ public class ActionManager {
             new ExportMindMapAction(),
             new LoadMindMapAction(),
             new LoadProjectAction(),
+            new MindMapRootAction(),
             new MoveStateAction(),
             new NewMindMapAction(),
             new NewProjectAction(),

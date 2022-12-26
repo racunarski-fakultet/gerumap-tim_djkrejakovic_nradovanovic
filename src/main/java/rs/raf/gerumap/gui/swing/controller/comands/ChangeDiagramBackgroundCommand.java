@@ -4,8 +4,8 @@ import java.awt.Color;
 
 public class ChangeDiagramBackgroundCommand extends BaseCommand {
 
-    private Color newBackground;
-    private Color oldBackground;
+    private final Color newBackground;
+    private final Color oldBackground;
 
     public ChangeDiagramBackgroundCommand(Color newBackground) {
         this.newBackground = newBackground;

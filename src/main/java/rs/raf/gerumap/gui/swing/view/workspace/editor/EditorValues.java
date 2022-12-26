@@ -1,6 +1,7 @@
 package rs.raf.gerumap.gui.swing.view.workspace.editor;
 
-import javax.swing.JLabel;
+import rs.raf.gerumap.gui.swing.util.model.GFont;
+
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -43,7 +44,7 @@ public class EditorValues {
     public static final Color   CONCEPT_SELECTION_COLOR  = SELECTION_STROKE_COLOR;
     public static final Float   CONCEPT_STROKE_WIDTH     = 3F;
     public static final Float   CONCEPT_SELECTION_WIDTH  = SELECTION_STROKE_WIDTH;
-    public static final Font    CONCEPT_TEXT_FONT        = new JLabel().getFont();
+    public static final Font    CONCEPT_TEXT_FONT        = new Font(GFont.MONTSERRAT_BOLD.getName(), Font.PLAIN, 16);
     public static final String  CONCEPT_TEXT_CONTENT     = "";
     public static final Integer CONCEPT_WIDTH            = 150;
     public static final Integer CONCEPT_HEIGHT           = 50;

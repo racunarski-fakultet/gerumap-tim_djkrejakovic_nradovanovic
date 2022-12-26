@@ -35,7 +35,7 @@ public class GraphicConnection extends ConnectiveGraphicElement implements ISele
 
     @Override
     public void render(Graphics2D graphics) {
-        if (getFirst().contains(getSecond()))
+        if (getFirst().equals(getSecond()))
             return;
 
         Point2D firstPoint = calculateFirstPoint();

@@ -4,6 +4,7 @@ import rs.raf.gerumap.gui.swing.controller.ActionManager;
 import rs.raf.gerumap.gui.swing.controller.action.ConceptStateAction;
 import rs.raf.gerumap.gui.swing.controller.action.ConnectStateAction;
 import rs.raf.gerumap.gui.swing.controller.action.EraseStateAction;
+import rs.raf.gerumap.gui.swing.controller.action.MindMapRootAction;
 import rs.raf.gerumap.gui.swing.controller.action.MoveStateAction;
 import rs.raf.gerumap.gui.swing.controller.action.SelectStateAction;
 import rs.raf.gerumap.gui.swing.controller.action.ZoomStateAction;
@@ -29,6 +30,8 @@ public class EditorToolbar extends JToolBar {
         group.add((AbstractButton) add(new JToggleButton(ActionManager.getAction(EraseStateAction.class))));
         group.add((AbstractButton) add(new JToggleButton(ActionManager.getAction(MoveStateAction.class))));
         group.add((AbstractButton) add(new JToggleButton(ActionManager.getAction(ZoomStateAction.class))));
+        addSeparator();
+        add(ActionManager.getAction(MindMapRootAction.class));
 
         reset();
     }

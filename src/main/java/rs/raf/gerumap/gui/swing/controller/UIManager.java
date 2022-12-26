@@ -2,6 +2,7 @@ package rs.raf.gerumap.gui.swing.controller;
 
 import com.formdev.flatlaf.FlatLaf;
 import com.formdev.flatlaf.extras.FlatAnimatedLafChange;
+import rs.raf.gerumap.gui.swing.util.FontUtils;
 import rs.raf.gerumap.gui.swing.util.KeyStrokesUtils;
 import rs.raf.gerumap.gui.swing.util.LanguageUtils;
 import rs.raf.gerumap.gui.swing.util.PreferenceUtils;
@@ -21,6 +22,7 @@ public class UIManager {
         setupTheme(PreferenceUtils.getTheme());
         setupLanguage(PreferenceUtils.getLanguage());
         setupKeyStrokes(PreferenceUtils.getKeyStrokes());
+        setupFonts();
         setupState();
     }
 
@@ -67,6 +69,13 @@ public class UIManager {
     }
 
     /**
+     * Setups the fonts.
+     */
+    public static void setupFonts() {
+        FontUtils.loadFonts();
+    }
+
+    /**
      * Setups the editor state.
      */
     public static void setupState() {
@@ -74,29 +83,5 @@ public class UIManager {
     }
 
     //endregion
-
-    /**
-     * Returns the current application language.
-     * @return language
-     */
-    public static Language getLanguage() {
-        return PreferenceUtils.getLanguage();
-    }
-
-    /**
-     * Returns the current application theme.
-     * @return theme
-     */
-    public static Theme getTheme() {
-        return PreferenceUtils.getTheme();
-    }
-
-    /**
-     * Returns the current application keystrokes.
-     * @return keystrokes
-     */
-    public static KeyStrokes getKeyStrokes() {
-        return PreferenceUtils.getKeyStrokes();
-    }
 
 }

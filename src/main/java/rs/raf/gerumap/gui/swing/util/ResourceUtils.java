@@ -1,5 +1,6 @@
 package rs.raf.gerumap.gui.swing.util;
 
+import rs.raf.gerumap.gui.swing.util.model.GFont;
 import rs.raf.gerumap.gui.swing.util.model.KeyStrokes;
 import rs.raf.gerumap.gui.swing.util.model.Language;
 
@@ -12,8 +13,9 @@ public class ResourceUtils {
 
     private static final String propertiesFile = ".properties";
     private static final String pngFile = ".png";
-    private static final String jpgFile = ".jpg";
+    private static final String ttfFile = ".ttf";
 
+    private static final String fontsRoot     = "fonts";
     private static final String imagesRoot    = "images";
     private static final String keyStrokeRoot = "keystrokes";
     private static final String languageRoot  = "languages";
@@ -136,6 +138,27 @@ public class ResourceUtils {
      */
     public static URL getThemeDirectory() {
         return getResource(getThemeResourceDirectory());
+    }
+
+    //endregion
+
+    //region Font Utilities
+
+    /**
+     * Returns the font directory.
+     * @return font directory
+     */
+    private static String getFontsResourceDirectory() {
+        return separator + fontsRoot + separator;
+    }
+
+    /**
+     * Returns the font stream.
+     * @param font font
+     * @return font stream
+     */
+    public static InputStream getFontStream(GFont font) {
+        return getStream(getFontsResourceDirectory() + font.getName() + ttfFile);
     }
 
     //endregion

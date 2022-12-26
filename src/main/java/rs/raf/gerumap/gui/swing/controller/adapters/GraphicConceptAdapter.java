@@ -26,6 +26,9 @@ public class GraphicConceptAdapter extends BaseTypeAdapter<GraphicConcept> {
         writer.name("name");
         writer.value(graphicConcept.getName());
 
+        writer.name("isCentral");
+        writer.value(graphicConcept.isCentral());
+
         writer.name("x");
         writer.value(graphicConcept.getX());
 
@@ -73,6 +76,9 @@ public class GraphicConceptAdapter extends BaseTypeAdapter<GraphicConcept> {
         String name = reader.nextString();
 
         reader.nextName();
+        boolean isCentral = reader.nextBoolean();
+
+        reader.nextName();
         double x = reader.nextDouble();
 
         reader.nextName();
@@ -108,15 +114,16 @@ public class GraphicConceptAdapter extends BaseTypeAdapter<GraphicConcept> {
         reader.endObject();
 
         GraphicConcept graphicConcept = new GraphicConcept(new Point2D.Double(x, y), UUID.fromString(id));
+        graphicConcept.setName(name);
+        graphicConcept.setCentral(isCentral);
         graphicConcept.setSize(width, height);
-        graphicConcept.setText(content);
         graphicConcept.setBackgroundColor(backgroundColor);
         graphicConcept.setForegroundColor(foregroundColor);
         graphicConcept.setStrokeColor(strokeColor);
         graphicConcept.setSelectionStrokeColor(selectionStrokeColor);
         graphicConcept.setStrokeWidth(strokeWidth);
         graphicConcept.setSelectionStrokeWidth(selectionStrokeWidth);
-        graphicConcept.setName(name);
+        graphicConcept.setText(content);
 
         return graphicConcept;
     }
