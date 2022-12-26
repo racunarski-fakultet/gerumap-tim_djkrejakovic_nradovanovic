@@ -1,34 +1,35 @@
 package rs.raf.gerumap.gui.swing.controller;
 
 import com.formdev.flatlaf.util.StringUtils;
+import rs.raf.gerumap.gui.swing.controller.action.ConceptStateAction;
+import rs.raf.gerumap.gui.swing.controller.action.ConnectStateAction;
+import rs.raf.gerumap.gui.swing.controller.action.EraseStateAction;
 import rs.raf.gerumap.gui.swing.controller.action.ExitAction;
+import rs.raf.gerumap.gui.swing.controller.action.ExportMindMapAction;
 import rs.raf.gerumap.gui.swing.controller.action.GRMapAction;
+import rs.raf.gerumap.gui.swing.controller.action.LoadMindMapAction;
+import rs.raf.gerumap.gui.swing.controller.action.LoadProjectAction;
+import rs.raf.gerumap.gui.swing.controller.action.MoveStateAction;
+import rs.raf.gerumap.gui.swing.controller.action.NewMindMapAction;
+import rs.raf.gerumap.gui.swing.controller.action.NewProjectAction;
 import rs.raf.gerumap.gui.swing.controller.action.OpenMindMapAction;
 import rs.raf.gerumap.gui.swing.controller.action.OpenProjectAction;
 import rs.raf.gerumap.gui.swing.controller.action.RedoAction;
 import rs.raf.gerumap.gui.swing.controller.action.RedoMenuAction;
+import rs.raf.gerumap.gui.swing.controller.action.RemoveAction;
+import rs.raf.gerumap.gui.swing.controller.action.RenameAction;
 import rs.raf.gerumap.gui.swing.controller.action.ResetZoomAction;
 import rs.raf.gerumap.gui.swing.controller.action.SaveMindMapAsAction;
 import rs.raf.gerumap.gui.swing.controller.action.SaveProjectAction;
 import rs.raf.gerumap.gui.swing.controller.action.SaveProjectAsAction;
 import rs.raf.gerumap.gui.swing.controller.action.SaveProjectMenuAction;
+import rs.raf.gerumap.gui.swing.controller.action.SelectStateAction;
 import rs.raf.gerumap.gui.swing.controller.action.UndoAction;
 import rs.raf.gerumap.gui.swing.controller.action.UndoMenuAction;
 import rs.raf.gerumap.gui.swing.controller.action.UserAction;
-import rs.raf.gerumap.gui.swing.controller.action.ConceptStateAction;
-import rs.raf.gerumap.gui.swing.controller.action.ConnectStateAction;
-import rs.raf.gerumap.gui.swing.controller.action.EraseStateAction;
-import rs.raf.gerumap.gui.swing.controller.action.MoveStateAction;
-import rs.raf.gerumap.gui.swing.controller.action.SelectStateAction;
 import rs.raf.gerumap.gui.swing.controller.action.ZoomInAction;
 import rs.raf.gerumap.gui.swing.controller.action.ZoomOutAction;
 import rs.raf.gerumap.gui.swing.controller.action.ZoomStateAction;
-import rs.raf.gerumap.gui.swing.controller.action.LoadMindMapAction;
-import rs.raf.gerumap.gui.swing.controller.action.LoadProjectAction;
-import rs.raf.gerumap.gui.swing.controller.action.NewMindMapAction;
-import rs.raf.gerumap.gui.swing.controller.action.NewProjectAction;
-import rs.raf.gerumap.gui.swing.controller.action.RemoveAction;
-import rs.raf.gerumap.gui.swing.controller.action.RenameAction;
 
 import java.util.List;
 
@@ -39,6 +40,7 @@ public class ActionManager {
             new ConnectStateAction(),
             new EraseStateAction(),
             new ExitAction(),
+            new ExportMindMapAction(),
             new LoadMindMapAction(),
             new LoadProjectAction(),
             new MoveStateAction(),

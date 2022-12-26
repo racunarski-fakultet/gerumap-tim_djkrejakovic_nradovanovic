@@ -70,7 +70,7 @@ public class GraphicConfigurations {
      * Restores the saved graphic configurations.
      */
     public void restoreConfigurations() {
-        scaleFactor =  savedConfigurations.scaleFactor;
+        scaleFactor = savedConfigurations.scaleFactor;
 
         savedConfigurations = null;
     }
