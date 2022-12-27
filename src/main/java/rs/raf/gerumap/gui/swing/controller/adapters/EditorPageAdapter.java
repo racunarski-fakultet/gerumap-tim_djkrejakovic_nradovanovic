@@ -9,6 +9,8 @@ import rs.raf.gerumap.gui.swing.view.workspace.editor.view.EditorElement;
 import rs.raf.gerumap.gui.swing.view.workspace.editor.view.EditorPage;
 import rs.raf.gerumap.gui.swing.view.workspace.explorer.model.ExplorerMindMapItem;
 import rs.raf.gerumap.gui.swing.view.workspace.explorer.model.tree.explorer.MindMap;
+import rs.raf.gerumap.log.Logger;
+import rs.raf.gerumap.log.model.Message;
 
 import java.io.IOException;
 import java.util.UUID;
@@ -66,8 +68,10 @@ public class EditorPageAdapter extends BaseTypeAdapter<EditorPage> {
 
         EditorPage editorPage = new EditorPage(mindMap, editorDiagram);
 
-        if (!explorer.addItem(new ExplorerMindMapItem(mindMap, editorPage)))
+        if (!explorer.addItem(new ExplorerMindMapItem(mindMap, editorPage))) {
+            Logger.log(Message.DESERIALIZATION_TEMPLATE_NAME_EXISTS, name);
             return null;
+        }
 
         editorPage.getDiagram().updateScaledSize();
 

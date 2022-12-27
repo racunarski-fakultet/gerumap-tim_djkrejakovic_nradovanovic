@@ -18,9 +18,8 @@ public interface IExplorer {
 
     /**
      * Adds a new explorer item.
-     *
      * @param item item
-     * @return
+     * @return true if item was added, false otherwise
      */
     boolean addItem(ExplorerItem item);
 

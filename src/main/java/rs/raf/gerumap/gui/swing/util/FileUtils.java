@@ -95,7 +95,8 @@ public class FileUtils {
                                               .create()
                                               .fromJson(reader, EditorProject.class);
 
-            editorProject.getProject().setFileLocation(file.getAbsolutePath());
+            if (editorProject != null)
+                editorProject.getProject().setFileLocation(file.getAbsolutePath());
 
             reader.close();
             fileReader.close();

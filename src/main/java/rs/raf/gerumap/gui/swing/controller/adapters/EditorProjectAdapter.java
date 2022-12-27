@@ -8,6 +8,8 @@ import rs.raf.gerumap.gui.swing.view.workspace.editor.view.EditorPage;
 import rs.raf.gerumap.gui.swing.view.workspace.editor.view.EditorProject;
 import rs.raf.gerumap.gui.swing.view.workspace.explorer.model.ExplorerProjectItem;
 import rs.raf.gerumap.gui.swing.view.workspace.explorer.model.tree.explorer.Project;
+import rs.raf.gerumap.log.Logger;
+import rs.raf.gerumap.log.model.Message;
 
 import java.io.IOException;
 import java.util.UUID;
@@ -60,8 +62,10 @@ public class EditorProjectAdapter extends BaseTypeAdapter<EditorProject> {
 
         ExplorerProjectItem explorerProjectItem = new ExplorerProjectItem(project);
 
-        if (!explorer.addItem(explorerProjectItem))
+        if (!explorer.addItem(explorerProjectItem)) {
+            Logger.log(Message.DESERIALIZATION_PROJECT_NAME_EXISTS, name);
             return null;
+        }
 
         reader.nextName();
         reader.beginArray();
