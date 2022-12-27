@@ -4,6 +4,8 @@ import rs.raf.gerumap.gui.swing.controller.SelectionManager;
 import rs.raf.gerumap.gui.swing.controller.comands.MoveElementsCommand;
 import rs.raf.gerumap.gui.swing.view.workspace.editor.graphics.GraphicElement;
 import rs.raf.gerumap.gui.swing.view.workspace.editor.graphics.IMovable;
+import rs.raf.gerumap.log.Logger;
+import rs.raf.gerumap.log.model.Message;
 
 import java.awt.event.MouseEvent;
 import java.awt.geom.Point2D;
@@ -55,8 +57,10 @@ public class MoveState extends State {
         if (startLocation == null)
             return;
 
-        if (elementsIntersect())
+        if (elementsIntersect()) {
             restoreLocations();
+            Logger.log(Message.EDITOR_GRAPHIC_ELEMENTS_INTERSECTED);
+        }
         else
             editor.getCommandManager().addCommand(new MoveElementsCommand(SelectionManager.getSelectedMovables(), startLocations));
 

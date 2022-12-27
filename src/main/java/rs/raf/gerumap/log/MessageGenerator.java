@@ -19,7 +19,7 @@ public class MessageGenerator {
      * @return formatted message
      */
     public static String getMessage(Message message) {
-        return MessageFormat.format("[{0}] [{1}] {2}", getTime(), message.getSeverity(), message. getMessage());
+        return MessageFormat.format("[{0}] [{1}] {2}.", getTime(), message.getSeverity(), message.getMessage());
     }
 
     /**

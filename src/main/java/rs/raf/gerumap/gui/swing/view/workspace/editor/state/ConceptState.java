@@ -2,6 +2,8 @@ package rs.raf.gerumap.gui.swing.view.workspace.editor.state;
 
 import rs.raf.gerumap.gui.swing.controller.comands.AddGraphicElementCommand;
 import rs.raf.gerumap.gui.swing.view.workspace.editor.graphics.GraphicConcept;
+import rs.raf.gerumap.log.Logger;
+import rs.raf.gerumap.log.model.Message;
 
 import java.awt.event.MouseEvent;
 import java.awt.geom.Point2D;
@@ -39,6 +41,8 @@ public class ConceptState extends State {
     public void mouseReleased(MouseEvent event) {
         if (!graphicConcept.isDiscarded())
             editor.getCommandManager().addCommand(new AddGraphicElementCommand(graphicConcept));
+        else
+            Logger.log(Message.EDITOR_GRAPHIC_ELEMENTS_INTERSECTED);
 
         clear();
     }

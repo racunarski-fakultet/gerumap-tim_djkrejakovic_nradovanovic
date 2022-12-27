@@ -5,6 +5,8 @@ import rs.raf.gerumap.gui.swing.controller.comands.AddGraphicElementCommand;
 import rs.raf.gerumap.gui.swing.view.workspace.editor.graphics.GraphicConcept;
 import rs.raf.gerumap.gui.swing.view.workspace.editor.graphics.GraphicConnection;
 import rs.raf.gerumap.gui.swing.view.workspace.editor.graphics.GraphicElement;
+import rs.raf.gerumap.log.Logger;
+import rs.raf.gerumap.log.model.Message;
 
 import java.awt.event.MouseEvent;
 import java.awt.geom.Point2D;
@@ -43,6 +45,8 @@ public class ConnectState extends State {
 
         if (!graphicConnection.isDiscarded())
             editor.getCommandManager().addCommand(new AddGraphicElementCommand(graphicConnection));
+        else
+            Logger.log(Message.EDITOR_GRAPHIC_ELEMENTS_INTERSECTED);
 
         clear();
     }

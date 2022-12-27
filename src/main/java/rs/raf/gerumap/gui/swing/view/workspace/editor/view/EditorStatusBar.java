@@ -11,14 +11,21 @@ import rs.raf.gerumap.gui.swing.view.custom.GRMapZoomSlider;
 import javax.swing.Box;
 import javax.swing.JLabel;
 import javax.swing.JToolBar;
+import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Point;
 import java.text.MessageFormat;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class EditorStatusBar extends JToolBar {
 
     private final JLabel labelCursorIcon  = new JLabel(ImageUtils.loadIcon("StatusBarCursor"));
     private final JLabel labelCoordinates = new JLabel(" 0, 0");
-    private final JLabel labelZoom = new JLabel();
+    private final JLabel labelMessage     = new JLabel();
+    private final JLabel labelZoom        = new JLabel();
+
+    private Timer messageTimer = new Timer();
 
     private final GRMapZoomSlider sliderZoom = new GRMapZoomSlider();
 
@@ -29,12 +36,21 @@ public class EditorStatusBar extends JToolBar {
         buttonZoomIn.setAction(ActionManager.getAction(ZoomInAction.class));
         buttonZoomIn.setButtonType(FlatButton.ButtonType.toolBarButton);
         buttonZoomOut.setAction(ActionManager.getAction(ZoomOutAction.class));
+        buttonZoomOut.setButtonType(FlatButton.ButtonType.toolBarButton);
+
+        labelCoordinates.setPreferredSize(new Dimension(80, 16));
+
+        labelMessage.setForeground(new Color(89, 165, 216));
 
         updateZoomLabel();
 
         add(labelCursorIcon);
         addSeparator();
         add(labelCoordinates);
+
+        add(Box.createHorizontalGlue());
+
+        add(labelMessage);
 
         add(Box.createHorizontalGlue());
 
@@ -76,6 +92,54 @@ public class EditorStatusBar extends JToolBar {
      */
     private void updateZoomLabel() {
         labelZoom.setText(MessageFormat.format("{0}% ", sliderZoom.getValue()));
+    }
+
+    /**
+     * Displays a message for a short time.
+     * @param message message
+     */
+    public void addMessage(String message) {
+        messageTimer.cancel();
+        messageTimer.purge();
+
+        messageTimer = new Timer();
+
+        labelMessage.setText(message);
+        labelMessage.setForeground(getNewAlpha(labelMessage.getForeground(), 255));
+
+        messageTimer.schedule(new MessageTimerTask(), 2000, 20);
+    }
+
+    /**
+     * Returns a new color with the modified alpha value.
+     * @param color color
+     * @param alpha alpha
+     * @return color
+     */
+    private Color getNewAlpha(Color color, int alpha) {
+        return new Color(color.getRed(), color.getGreen(), color.getBlue(), alpha);
+    }
+
+    private class MessageTimerTask extends TimerTask {
+
+        private final int decrement = 10;
+
+        @Override
+        public void run() {
+            int alpha = labelMessage.getForeground().getAlpha() - decrement;
+
+            labelMessage.setForeground(getNewAlpha(labelMessage.getForeground(), alpha));
+
+            if (alpha < decrement) {
+                labelMessage.setText("");
+
+                messageTimer.cancel();
+                messageTimer.purge();
+            }
+
+            repaint();
+        }
+
     }
 
 }
