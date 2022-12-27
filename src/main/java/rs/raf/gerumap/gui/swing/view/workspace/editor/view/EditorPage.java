@@ -152,6 +152,11 @@ public class EditorPage extends JPanel implements IEditorComponent {
         return null;
     }
 
+    /**
+     * Returns a graphic element with identifier.
+     * @param identifier identifier
+     * @return graphic element
+     */
     public GraphicElement getGraphicElement(UUID identifier) {
         for (EditorElement editorElement : elements)
             if (editorElement.getGraphicElement().getIdentifier().equals(identifier))
@@ -161,11 +166,16 @@ public class EditorPage extends JPanel implements IEditorComponent {
     }
 
     /**
-     * Returns the last added editor element.
-     * @return editor element
+     * Returns a list of graphic elements
+     * @return graphic elements
      */
-    public EditorElement getLastEditorElement() {
-        return elements.get(elements.size() - 1);
+    public List<GraphicElement> getGraphicElements() {
+        List<GraphicElement> graphicElements = new ArrayList<>();
+
+        for (EditorElement editorElement : elements)
+            graphicElements.add(editorElement.getGraphicElement());
+
+        return graphicElements;
     }
 
     /**
@@ -174,16 +184,6 @@ public class EditorPage extends JPanel implements IEditorComponent {
      */
     public List<EditorElement> getEditorElements() {
         return elements;
-    }
-
-    /**
-     * Cleans central concept if there is one.
-     */
-    public void clearCentralConcept() {
-        GraphicConcept graphicConcept = getCentralConcept();
-
-        if (graphicConcept != null)
-            graphicConcept.setCentral(false);
     }
 
     /**

@@ -2,7 +2,6 @@ package rs.raf.gerumap.gui.swing.view.workspace.editor.graphics;
 
 import rs.raf.gerumap.gui.swing.view.MainWindow;
 import rs.raf.gerumap.gui.swing.view.workspace.editor.EditorValues;
-import rs.raf.gerumap.gui.swing.view.workspace.editor.view.EditorElement;
 
 import java.awt.BasicStroke;
 import java.awt.Color;
@@ -154,9 +153,13 @@ public class GraphicConcept extends RectangularGraphicElement implements IForegr
         return isIntersected();
     }
 
+    /**
+     * Returns true if this element intersects with other elements in the diagram, false otherwise.
+     * @return true if intersects, false otherwise
+     */
     private boolean isIntersected() {
-        for (EditorElement editorElement : MainWindow.window.getEditor().getActivePage().getEditorElements())
-            if (contains(editorElement.getGraphicElement()))
+        for (GraphicElement graphicElement : MainWindow.window.getEditor().getActivePage().getGraphicElements())
+            if (contains(graphicElement))
                 return true;
 
         return false;

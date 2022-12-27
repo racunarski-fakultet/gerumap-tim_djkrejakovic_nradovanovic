@@ -34,7 +34,7 @@ public class ExplorerTree extends JTree {
      * @param y coordinate y
      * @return path if item exist, otherwise null
      */
-    public TreePath getPathAtLocation(int y) {
+    public boolean selectItemAtLocation(int y) {
         int numberOfRows = getRowCount();
         int distance = y;
         int currentRow = -1;
@@ -46,7 +46,10 @@ public class ExplorerTree extends JTree {
         while (distance > 0  && numberOfRows > ++currentRow)
             distance -= getRowBounds(currentRow).height;
 
-        return (currentRow != numberOfRows) ? getPathForRow(currentRow) : null;
+        if (currentRow < numberOfRows)
+            setSelectionRow(currentRow);
+
+        return currentRow < numberOfRows;
     }
 
     /**

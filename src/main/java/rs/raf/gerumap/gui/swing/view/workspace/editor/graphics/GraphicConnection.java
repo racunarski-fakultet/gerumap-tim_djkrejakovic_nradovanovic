@@ -1,5 +1,6 @@
 package rs.raf.gerumap.gui.swing.view.workspace.editor.graphics;
 
+import rs.raf.gerumap.gui.swing.view.MainWindow;
 import rs.raf.gerumap.gui.swing.view.workspace.editor.EditorValues;
 
 import java.awt.BasicStroke;
@@ -182,6 +183,26 @@ public class GraphicConnection extends ConnectiveGraphicElement implements ISele
     @Override
     public int getType() {
         return 2;
+    }
+
+    /**
+     * Returns whether the creation of the concept is discarded.
+     * @return true if discarded, false otherwise
+     */
+    public boolean isDiscarded() {
+        return isIntersected();
+    }
+
+    /**
+     * Returns true if this element intersects with other elements in the diagram, false otherwise.
+     * @return true if intersects, false otherwise
+     */
+    private boolean isIntersected() {
+        for (GraphicElement graphicElement : MainWindow.window.getEditor().getActivePage().getGraphicElements())
+            if (contains(graphicElement))
+                return true;
+
+        return false;
     }
 
     /**

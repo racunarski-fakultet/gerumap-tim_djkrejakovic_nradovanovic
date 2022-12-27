@@ -15,9 +15,7 @@ import javax.swing.tree.TreeNode;
 import javax.swing.tree.TreePath;
 import java.awt.Color;
 import java.awt.Dimension;
-import java.util.ArrayList;
 import java.util.Enumeration;
-import java.util.List;
 import java.util.Queue;
 
 public class Explorer extends JScrollPane implements IExplorer {
@@ -76,29 +74,16 @@ public class Explorer extends JScrollPane implements IExplorer {
     }
 
     @Override
-    public ExplorerItem getItem(TreePath path) {
+    public ExplorerItem getItem(BaseNode node) {
         Enumeration<TreeNode> enumeration = getRoot().breadthFirstEnumeration();
 
         while (enumeration.hasMoreElements()) {
             ExplorerItem item = (ExplorerItem) enumeration.nextElement();
-            if (item.getTreePath().toString().equals(path.toString()))
+            if (item.getNode().equals(node))
                 return item;
         }
 
         return null;
-    }
-
-    @Override
-    public ExplorerItem getItem(BaseNode node) {
-        List<BaseNode> nodes = new ArrayList<>();
-        BaseNode current = node;
-
-        nodes.add(current);
-
-        while ((current = current.getParent()) != null)
-            nodes.add(0, current);
-
-        return getItem(new TreePath(nodes.toArray()));
     }
 
     @Override
@@ -107,9 +92,8 @@ public class Explorer extends JScrollPane implements IExplorer {
     }
 
     @Override
-    public ExplorerItem getItemAtLocation(int x, int y) {
-        TreePath path = explorerTree.getPathAtLocation(y);
-        return path != null ? getItem(path) : null;
+    public boolean selectItemAtLocation(int x, int y) {
+        return explorerTree.selectItemAtLocation(y);
     }
 
     @Override

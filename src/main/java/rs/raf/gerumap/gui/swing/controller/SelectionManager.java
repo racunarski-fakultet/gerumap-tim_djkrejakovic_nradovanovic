@@ -113,7 +113,7 @@ public class SelectionManager {
 
         List<GraphicElement> elements = getSelectedElements();
 
-        for (GraphicElement element : editor.getDiagram().getHangingConnections())
+        for (GraphicElement element : editor.getDiagram().getGraphicElementsConnectedTo(elements))
             if (!elements.contains(element))
                 elements.add(element);
 

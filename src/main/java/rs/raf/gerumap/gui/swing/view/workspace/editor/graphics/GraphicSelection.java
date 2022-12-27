@@ -3,7 +3,6 @@ package rs.raf.gerumap.gui.swing.view.workspace.editor.graphics;
 import rs.raf.gerumap.gui.swing.controller.SelectionManager;
 import rs.raf.gerumap.gui.swing.view.MainWindow;
 import rs.raf.gerumap.gui.swing.view.workspace.editor.EditorValues;
-import rs.raf.gerumap.gui.swing.view.workspace.editor.view.EditorElement;
 
 import java.awt.BasicStroke;
 import java.awt.Graphics2D;
@@ -45,9 +44,9 @@ public class GraphicSelection extends RectangularGraphicElement {
 
         List<GraphicElement> graphicElements = new LinkedList<>();
 
-        for (EditorElement editorElement : MainWindow.window.getEditor().getActivePage().getEditorElements())
-            if (contains(editorElement.getGraphicElement()))
-                graphicElements.add(editorElement.getGraphicElement());
+        for (GraphicElement graphicElement : MainWindow.window.getEditor().getActivePage().getGraphicElements())
+            if (contains(graphicElement))
+                graphicElements.add(graphicElement);
 
         if (graphicElements.size() == SelectionManager.size())
             return;

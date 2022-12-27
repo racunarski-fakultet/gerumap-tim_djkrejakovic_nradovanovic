@@ -3,8 +3,8 @@ package rs.raf.gerumap.gui.swing.util;
 import com.google.gson.GsonBuilder;
 import rs.raf.gerumap.gui.swing.controller.SelectionManager;
 import rs.raf.gerumap.gui.swing.controller.adapters.ProjectAdapterFactory;
+import rs.raf.gerumap.gui.swing.view.workspace.editor.graphics.GraphicElement;
 import rs.raf.gerumap.gui.swing.view.workspace.editor.view.EditorDiagram;
-import rs.raf.gerumap.gui.swing.view.workspace.editor.view.EditorElement;
 import rs.raf.gerumap.gui.swing.view.workspace.editor.view.EditorPage;
 import rs.raf.gerumap.gui.swing.view.workspace.editor.view.EditorProject;
 
@@ -160,8 +160,8 @@ public class FileUtils {
         imageGraphics.setColor(diagram.getBackground());
         imageGraphics.fill(new Rectangle2D.Double(0, 0, diagram.getActualWidth(), diagram.getActualHeight()));
 
-        for (EditorElement element : editorPage.getEditorElements())
-            element.getGraphicElement().render(imageGraphics);
+        for (GraphicElement element : editorPage.getGraphicElements())
+            element.render(imageGraphics);
 
         diagram.getConfigurations().restoreConfigurations();
 

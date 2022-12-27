@@ -40,7 +40,10 @@ public class ConnectState extends State {
             return;
 
         graphicConnection.setSecond(concept);
-        editor.getCommandManager().addCommand(new AddGraphicElementCommand(graphicConnection));
+
+        if (!graphicConnection.isDiscarded())
+            editor.getCommandManager().addCommand(new AddGraphicElementCommand(graphicConnection));
+
         clear();
     }
 

@@ -94,7 +94,7 @@ public abstract class ExplorerItem extends DefaultMutableTreeNode {
 
         explorer.saveExpandedStatesExclude(child.getTreePath());
 
-        remove(child);
+        remove(getChild(child.getNode()));
 
         explorer.reload(this);
         explorer.setSelectedItem(this);
@@ -151,11 +151,20 @@ public abstract class ExplorerItem extends DefaultMutableTreeNode {
      * @return true if it has node, false otherwise
      */
     protected boolean contains(BaseNode node) {
+        return getChild(node) != null;
+    }
+
+    /**
+     * Returns an explorer item with node.
+     * @param node node
+     * @return explorer item
+     */
+    protected ExplorerItem getChild(BaseNode node) {
         for (int i = 0; i < getChildCount(); ++i)
             if (((ExplorerItem) getChildAt(i)).getNode().equals(node))
-                return true;
+                return (ExplorerItem) getChildAt(i);
 
-        return false;
+        return null;
     }
 
     /**

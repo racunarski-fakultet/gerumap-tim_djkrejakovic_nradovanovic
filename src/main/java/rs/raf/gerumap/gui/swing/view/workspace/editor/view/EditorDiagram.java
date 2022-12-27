@@ -7,10 +7,11 @@ import rs.raf.gerumap.gui.swing.view.workspace.editor.controller.EditorDiagramSt
 import rs.raf.gerumap.gui.swing.view.workspace.editor.controller.EditorDiagramStateMouseMotionListener;
 import rs.raf.gerumap.gui.swing.view.workspace.editor.controller.EditorDiagramStatusMouseMotionListener;
 import rs.raf.gerumap.gui.swing.view.workspace.editor.controller.EditorFocusMouseListener;
+import rs.raf.gerumap.gui.swing.view.workspace.editor.graphics.GraphicConcept;
 import rs.raf.gerumap.gui.swing.view.workspace.editor.graphics.GraphicConfigurations;
 import rs.raf.gerumap.gui.swing.view.workspace.editor.graphics.GraphicConnection;
 import rs.raf.gerumap.gui.swing.view.workspace.editor.graphics.GraphicElement;
-import rs.raf.gerumap.gui.swing.view.workspace.editor.graphics.IConnectable;
+import rs.raf.gerumap.gui.swing.view.workspace.editor.graphics.GraphicUtils;
 
 import javax.swing.JPanel;
 import java.awt.Dimension;
@@ -53,8 +54,8 @@ public class EditorDiagram extends JPanel {
         Graphics2D graphics2D = (Graphics2D) graphics;
         graphics2D.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
-        for (EditorElement element : editor.getActivePage().getEditorElements())
-            element.getGraphicElement().render(graphics2D);
+        for (GraphicElement element : editor.getActivePage().getGraphicElements())
+            element.render(graphics2D);
 
         if (graphicElement != null)
             graphicElement.render(graphics2D);
@@ -76,9 +77,9 @@ public class EditorDiagram extends JPanel {
      * @return element if exists, null otherwise
      */
     public GraphicElement getGraphicElementAt(Point2D location) {
-        for (EditorElement editorElement : editor.getActivePage().getEditorElements())
-            if (editorElement.getGraphicElement().contains(location))
-                return editorElement.getGraphicElement();
+        for (GraphicElement graphicElement : editor.getActivePage().getGraphicElements())
+            if (graphicElement.contains(location))
+                return graphicElement;
 
         return null;
     }
@@ -103,39 +104,44 @@ public class EditorDiagram extends JPanel {
      * Reconnects all connectable elements.
      */
     public void reconnect() {
-        for (EditorElement editorElement : editor.getActivePage().getEditorElements())
-            if (editorElement.getGraphicElement() instanceof IConnectable connection)
-                connection.reconnect();
+        for (GraphicConnection graphicConnection : GraphicUtils.getGraphicConnectionsFrom(editor.getActivePage().getGraphicElements()))
+                graphicConnection.reconnect();
 
         repaint();
     }
 
     /**
-     * Returns the list of hanging connections.
-     * @return hanging connections
+     * Returns a list of elements connected with graphic elements without duplicates.
+     * @param graphicElements graphic elements
+     * @return list of connections
      */
-    public List<GraphicElement> getHangingConnections() {
-        List<GraphicElement> elements = new ArrayList<>();
+    public List<GraphicElement> getGraphicElementsConnectedTo(List<GraphicElement> graphicElements) {
+        List<GraphicElement> connections = new ArrayList<>();
 
-        for (EditorElement editorElement : editor.getActivePage().getEditorElements())
-            if (editorElement.getGraphicElement() instanceof GraphicConnection connection &&
-                (!onDiagram(connection.getFirst()) || !onDiagram(connection.getSecond())))
-                elements.add(connection);
+        for (GraphicElement graphicElement : graphicElements)
+            for (GraphicElement graphicConnection : getGraphicElementsConnectedTo(graphicElement))
+                if (!connections.contains(graphicConnection))
+                    connections.add(graphicConnection);
 
-        return elements;
+        return connections;
     }
 
     /**
-     * Returns true if the graphic element is on the diagram, false otherwise.
-     * @param element element
-     * @return true if on diagram, false otherwise
+     * Returns a list of elements connected with a graphic element.
+     * @param graphicElement graphic element
+     * @return list of connections
      */
-    public boolean onDiagram(GraphicElement element) {
-        for (EditorElement editorElement : editor.getActivePage().getEditorElements())
-            if (editorElement.getGraphicElement().equals(element))
-                return true;
+    public List<GraphicElement> getGraphicElementsConnectedTo(GraphicElement graphicElement) {
+        List<GraphicElement> connections = new ArrayList<>();
 
-        return false;
+        if (!(graphicElement instanceof GraphicConcept graphicConcept))
+            return connections;
+
+        for (GraphicConnection graphicConnection : GraphicUtils.getGraphicConnectionsFrom(editor.getActivePage().getGraphicElements()))
+            if (graphicConnection.getFirst().equals(graphicConcept) || graphicConnection.getSecond().equals(graphicConcept))
+                connections.add(graphicConnection);
+
+        return connections;
     }
 
     /**

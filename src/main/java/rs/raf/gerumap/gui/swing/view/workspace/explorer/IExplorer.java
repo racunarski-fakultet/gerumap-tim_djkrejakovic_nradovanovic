@@ -47,14 +47,6 @@ public interface IExplorer {
     ExplorerItem getSelectedItem();
 
     /**
-     * Returns the explorer item with the given path.
-     * @param path path
-     * @return explorer item
-     */
-    ExplorerItem getItem(TreePath path);
-
-
-    /**
      * Returns the explorer item with the given node.
      * @param node node
      * @return explorer item
@@ -69,12 +61,13 @@ public interface IExplorer {
     IEditorComponent getComponent(BaseNode node);
 
     /**
-     * Returns the explorer item with locations x and y.
+     * Selects explorer item with locations x and y.
+     *
      * @param x mouse x position
      * @param y mouse y position
-     * @return item if exists, otherwise null.
+     * @return true if new item is selected, false otherwise
      */
-    ExplorerItem getItemAtLocation(int x, int y);
+    boolean selectItemAtLocation(int x, int y);
 
     /**
      * Returns the explorer root item.
