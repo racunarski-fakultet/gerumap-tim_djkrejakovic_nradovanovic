@@ -18,7 +18,8 @@ public class ExplorerContextMenuMouseListener extends MouseAdapter {
         if (!explorer.selectItemAtLocation(event.getX(), event.getY()))
             return;
 
-        explorer.getSelectedItem().showContextMenu(event.getX(), event.getY());
+        if (explorer.getSelectedItem() != null)
+            explorer.getSelectedItem().showContextMenu(event.getX(), event.getY());
     }
 
 }
